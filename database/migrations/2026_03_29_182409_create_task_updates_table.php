@@ -14,14 +14,12 @@ return new class extends Migration
         Schema::create('suivis_taches', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tache_id')->constrained('taches')->cascadeOnDelete();
-            $table->foreignId('acteur_id')->nullable()->constrained('utilisateurs')->nullOnDelete();
+            $table->foreignId('acteur_id')->nullable()->constrained('users')->nullOnDelete();
             $table->string('statut_precedent')->nullable();
             $table->string('statut_actuel');
             $table->text('note')->nullable();
             $table->timestamp('modifie_a');
             $table->timestamps();
-
-            $table->index(['tache_id', 'modifie_a']);
         });
     }
 
