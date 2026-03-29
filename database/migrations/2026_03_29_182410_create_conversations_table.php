@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('conversations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('famille_id')->nullable()->constrained('familles')->cascadeOnDelete();
-            $table->foreignId('creee_par')->nullable()->constrained('utilisateurs')->nullOnDelete();
+            $table->foreignId('creee_par')->nullable()->constrained('users')->nullOnDelete();
             $table->string('type')->default('direct');
             $table->string('titre')->nullable();
             $table->timestamps();
