@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('famille_id')->constrained('familles')->cascadeOnDelete();
             $table->foreignId('enfant_id')->nullable()->constrained('enfants')->nullOnDelete();
-            $table->foreignId('creee_par')->constrained('utilisateurs')->cascadeOnDelete();
-            $table->foreignId('attribuee_a')->nullable()->constrained('utilisateurs')->nullOnDelete();
+            $table->foreignId('creee_par')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('attribuee_a')->nullable()->constrained('users')->nullOnDelete();
             $table->string('titre');
             $table->text('description')->nullable();
             $table->string('frequence')->nullable();
@@ -29,9 +29,6 @@ return new class extends Migration
             $table->timestamp('terminee_a')->nullable();
             $table->timestamp('rappel_a')->nullable();
             $table->timestamps();
-
-            $table->index(['famille_id', 'statut']);
-            $table->index(['attribuee_a', 'echeance_a']);
         });
     }
 
