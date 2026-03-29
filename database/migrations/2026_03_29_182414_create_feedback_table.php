@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('avis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('famille_id')->nullable()->constrained('familles')->nullOnDelete();
+            $table->foreignId('parent_id')->nullable()->constrained('parents')->nullOnDelete();
             $table->foreignId('tache_id')->nullable()->constrained('taches')->nullOnDelete();
-            $table->foreignId('auteur_id')->nullable()->constrained('utilisateurs')->nullOnDelete();
-            $table->foreignId('cible_id')->nullable()->constrained('utilisateurs')->nullOnDelete();
+            $table->foreignId('auteur_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('cible_id')->nullable()->constrained('users')->nullOnDelete();
             $table->unsignedTinyInteger('note');
             $table->text('comment')->nullable();
             $table->timestamp('soumis_a');
