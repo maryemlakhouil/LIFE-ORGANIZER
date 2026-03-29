@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('participants_conversation', function (Blueprint $table) {
             $table->id();
             $table->foreignId('conversation_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('utilisateur_id')->constrained('utilisateurs')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->timestamp('rejoint_a')->nullable();
             $table->timestamp('dernier_lu_a')->nullable();
             $table->timestamp('archive_a')->nullable();
             $table->boolean('est_muet')->default(false);
             $table->timestamps();
 
-            $table->unique(['conversation_id', 'utilisateur_id']);
+            $table->unique(['conversation_id', 'user_id']);
         });
     }
 
