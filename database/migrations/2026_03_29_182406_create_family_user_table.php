@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('famille_utilisateur', function (Blueprint $table) {
+        Schema::create('famille_users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('famille_id')->constrained('familles')->cascadeOnDelete();
-            $table->foreignId('utilisateur_id')->constrained('utilisateurs')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('role');
             $table->boolean('est_contact_principal')->default(false);
             $table->timestamp('invite_le')->nullable();
             $table->timestamp('accepte_le')->nullable();
             $table->timestamps();
 
-            $table->unique(['famille_id', 'utilisateur_id']);
+            $table->unique(['famille_id', 'user_id']);
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('famille_utilisateur');
+        Schema::dropIfExists('famille_users');
     }
 };
