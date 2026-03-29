@@ -13,21 +13,18 @@ return new class extends Migration
     {
         Schema::create('taches', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('famille_id')->constrained('familles')->cascadeOnDelete();
-            $table->foreignId('enfant_id')->nullable()->constrained('enfants')->nullOnDelete();
-            $table->foreignId('creee_par')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('attribuee_a')->nullable()->constrained('users')->nullOnDelete();
             $table->string('titre');
             $table->text('description')->nullable();
-            $table->string('frequence')->nullable();
             $table->string('priorite')->default('moyenne');
+            $table->date('date_fin')->nullable();
             $table->string('statut')->default('en_attente');
-            $table->boolean('est_recurrente')->default(false);
-            $table->string('regle_recurrence')->nullable();
+            $table->boolean('est_complete')->default(false);
+            $table->string('frequence')->nullable();
             $table->timestamp('commence_a')->nullable();
-            $table->timestamp('echeance_a')->nullable();
-            $table->timestamp('terminee_a')->nullable();
-            $table->timestamp('rappel_a')->nullable();
+            $table->foreignId('enfant_id')->nullable()->constrained('enfants')->nullOnDelete();
+            $table->foreignId('creee_par')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('nounou_id')->nullable()->constrained('users')->nullOnDelete();
+          
             $table->timestamps();
         });
     }

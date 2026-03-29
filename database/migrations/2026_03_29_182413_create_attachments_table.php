@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pieces_jointes', function (Blueprint $table) {
+        Schema::create('attachments', function (Blueprint $table) {
             $table->id();
-            $table->morphs('joignable');
-            $table->foreignId('televerse_par')->nullable()->constrained('utilisateurs')->nullOnDelete();
-            $table->string('disque')->default('public');
-            $table->string('chemin');
-            $table->string('nom_original');
-            $table->string('type_mime')->nullable();
-            $table->unsignedBigInteger('taille')->default(0);
-            $table->json('metadonnees')->nullable();
+            $table->string('nom_fichier');
+            $table->string('type_fichier');
+            $table->string('chemin_fichier');
+            $table->timestamp('cree_le')->useCurrent();
+
+            $table->foreignId('message_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('tache_id')->nullable()->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pieces_jointes');
+        Schema::dropIfExists('attachments');
     }
 };

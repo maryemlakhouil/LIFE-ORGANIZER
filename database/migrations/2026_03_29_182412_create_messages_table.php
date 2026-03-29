@@ -14,14 +14,12 @@ return new class extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->foreignId('conversation_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('expediteur_id')->nullable()->constrained('utilisateurs')->nullOnDelete();
+            $table->foreignId('expediteur_id')->nullable()->constrained('users')->nullOnDelete();
             $table->string('type')->default('text');
             $table->text('contenu')->nullable();
             $table->timestamp('modifie_a')->nullable();
             $table->timestamp('supprime_a')->nullable();
             $table->timestamps();
-
-            $table->index(['conversation_id', 'created_at']);
         });
     }
 
