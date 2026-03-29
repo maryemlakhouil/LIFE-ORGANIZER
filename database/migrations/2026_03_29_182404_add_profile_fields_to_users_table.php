@@ -12,18 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('nom')->nullable()->after('prenom');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('telephone')->nullable();
-            $table->string('photo')->nullable();
-            $table->string('role');
-            $table->boolean('est_actif')->default(true);
-            $table->timestamp('date_creation')->useCurrent();
-
+            $table->string('prenom')->nullable();
+            $table->string('nom')->nullable();
+            $table->string('telephone')->nullable()->after('email');
+            $table->string('role')->default('parent')->after('telephone');
+            $table->string('chemin_avatar')->nullable()->after('role');
+            $table->string('fuseau_horaire')->default('Africa/Casablanca')->after('chemin_avatar');
+            $table->string('theme')->default('light')->after('fuseau_horaire');
+            $table->boolean('est_actif')->default(true)->after('theme');
+            $table->timestamp('dernier_vu_a')->nullable()->after('est_actif');
+            $table->index('role');
+            $table->index('est_actif');
         });
     }
+    
 
     /**
      * Reverse the migrations.
@@ -31,6 +33,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->dropIndex(['role']);
+            $table->dropIndex(['est_actif']);
             $table->dropColumn([
                 'prenom',
                 'nom_famille',

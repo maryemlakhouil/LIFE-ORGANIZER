@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('familles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cree_par')->nullable()->constrained('utilisateurs')->nullOnDelete();
+            $table->foreignId('cree_par')->nullable()->constrained('users')->nullOnDelete();
             $table->string('nom');
             $table->string('fuseau_horaire')->default('Africa/Casablanca');
             $table->text('notes')->nullable();
