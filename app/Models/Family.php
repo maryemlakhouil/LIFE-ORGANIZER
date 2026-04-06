@@ -8,14 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Conversation extends Model
+class Family extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'name',
         'created_by',
-        'type',
-        'title',
     ];
 
     public function creator(): BelongsTo
@@ -28,8 +27,8 @@ class Conversation extends Model
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 
-    public function messages(): HasMany
+    public function children(): HasMany
     {
-        return $this->hasMany(Message::class);
+        return $this->hasMany(Child::class);
     }
 }

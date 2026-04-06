@@ -2,29 +2,22 @@
 
 namespace App\Models;
 
-use Database\Factories\UtilisateurFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<UtilisateurFactory> */
     use HasFactory, Notifiable;
 
-    protected $table = 'users';
-
     protected $fillable = [
-        'nom',
-        'prenom',
+        'name',
         'email',
-        'telephone',
+        'photo',
         'role',
-        'chemin_avatar',
-        'fuseau_horaire',
-        'theme',
-        'est_actif',
-        'dernier_vu_a',
+        'is_active',
         'password',
     ];
 
@@ -33,72 +26,47 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
-            'est_actif' => 'boolean',
-            'dernier_vu_a' => 'datetime',
+            'is_active' => 'boolean',
             'password' => 'hashed',
         ];
     }
 
-    public function familles()
+    public function families(): BelongsToMany
     {
-        return $this->belongsToMany(Famille::class, 'famille_utilisateur')
-            ->withPivot(['role', 'est_contact_principal', 'invite_le', 'accepte_le'])
-            ->withTimestamps();
+        return $this->belongsToMany(Family::class)->withTimestamps();
     }
 
-    public function famillesCreees()
+    public function createdFamilies(): HasMany
     {
-        return $this->hasMany(Famille::class, 'cree_par');
+        return $this->hasMany(Family::class, 'created_by');
     }
 
-    public function tachesCreees()
+    public function createdTasks(): HasMany
     {
-        return $this->hasMany(Tache::class, 'creee_par');
+        return $this->hasMany(Task::class, 'created_by');
     }
 
-    public function tachesAttribuees()
+    public function assignedTasks(): HasMany
     {
-        return $this->hasMany(Tache::class, 'attribuee_a');
+        return $this->hasMany(Task::class, 'assigned_to');
     }
 
-    public function suivisTaches()
+    public function conversations(): BelongsToMany
     {
-        return $this->hasMany(SuiviTache::class, 'acteur_id');
+        return $this->belongsToMany(Conversation::class)->withTimestamps();
     }
 
-    public function conversations()
+    public function messages(): HasMany
     {
-        return $this->belongsToMany(Conversation::class, 'participants_conversation')
-            ->withPivot(['rejoint_a', 'dernier_lu_a', 'archive_a', 'est_muet'])
-            ->withTimestamps();
+        return $this->hasMany(Message::class);
     }
 
-    public function messages()
+    public function comments(): HasMany
     {
-        return $this->hasMany(Message::class, 'expediteur_id');
-    }
-
-    public function Attachments()
-    {
-        return $this->hasMany(PieceJointe::class, 'televerse_par');
-    }
-
-    public function avisEnvoyes()
-    {
-        return $this->hasMany(Avis::class, 'auteur_id');
-    }
-
-    public function avisRecus()
-    {
-        return $this->hasMany(Avis::class, 'cible_id');
+        return $this->hasMany(Comment::class);
     }
 }

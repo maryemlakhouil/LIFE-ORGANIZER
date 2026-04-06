@@ -6,26 +6,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('familles', function (Blueprint $table) {
+        Schema::create('families', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cree_par')->nullable()->constrained('users')->nullOnDelete();
-            $table->string('nom');
-            $table->string('fuseau_horaire')->default('Africa/Casablanca');
-            $table->text('notes')->nullable();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->string('name');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('familles');
+        Schema::dropIfExists('families');
     }
 };

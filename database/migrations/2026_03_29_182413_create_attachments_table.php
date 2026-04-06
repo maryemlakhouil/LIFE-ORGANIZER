@@ -6,27 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('attachments', function (Blueprint $table) {
             $table->id();
-            $table->string('nom_fichier');
-            $table->string('type_fichier');
-            $table->string('chemin_fichier');
-            $table->timestamp('cree_le')->useCurrent();
-
             $table->foreignId('message_id')->nullable()->constrained()->cascadeOnDelete();
-            $table->foreignId('tache_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('task_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->string('file_name');
+            $table->string('file_type')->nullable();
+            $table->string('file_path');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('attachments');

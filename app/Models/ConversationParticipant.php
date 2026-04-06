@@ -5,29 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Message extends Model
+class ConversationParticipant extends Model
 {
     use HasFactory;
+
+    protected $table = 'conversation_user';
 
     protected $fillable = [
         'conversation_id',
         'user_id',
-        'content',
-        'sent_at',
-        'edited_at',
-        'deleted_at',
     ];
-
-    protected function casts(): array
-    {
-        return [
-            'sent_at' => 'datetime',
-            'edited_at' => 'datetime',
-            'deleted_at' => 'datetime',
-        ];
-    }
 
     public function conversation(): BelongsTo
     {
@@ -37,10 +25,5 @@ class Message extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function attachments(): HasMany
-    {
-        return $this->hasMany(Attachment::class);
     }
 }

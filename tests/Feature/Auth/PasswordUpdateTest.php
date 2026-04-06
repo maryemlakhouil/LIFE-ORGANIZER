@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
-use App\Models\Utilisateur;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
@@ -13,7 +13,7 @@ class PasswordUpdateTest extends TestCase
 
     public function test_password_can_be_updated(): void
     {
-        $user = Utilisateur::factory()->create();
+        $user = User::factory()->create();
 
         $response = $this
             ->actingAs($user)
@@ -24,16 +24,14 @@ class PasswordUpdateTest extends TestCase
                 'password_confirmation' => 'new-password',
             ]);
 
-        $response
-            ->assertSessionHasNoErrors()
-            ->assertRedirect('/profile');
+        $response->assertSessionHasNoErrors()->assertRedirect('/profile');
 
         $this->assertTrue(Hash::check('new-password', $user->refresh()->password));
     }
 
     public function test_correct_password_must_be_provided_to_update_password(): void
     {
-        $user = Utilisateur::factory()->create();
+        $user = User::factory()->create();
 
         $response = $this
             ->actingAs($user)
@@ -44,8 +42,6 @@ class PasswordUpdateTest extends TestCase
                 'password_confirmation' => 'new-password',
             ]);
 
-        $response
-            ->assertSessionHasErrorsIn('updatePassword', 'current_password')
-            ->assertRedirect('/profile');
+        $response->assertSessionHasErrorsIn('updatePassword', 'current_password')->assertRedirect('/profile');
     }
 }

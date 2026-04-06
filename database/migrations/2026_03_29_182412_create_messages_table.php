@@ -6,26 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->foreignId('conversation_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('expediteur_id')->nullable()->constrained('users')->nullOnDelete();
-            $table->string('type')->default('text');
-            $table->text('contenu')->nullable();
-            $table->timestamp('modifie_a')->nullable();
-            $table->timestamp('supprime_a')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->text('content');
+            $table->timestamp('sent_at')->nullable();
+            $table->timestamp('edited_at')->nullable();
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('messages');
