@@ -46,7 +46,7 @@ class Task extends Model
 
     public function subTasks(): HasMany
     {
-        return $this->hasMany(TaskUpdate::class);
+        return $this->hasMany(SousTacche::class);
     }
 
     public function comments(): HasMany
