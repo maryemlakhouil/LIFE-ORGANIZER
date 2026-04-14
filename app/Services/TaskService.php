@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Child;
 use App\Models\Task;
 use App\Models\User;
+use App\Notifications\TaskAssignedNotification;
 use App\Repositories\Contracts\TaskRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -58,6 +59,14 @@ class TaskService
             'due_date'     => $data['due_date'] ?? null,
             'status'       => $data['status'] ?? 'pending',
         ]);
+
+        if (!empty($task->assigned_to)) {
+            $nanny = User::find($task->assigned_to);
+
+            if ($nanny) {
+                $nanny->notify(new TaskAssignedNotification($task));
+            }
+        }
 
         return $this->taskRepository->findByIdWithRelations($task->id);
     }
