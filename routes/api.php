@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\MessageAttachmentController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\Admin\AdminUserController;
 use App\Http\Controllers\Api\Admin\AdminDashboardController;
+use App\Http\Controllers\Api\Admin\AdminReportController;
 
 
 Route::prefix('auth')->group(function () {
@@ -107,6 +108,8 @@ Route::middleware('auth:api')->prefix('admin')->group(function () {
     Route::delete('/users/{id}', [AdminUserController::class, 'destroy']);
 
     Route::get('/dashboard', [AdminDashboardController::class, 'index']);
+    Route::get('/reports/users/pdf', [AdminReportController::class, 'usersPdf']);
+    Route::get('/reports/tasks/pdf', [AdminReportController::class, 'tasksPdf']);
     
 
 });
