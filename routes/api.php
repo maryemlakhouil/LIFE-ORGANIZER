@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\ConversationController;
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\MessageAttachmentController;
 use App\Http\Controllers\Api\NotificationController;
+use App\Http\Controllers\Api\Admin\AdminUserController;
 
 
 Route::prefix('auth')->group(function () {
@@ -92,6 +93,16 @@ Route::middleware('auth:api')->group(function () {
     Route::patch('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
     Route::patch('/notifications/read-all', [NotificationController::class, 'markAllAsRead']);
     Route::delete('/notifications/{id}', [NotificationController::class, 'destroy']);
+    
 
+
+});
+
+Route::middleware('auth:api')->prefix('admin')->group(function () {
+    Route::get('/users', [AdminUserController::class, 'index']);
+    Route::get('/users/{id}', [AdminUserController::class, 'show']);
+    Route::patch('/users/{id}/status', [AdminUserController::class, 'updateStatus']);
+    Route::patch('/users/{id}/role', [AdminUserController::class, 'updateRole']);
+    Route::delete('/users/{id}', [AdminUserController::class, 'destroy']);
 });
 
