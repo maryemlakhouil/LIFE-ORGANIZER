@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\MessageAttachmentController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\Admin\AdminUserController;
+use App\Http\Controllers\Api\Admin\AdminDashboardController;
 
 
 Route::prefix('auth')->group(function () {
@@ -104,5 +105,9 @@ Route::middleware('auth:api')->prefix('admin')->group(function () {
     Route::patch('/users/{id}/status', [AdminUserController::class, 'updateStatus']);
     Route::patch('/users/{id}/role', [AdminUserController::class, 'updateRole']);
     Route::delete('/users/{id}', [AdminUserController::class, 'destroy']);
+
+    Route::get('/dashboard', [AdminDashboardController::class, 'index']);
+    
+
 });
 
