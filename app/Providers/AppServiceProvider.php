@@ -11,7 +11,9 @@ use App\Repositories\Contracts\AttachmentRepositoryInterface;
 use App\Repositories\Contracts\ConversationRepositoryInterface;
 use App\Repositories\Contracts\MessageRepositoryInterface;
 use App\Repositories\Contracts\NotificationRepositoryInterface;
+use App\Repositories\Contracts\AdminUserRepositoryInterface;
 
+use App\Repositories\AdminUserRepository;
 use App\Repositories\MessageRepository;
 use App\Repositories\ConversationRepository;
 use App\Repositories\AttachmentRepository;
@@ -38,6 +40,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ConversationRepositoryInterface::class, ConversationRepository::class);
         $this->app->bind(MessageRepositoryInterface::class, MessageRepository::class);
         $this->app->bind(NotificationRepositoryInterface::class, NotificationRepository::class);
+        $this->app->bind(AdminUserRepositoryInterface::class, AdminUserRepository::class);
 
     }
 
