@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Task;
+namespace App\Http\Requests\Message;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ChangeTaskStatusRequest extends FormRequest
+class StoreMessageRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -14,7 +14,8 @@ class ChangeTaskStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => ['required', 'in:pending,in_progress,completed,cancelled'],
+            'conversation_id' => ['required', 'exists:conversations,id'],
+            'content' => ['required', 'string'],
         ];
     }
 }

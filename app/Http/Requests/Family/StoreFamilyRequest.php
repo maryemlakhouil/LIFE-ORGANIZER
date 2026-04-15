@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Task;
+namespace App\Http\Requests\Family;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ChangeTaskStatusRequest extends FormRequest
+class StoreFamilyRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -14,7 +14,7 @@ class ChangeTaskStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => ['required', 'in:pending,in_progress,completed,cancelled'],
+            'name' => ['required', 'string', 'max:255'],
         ];
     }
 }
