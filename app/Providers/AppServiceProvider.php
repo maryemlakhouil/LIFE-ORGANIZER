@@ -12,6 +12,8 @@ use App\Repositories\Contracts\ConversationRepositoryInterface;
 use App\Repositories\Contracts\MessageRepositoryInterface;
 use App\Repositories\Contracts\NotificationRepositoryInterface;
 use App\Repositories\Contracts\AdminUserRepositoryInterface;
+use App\Repositories\Contracts\AdminReportRepositoryInterface;
+use App\Repositories\Contracts\AdminDashboardRepositoryInterface;
 
 use App\Repositories\AdminUserRepository;
 use App\Repositories\MessageRepository;
@@ -24,8 +26,8 @@ use App\Repositories\TaskRepository;
 use App\Repositories\FamilyRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\NotificationRepository;
-use App\Repositories\Contracts\AdminDashboardRepositoryInterface;
 use App\Repositories\AdminDashboardRepository;
+use App\Repositories\AdminReportReposito;
 
 
 
@@ -44,7 +46,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(NotificationRepositoryInterface::class, NotificationRepository::class);
         $this->app->bind(AdminUserRepositoryInterface::class, AdminUserRepository::class);
         $this->app->bind(AdminDashboardRepositoryInterface::class, AdminDashboardRepository::class);
-
+        $this->app->bind(AdminReportRepositoryInterface::class, AdminReportRepository::class);
     }
 
     public function boot(): void

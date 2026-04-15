@@ -49,5 +49,6 @@ class AdminReportService
         if ($user->role !== 'admin') {
             throw new AuthorizationException('Accès réservé à l’administrateur.');
         }
+
     }
 }
