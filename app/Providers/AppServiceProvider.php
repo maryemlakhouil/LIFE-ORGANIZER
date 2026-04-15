@@ -24,6 +24,8 @@ use App\Repositories\TaskRepository;
 use App\Repositories\FamilyRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\NotificationRepository;
+use App\Repositories\Contracts\AdminDashboardRepositoryInterface;
+use App\Repositories\AdminDashboardRepository;
 
 
 
@@ -41,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(MessageRepositoryInterface::class, MessageRepository::class);
         $this->app->bind(NotificationRepositoryInterface::class, NotificationRepository::class);
         $this->app->bind(AdminUserRepositoryInterface::class, AdminUserRepository::class);
+        $this->app->bind(AdminDashboardRepositoryInterface::class, AdminDashboardRepository::class);
 
     }
 
