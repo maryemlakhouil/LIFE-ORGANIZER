@@ -10,9 +10,20 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 
 
 Broadcast::channel('conversation.{conversationId}', function (User $user, int $conversationId) {
-    return Conversation::where('id', $conversationId)
+    $isParticipant = Conversation::where('id', $conversationId)
         ->whereHas('users', function ($query) use ($user) {
             $query->where('users.id', $user->id);
         })
         ->exists();
+
+    if (! $isParticipant) {
+        return false;
+    }
+
+    return [
+        'id' => $user->id,
+        'name' => $user->name,
+        'photo' => $user->photo,
+        'role' => $user->role,
+    ];
 }, ['guards' => ['api']]);

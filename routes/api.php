@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\ConversationController;
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\MessageAttachmentController;
 use App\Http\Controllers\Api\NotificationController;
+use App\Http\Controllers\Api\CallController;
 use App\Http\Controllers\Api\Admin\AdminUserController;
 use App\Http\Controllers\Api\Admin\AdminDashboardController;
 use App\Http\Controllers\Api\Admin\AdminReportController;
@@ -80,6 +81,11 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/conversations/{id}/participants', [ConversationController::class, 'removeParticipant']);
 
     Route::get('/conversations/{conversationId}/messages', [MessageController::class, 'index']);
+    Route::post('/conversations/{conversationId}/calls/start', [CallController::class, 'start']);
+    Route::post('/conversations/{conversationId}/calls/{callId}/accept', [CallController::class, 'accept']);
+    Route::post('/conversations/{conversationId}/calls/{callId}/reject', [CallController::class, 'reject']);
+    Route::post('/conversations/{conversationId}/calls/{callId}/end', [CallController::class, 'end']);
+    Route::post('/conversations/{conversationId}/calls/{callId}/signal', [CallController::class, 'signal']);
     Route::post('/messages', [MessageController::class, 'store']);
     Route::get('/messages/{id}', [MessageController::class, 'show']);
     Route::put('/messages/{id}', [MessageController::class, 'update']);
@@ -113,4 +119,3 @@ Route::middleware('auth:api')->prefix('admin')->group(function () {
     
 
 });
-

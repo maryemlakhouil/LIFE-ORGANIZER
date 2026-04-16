@@ -51,3 +51,17 @@ window.Echo = new Echo({
         };
     },
 });
+
+window.Realtime = {
+    joinConversationPresence(conversationId, handlers = {}) {
+        return window.Echo.join(`conversation.${conversationId}`)
+            .here((users) => handlers.here?.(users))
+            .joining((user) => handlers.joining?.(user))
+            .leaving((user) => handlers.leaving?.(user))
+            .error((error) => handlers.error?.(error));
+    },
+
+    leaveConversation(conversationId) {
+        window.Echo.leave(`conversation.${conversationId}`);
+    },
+};
