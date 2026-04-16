@@ -11,6 +11,9 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Carbon;
 use App\Notifications\NewMessageNotification;
+use App\Events\MessageSent;
+use App\Events\MessageUpdated;
+use App\Events\MessageDeleted;
 
 
 class MessageService
@@ -51,6 +54,7 @@ class MessageService
             'deleted_at' => null,
         ]);
 
+        broadcast(new MessageSent($message))->toOthers();
 
         $conversation->load('users');
 
@@ -103,7 +107,11 @@ class MessageService
             'edited_at' => Carbon::now(),
         ]);
 
-        return $this->messageRepository->findByIdWithRelations($message->id);
+        $updatedMessage = $this->messageRepository->findByIdWithRelations($message->id);
+
+        broadcast(new MessageUpdated($updatedMessage))->toOthers();
+
+        return $updatedMessage;
     }
 
     public function deleteMessage(User $user, int $messageId): Message
@@ -122,7 +130,11 @@ class MessageService
             'deleted_at' => Carbon::now(),
         ]);
 
-        return $this->messageRepository->findByIdWithRelations($message->id);
+        $deletedMessage = $this->messageRepository->findByIdWithRelations($message->id);
+
+        broadcast(new MessageDeleted($deletedMessage))->toOthers();
+
+        return $deletedMessage;
     }
 
     protected function authorizeConversationAccess(User $user, Conversation $conversation): void
