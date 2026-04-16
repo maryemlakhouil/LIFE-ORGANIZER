@@ -27,9 +27,9 @@ use App\Repositories\FamilyRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\NotificationRepository;
 use App\Repositories\AdminDashboardRepository;
-use App\Repositories\AdminReportReposito;
 
 
+use App\Repositories\AdminReportRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -47,6 +47,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AdminUserRepositoryInterface::class, AdminUserRepository::class);
         $this->app->bind(AdminDashboardRepositoryInterface::class, AdminDashboardRepository::class);
         $this->app->bind(AdminReportRepositoryInterface::class, AdminReportRepository::class);
+
     }
 
     public function boot(): void
