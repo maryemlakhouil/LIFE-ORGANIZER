@@ -154,8 +154,11 @@
             </div>
         </div>
     </div>
+
     <!-- Commancer la Partie js de Page Register -->
+
     <script>
+
         const parentBtn = document.getElementById('parentBtn');
         const nounouBtn = document.getElementById('nounouBtn');
         const roleInput = document.getElementById('role');
@@ -163,6 +166,7 @@
         const messageBox = document.getElementById('messageBox');
 
         parentBtn.addEventListener('click', function () {
+
             roleInput.value = 'parent';
 
             parentBtn.classList.add('bg-white', 'text-blue-600', 'shadow-sm');
@@ -182,12 +186,16 @@
             parentBtn.classList.add('text-slate-600');
         });
 
+        
         registerForm.addEventListener('submit', async function (e) {
+
             e.preventDefault();
+
+            // On cache l'ancienne erreur/succès
 
             messageBox.classList.add('hidden');
             messageBox.innerHTML = '';
-
+            
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value.trim();
@@ -203,6 +211,8 @@
                 showMessage('Les mots de passe ne correspondent pas.', 'error');
                 return;
             }
+
+            // envoi les donnes au serveur de backend 
 
             try {
                 const response = await fetch('http://127.0.0.1:8000/api/register', {
@@ -228,10 +238,13 @@
                     roleInput.value = 'parent';
 
                     parentBtn.click();
+
                 } else {
+                    // email deja utilisé || mot de passe trop court || champ vide || erreur backend
                     if (data.errors) {
                         let errors = '';
                         for (const key in data.errors) {
+                            //Prend le premier message de chaque champ.
                             errors += data.errors[key][0] + '<br>';
                         }
                         showMessage(errors, 'error');
@@ -243,6 +256,7 @@
                 showMessage('Impossible de se connecter au serveur.', 'error');
             }
         });
+        // Affiche un message vert ou rouge
 
         function showMessage(message, type) {
             messageBox.classList.remove('hidden');
