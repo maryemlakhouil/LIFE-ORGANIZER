@@ -7,3 +7,8 @@ Route::get('/', function () {
         'message' => 'Family Organizer API',
     ]);
 });
+
+
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
