@@ -3,20 +3,23 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Task\ChangeTaskStatusRequest;
 use App\Http\Requests\Task\StoreTaskRequest;
 use App\Http\Requests\Task\UpdateTaskRequest;
+use App\Http\Requests\Task\ChangeTaskStatusRequest;
 use App\Services\TaskService;
+// Exception lancée quand l’utilisateur n’a pas le droit d’effectuer l’action
 use Illuminate\Auth\Access\AuthorizationException;
+// Exception lancée quand la tâche n’existe pas.
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
+// Permet de capturer les erreurs générales.
 use Throwable;
 
-class TaskController extends Controller
-{
-    public function __construct(
-        protected TaskService $taskService
-    ) {}
+class TaskController extends Controller {
+
+    public function __construct(protected TaskService $taskService) {
+        
+    }
 
     public function index(): JsonResponse
     {
@@ -116,6 +119,7 @@ class TaskController extends Controller
             return response()->json(['message' => $e->getMessage()], 404);
         } catch (AuthorizationException $e) {
             return response()->json(['message' => $e->getMessage()], 403);
+            responce()->json(['message'=> $e->getMessage()]);
         }
     }
 }
