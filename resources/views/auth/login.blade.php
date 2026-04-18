@@ -101,9 +101,7 @@
                 <!-- REMEMBER -->
                 <div class="flex items-center gap-3">
                     <input
-                        type="checkbox"
-                        id="remember"
-                        name="remember"
+                        type="checkbox" id="remember" name="remember"
                         class="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
                     >
                     <label for="remember" class="text-slate-600 text-lg">
@@ -111,14 +109,14 @@
                     </label>
                 </div>
 
-                <!-- MESSAGE BOX -->
+                <!-- MESSAGE BOX Pour Les erreurs -->
                 <div id="messageBox" class="hidden rounded-xl p-4 text-sm"></div>
 
-                <!-- SUBMIT -->
+                <!-- bUttom se connecter -->
+
                 <button
                     type="submit"
-                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-2xl py-4 rounded-3xl shadow-lg transition"
-                >
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-2xl py-4 rounded-3xl shadow-lg transition">
                     Se connecter
                 </button>
             </form>
@@ -132,16 +130,15 @@
             </p>
         </div>
 
-        <!-- RIGHT SIDE -->
+        <!-- RIGHT SIDE Pour Image -->
+
         <div class="relative min-h-[500px] hidden lg:block">
-            <img
-                src="{{ asset('images/login-family.jpg') }}"
-                alt="Family Organizer"
-                class="w-full h-full object-cover"
-            >
+
+            <img src="{{ asset('images/connex.jpg') }}" alt="Family Organizer" class="w-full h-full object-cover">
 
             <div class="absolute inset-0 bg-black/5"></div>
 
+            <!-- les TexTe Fou9 image -->
             <div class="absolute inset-0 flex flex-col justify-end px-12 pb-12 text-black">
 
                 <div class="inline-flex items-center gap-2 self-start bg-white/70 backdrop-blur-sm px-5 py-2 rounded-full text-sm font-semibold tracking-wide mb-6">
