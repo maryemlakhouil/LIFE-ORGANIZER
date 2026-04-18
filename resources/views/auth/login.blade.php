@@ -172,7 +172,10 @@
         </div>
     </div>
 
+    <!-- la partie js de la page login -->
+
     <script>
+        
         const loginForm = document.getElementById('loginForm');
         const messageBox = document.getElementById('messageBox');
         const passwordInput = document.getElementById('password');
@@ -180,6 +183,7 @@
         const eyeOpen = document.getElementById('eyeOpen');
         const eyeClosed = document.getElementById('eyeClosed');
 
+        // icon de password oeil
         togglePassword.addEventListener('click', function () {
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
@@ -200,6 +204,7 @@
 
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value.trim();
+            // true or false pour cheked
             const remember = document.getElementById('remember').checked;
 
             if (email === '' || password === '') {
@@ -208,7 +213,7 @@
             }
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/login', {
+                const response = await fetch('http://127.0.0.1:8000/api/auth/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
