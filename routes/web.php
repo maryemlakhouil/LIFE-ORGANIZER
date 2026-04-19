@@ -30,3 +30,7 @@ Route::get('/', function () {
 Route::get('/parent/dashboard', function () {
     return view('parent.dashboard');
 })->name('parent.dashboard');
+
+Route::get('/parent/tasks', function () {
+    return view('parent.tasks');
+})->name('parent.tasks');
