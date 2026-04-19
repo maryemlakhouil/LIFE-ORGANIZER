@@ -2,12 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return response()->json([
-        'message' => 'Family Organizer API',
-    ]);
-});
-
 
 Route::get('/register', function () { 
     return view('auth.register');})->name('register');
@@ -32,3 +26,7 @@ Route::get('/admin/reports', function () {
 Route::get('/', function () {
     return view('home');
 })->name('home');
+
+Route::get('/parent/dashboard', function () {
+    return view('parent.dashboard');
+})->name('parent.dashboard');
