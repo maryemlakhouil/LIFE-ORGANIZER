@@ -241,6 +241,8 @@
                         // Redirection simple selon le rôle
                         if (data.user.role === 'admin') {
                             window.location.href = '/admin/dashboard';
+                        } else if (data.user.role === 'parent') {
+                            window.location.href = '/parent/dashboard';
                         } else {
                             window.location.href = '/';
                         }
