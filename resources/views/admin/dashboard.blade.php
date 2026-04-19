@@ -503,7 +503,7 @@
         // charger la liste des utilisateurs depuis Laravel API
 
         async function loadUsers() {
-            
+
             usersTableBody.innerHTML = `
                 <tr>
                     <td colspan="4" class="px-6 py-8 text-center text-slate-400">
@@ -514,7 +514,7 @@
 
             try {
                 let url = '/api/admin/users?page=' + currentPage;
-
+                // ali = /api/admin/users?page=1&search=ali 
                 if (currentSearch !== '') {
                     url += '&search=' + encodeURIComponent(currentSearch);
                 }
@@ -527,6 +527,8 @@
                 const result = await response.json();
 
                 if (response.ok) {
+                    // Premier : objet pagination Laravel. Deuxième :liste utilisateurs.
+
                     const users = result.data.data;
                     lastPage = result.data.last_page;
 
@@ -556,6 +558,8 @@
                 `;
             }
         }
+
+        // afficher les utilisateurs dans le tableau HTML
 
         function renderUsers(users) {
             usersTableBody.innerHTML = '';
@@ -627,6 +631,7 @@
             });
         }
 
+        // afficher chaque rôle avec une couleur différente dans le tableau admin
         function getRoleClass(role) {
             if (role === 'parent') {
                 return 'bg-blue-100 text-blue-600';
@@ -643,6 +648,8 @@
             return 'bg-slate-100 text-slate-600';
         }
 
+        // Ali Ben   → AB
+
         function getInitials(name) {
             if (!name) return 'U';
 
@@ -654,9 +661,11 @@
                     initials += parts[i][0];
                 }
             }
-
+            // Garder seulement 2 lettres
             return initials.substring(0, 2).toUpperCase();
         }
+
+        // activer ou désactiver un utilisateur : Envoie PATCH à Laravel 
 
         async function toggleUserStatus(userId, isActive) {
             try {
@@ -684,6 +693,8 @@
             }
         }
 
+        // supprimer un utilisateur 
+
         async function deleteUser(userId) {
             if (!confirm('Voulez-vous vraiment supprimer cet utilisateur ?')) {
                 return;
@@ -708,6 +719,8 @@
             }
         }
 
+        // télécharger un fichier généré par le serveur
+
         async function downloadReport(endpoint) {
             try {
                 const response = await fetch(endpoint, {
@@ -720,15 +733,17 @@
                     alert(result.message || 'Impossible de télécharger le rapport.');
                     return;
                 }
+                // Un Blob = données binaires du fichier
+                // Le navigateur crée un lien temporaire vers le fichier
 
                 const blob = await response.blob();
                 const url = window.URL.createObjectURL(blob);
                 const link = document.createElement('a');
-
+                // le nom de fichier 
                 link.href = url;
                 link.download = 'rapport-utilisateurs.pdf';
                 link.click();
-
+                // Libérer mémoire
                 window.URL.revokeObjectURL(url);
             } catch (error) {
                 alert('Erreur serveur.');
