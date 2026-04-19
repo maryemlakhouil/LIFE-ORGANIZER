@@ -243,7 +243,13 @@
                         localStorage.setItem('user', JSON.stringify(data.user));
                     }
 
-                    window.location.href = '/';
+                    if (data.user && data.user.role === 'parent') {
+                        window.location.href = '/parent/dashboard';
+                    } else if (data.user && data.user.role === 'admin') {
+                        window.location.href = '/admin/dashboard';
+                    } else {
+                        window.location.href = '/';
+                    }
 
                 } else {
                     // email deja utilisé || mot de passe trop court || champ vide || erreur backend
