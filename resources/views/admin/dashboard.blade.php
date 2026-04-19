@@ -391,7 +391,7 @@
         }
 
         // Charger infos admin
-        
+
         function loadAdminInfo() {
             const user = JSON.parse(localStorage.getItem('user'));
 
@@ -401,6 +401,8 @@
             }
         }
 
+        // Charger statistiques dashboard
+        
         async function loadDashboardStats() {
             try {
                 const response = await fetch('/api/admin/dashboard', {
