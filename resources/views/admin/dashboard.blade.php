@@ -401,8 +401,9 @@
             }
         }
 
-        // Charger statistiques dashboard
-        
+        // Charger statistiques dashboard Appelle API : /api/admin/dashboard
+        // attendre la réponse du serveur , Sans bloquer toute la page
+
         async function loadDashboardStats() {
             try {
                 const response = await fetch('/api/admin/dashboard', {
@@ -413,31 +414,36 @@
                 const result = await response.json();
 
                 if (response.ok) {
+                    // Stocker données
                     const stats = result.data;
+                    // 4 nouveaux cette semaine 
 
                     totalUsers.textContent = stats.users.total;
                     newUsersInfo.textContent = stats.recent_activity.new_users_last_7_days + ' nouveaux cette semaine';
-
+                    // Tâches
                     const pending = stats.tasks.pending || 0;
                     const inProgress = stats.tasks.in_progress || 0;
                     const completed = stats.tasks.completed || 0;
                     const totalTaskCount = stats.tasks.total || 0;
+                    // Tâches actives
                     const activeCount = pending + inProgress;
-
                     activeTasks.textContent = activeCount;
 
+                    // Taux de complétion : completed /total * 100 
+                    
                     let completionRate = 0;
                     if (totalTaskCount > 0) {
                         completionRate = Math.round((completed / totalTaskCount) * 100);
                     }
-
+                 
                     completionInfo.textContent = 'Taux de complétion ' + completionRate + '%';
+                    // Croissance utilisateurs
 
                     let growth = 0;
                     if (stats.users.total > 0) {
                         growth = Math.round((stats.recent_activity.new_users_last_7_days / stats.users.total) * 100);
                     }
-
+                    // +10%
                     growthValue.textContent = '+' + growth + '%';
 
                     renderActivities(stats);
@@ -448,6 +454,7 @@
                 console.log('Erreur dashboard:', error);
             }
         }
+        // afficher les activités récentes 
 
         function renderActivities(stats) {
             activityList.innerHTML = '';
@@ -493,7 +500,10 @@
             });
         }
 
+        // charger la liste des utilisateurs depuis Laravel API
+
         async function loadUsers() {
+            
             usersTableBody.innerHTML = `
                 <tr>
                     <td colspan="4" class="px-6 py-8 text-center text-slate-400">
