@@ -23,3 +23,12 @@ Route::get('/admin/dashboard', function () {
 Route::get('/admin/users', function () {
     return view('admin.users');
 })->name('admin.users');
+
+
+Route::get('/admin/reports', function () {
+    return view('admin.reports');
+})->name('admin.reports');
+
+Route::get('/', function () {
+    return view('home');
+})->name('home');
