@@ -375,20 +375,23 @@
             };
         }
         // Protection accès admin 
+
         function guardAdminAccess() {
             const token = getToken();
             const user = JSON.parse(localStorage.getItem('user'));
-
+            // c'est pas connecte 
             if (!token || !user) {
                 window.location.href = '{{ route('login') }}';
                 return;
             }
-
+            // Si connecté mais pas admin
             if (user.role !== 'admin') {
                 window.location.href = '/';
             }
         }
 
+        // Charger infos admin
+        
         function loadAdminInfo() {
             const user = JSON.parse(localStorage.getItem('user'));
 
