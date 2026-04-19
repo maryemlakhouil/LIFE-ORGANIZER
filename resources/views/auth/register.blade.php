@@ -14,7 +14,7 @@
         <!-- Gouge SIDE De image  -->
         <div class="relative hidden lg:block">
             <img 
-                src="{{ asset('images/img_register.png') }}" 
+                src="{{ asset('images/image4.png') }}" 
                 alt="image d'une nounou avec mon enfant"
                 class="w-full h-full object-cover"
             >
@@ -147,7 +147,7 @@
 
                 <p class="text-center text-slate-500 mt-8">
                     Déjà inscrit ?
-                    <a href="#" class="text-blue-600 font-semibold">Se connecter</a>
+                    <a href="{{ route('login') }}" class="text-blue-600 font-semibold">Se connecter</a>
                 </p>
 
                 <div id="messageBox" class="hidden mt-6 rounded-xl p-4 text-sm"></div>
@@ -215,7 +215,7 @@
             // envoi les donnes au serveur de backend 
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/register', {
+                const response = await fetch('/api/auth/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -234,10 +234,16 @@
 
                 if (response.ok) {
                     showMessage('Compte créé avec succès.', 'success');
-                    registerForm.reset();
-                    roleInput.value = 'parent';
 
-                    parentBtn.click();
+                    if (data.access_token) {
+                        localStorage.setItem('access_token', data.access_token);
+                    }
+
+                    if (data.user) {
+                        localStorage.setItem('user', JSON.stringify(data.user));
+                    }
+
+                    window.location.href = '/';
 
                 } else {
                     // email deja utilisé || mot de passe trop court || champ vide || erreur backend

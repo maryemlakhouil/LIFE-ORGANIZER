@@ -134,7 +134,7 @@
 
         <div class="relative min-h-[500px] hidden lg:block">
 
-            <img src="{{ asset('images/connex.jpg') }}" alt="Family Organizer" class="w-full h-full object-cover">
+            <img src="{{ asset('images/image3.jpeg') }}" alt="Family Organizer" class="w-full h-full object-cover">
 
             <div class="absolute inset-0 bg-black/5"></div>
 
@@ -213,7 +213,7 @@
             }
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/auth/login', {
+                const response = await fetch('/api/auth/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -231,8 +231,8 @@
                 if (response.ok) {
                     showMessage('Connexion réussie.', 'success');
 
-                    if (data.token) {
-                        localStorage.setItem('token', data.token);
+                    if (data.access_token) {
+                        localStorage.setItem('access_token', data.access_token);
                     }
 
                     if (data.user) {
@@ -241,10 +241,6 @@
                         // Redirection simple selon le rôle
                         if (data.user.role === 'admin') {
                             window.location.href = '/admin/dashboard';
-                        } else if (data.user.role === 'parent') {
-                            window.location.href = '/parent/dashboard';
-                        } else if (data.user.role === 'nounou') {
-                            window.location.href = '/nounou/dashboard';
                         } else {
                             window.location.href = '/';
                         }
