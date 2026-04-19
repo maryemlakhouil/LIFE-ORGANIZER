@@ -303,8 +303,12 @@
             </main>
         </div>
     </div>
+
     <!-- La partie js de dashboard admin-->
+
     <script>
+
+        // les variables 
         const searchInput = document.getElementById('searchInput');
         const usersTableBody = document.getElementById('usersTableBody');
         const usersCountInfo = document.getElementById('usersCountInfo');
@@ -323,6 +327,7 @@
         let currentPage = 1;
         let currentSearch = '';
         let lastPage = 1;
+        // vérifier si admin connecté && afficher nom admin && charger statistiques && charger liste utilisateur
 
         document.addEventListener('DOMContentLoaded', function () {
             guardAdminAccess();
@@ -369,7 +374,7 @@
                 'Authorization': 'Bearer ' + getToken()
             };
         }
-
+        // Protection accès admin 
         function guardAdminAccess() {
             const token = getToken();
             const user = JSON.parse(localStorage.getItem('user'));
