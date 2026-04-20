@@ -268,7 +268,7 @@
             currentPage = 1;
             loadUsers();
         });
-
+        // Vider tous 
         resetFiltersBtn.addEventListener('click', function () {
             filterSearch.value = '';
             searchInput.value = '';
@@ -277,12 +277,13 @@
             currentPage = 1;
             loadUsers();
         });
-        
+
         // Synchronise champ visible + filtre interne
 
         searchInput.addEventListener('input', function () {
             filterSearch.value = searchInput.value;
         });
+        // eviter page negative 
 
         prevPageBtn.addEventListener('click', function () {
             if (currentPage > 1) {
@@ -290,6 +291,7 @@
                 loadUsers();
             }
         });
+        // éviter dépasser max
 
         nextPageBtn.addEventListener('click', function () {
             if (currentPage < lastPage) {
@@ -315,14 +317,14 @@
         function getToken() {
             return localStorage.getItem('access_token');
         }
-        // 
+        // autorisation 
         function getAuthHeaders() {
             return {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer ' + getToken()
             };
         }
-
+        // acces admin 
         function guardAdminAccess() {
             const token = getToken();
             const user = JSON.parse(localStorage.getItem('user'));
@@ -470,7 +472,7 @@
                 usersTableBody.appendChild(row);
             });
         }
-
+        // Affiche une ligne rouge dans le tableau avec un message d’erreur 
         function renderErrorRow(message) {
             usersTableBody.innerHTML = `
                 <tr>
@@ -480,7 +482,7 @@
                 </tr>
             `;
         }
-
+        // Prendre les initiales du nom
         function getInitials(name) {
             if (!name) return 'U';
 
@@ -494,28 +496,30 @@
             }
 
             return initials.substring(0, 2).toUpperCase();
-        }
-
+        } 
+        // Retourne couleur CSS selon rôle
         function getRoleClass(role) {
             if (role === 'parent') return 'bg-blue-100 text-blue-600';
             if (role === 'nounou') return 'bg-orange-100 text-orange-600';
             if (role === 'admin') return 'bg-purple-100 text-purple-600';
             return 'bg-slate-100 text-slate-600';
         }
-
+        // popup pour modifier rôle 
         function openRoleModal(userId, role) {
             selectedUserId.value = userId;
             newRole.value = role;
             roleModal.classList.remove('hidden');
             roleModal.classList.add('flex');
         }
-
+        // Ferme popup rôle
         function closeRoleModal() {
             roleModal.classList.add('hidden');
             roleModal.classList.remove('flex');
         }
+        // Modifier rôle utilisateur via API
 
         async function updateUserRole() {
+
             const userId = selectedUserId.value;
 
             try {
@@ -544,6 +548,8 @@
             }
         }
 
+        // Activer / désactiver utilisateur 
+
         async function toggleUserStatus(userId, newStatus) {
             try {
                 const response = await fetch('/api/admin/users/' + userId + '/status', {
@@ -570,6 +576,7 @@
             }
         }
 
+        // Supprimer utilisateur
         async function deleteUser(userId) {
             const confirmed = confirm('Voulez-vous vraiment supprimer cet utilisateur ?');
 
@@ -593,6 +600,7 @@
                 showMessage('Erreur serveur.', 'error');
             }
         }
+        // Afficher message temporaire
 
         function showMessage(message, type) {
             messageBox.classList.remove('hidden');
@@ -605,6 +613,7 @@
 
             messageBox.innerHTML = message;
 
+            // Supprimer le message après 3 secondes
             setTimeout(function () {
                 messageBox.classList.add('hidden');
             }, 3000);
