@@ -132,7 +132,7 @@
                                     Export complet des utilisateurs avec rôle, statut et date de création.
                                 </p>
                             </div>
-                            <div class="text-3xl">👥</div>
+                           
                         </div>
 
                         <div class="space-y-2 mb-5 text-sm text-slate-600">
@@ -157,7 +157,6 @@
                                     Export des tâches avec priorité, statut, enfant associé et utilisateur affecté.
                                 </p>
                             </div>
-                            <div class="text-3xl">🗂</div>
                         </div>
 
                         <div class="space-y-2 mb-5 text-sm text-slate-600">
@@ -172,7 +171,7 @@
                             </button>
                         </div>
                     </div>
-                    
+
                 </section>
 
                 <!-- OPTIONAL FUTURE REPORTS -->
