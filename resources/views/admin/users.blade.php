@@ -226,6 +226,8 @@
     </div>
     
     <script>
+        // declarations des variables 
+
         const usersTableBody = document.getElementById('usersTableBody');
         const usersTotalLabel = document.getElementById('usersTotalLabel');
         const paginationInfo = document.getElementById('paginationInfo');
@@ -275,6 +277,8 @@
             currentPage = 1;
             loadUsers();
         });
+        
+        // Synchronise champ visible + filtre interne
 
         searchInput.addEventListener('input', function () {
             filterSearch.value = searchInput.value;
@@ -311,7 +315,7 @@
         function getToken() {
             return localStorage.getItem('access_token');
         }
-
+        // 
         function getAuthHeaders() {
             return {
                 'Accept': 'application/json',
