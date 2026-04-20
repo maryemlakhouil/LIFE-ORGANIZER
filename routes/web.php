@@ -18,7 +18,6 @@ Route::get('/admin/users', function () {
     return view('admin.users');
 })->name('admin.users');
 
-
 Route::get('/admin/reports', function () {
     return view('admin.reports');
 })->name('admin.reports');

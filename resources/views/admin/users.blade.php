@@ -12,17 +12,17 @@
     <div class="flex min-h-screen">
 
         <!-- SIDEBAR -->
-        <aside class="w-[260px] bg-white border-r border-slate-200 hidden lg:flex flex-col">
-            <div class="h-20 flex items-center px-8 border-b border-slate-200">
-                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                    <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+        <aside class="w-[240px] bg-white border-r border-slate-200 hidden lg:flex flex-col">
+            <div class="h-16 flex items-center px-8 border-b border-slate-200">
+                <div class="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                    <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M16 11c1.66 0 3-1.57 3-3.5S17.66 4 16 4s-3 1.57-3 3.5S14.34 11 16 11zm-8 0c1.66 0 3-1.57 3-3.5S9.66 4 8 4 5 5.57 5 7.5 6.34 11 8 11zm0 2c-2.33 0-7 1.17-7 3.5V20h14v-3.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.95 1.97 3.45V20h6v-3.5c0-2.33-4.67-3.5-7-3.5z"/>
                     </svg>
                 </div>
-                <h1 class="text-2xl font-bold">Family Organizer</h1>
+                <h1 class="text-xl font-bold">Family Organizer</h1>
             </div>
 
-            <div class="px-7 pt-8">
+            <div class="px-6 pt-7">
                 <p class="text-xs uppercase tracking-widest text-slate-400 font-bold mb-4">Menu principal</p>
 
                 <nav class="space-y-2">
@@ -36,7 +36,7 @@
                         <span>Utilisateurs</span>
                     </a>
 
-                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 hover:bg-slate-100">
+                    <a href="{{ route('admin.reports') }}" class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 hover:bg-slate-100">
                         <span>▣</span>
                         <span>Rapports</span>
                     </a>
@@ -68,15 +68,13 @@
         <div class="flex-1 flex flex-col">
 
             <!-- TOPBAR -->
-            <header class="h-20 bg-white border-b border-slate-200 px-5 md:px-8 flex items-center justify-between">
+            <header class="h-16 bg-white border-b border-slate-200 px-5 md:px-8 flex items-center justify-between">
                 <div class="flex items-center gap-4 w-full max-w-xl">
-                    <div class="hidden md:flex items-center bg-[#f4f7fb] rounded-full px-5 py-3 w-full">
+                    <div class="hidden md:flex items-center bg-[#f4f7fb] rounded-full px-5 py-2.5 w-full max-w-[300px]">
                         <span class="text-slate-400 mr-3">🔍</span>
                         <input
-                            type="text"
-                            id="searchInput"
-                            placeholder="Rechercher un utilisateur..."
-                            class="bg-transparent w-full outline-none text-slate-600"
+                            type="text" id="searchInput" placeholder="Rechercher un utilisateur..."
+                            class="bg-transparent w-full outline-none text-sm text-slate-600"
                         >
                     </div>
                 </div>
@@ -84,11 +82,11 @@
                 <div class="flex items-center gap-4 md:gap-6 ml-4">
                     <div class="hidden md:flex items-center gap-4 border-l border-slate-200 pl-6">
                         <div class="text-right">
-                            <p class="font-bold text-slate-900" id="adminName">Admin</p>
-                            <p class="text-sm text-slate-500" id="adminRole">admin</p>
+                            <p class="text-sm font-bold text-slate-900" id="adminName">Admin</p>
+                            <p class="text-xs text-slate-500" id="adminRole">admin</p>
                         </div>
 
-                        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700">
                             A
                         </div>
                     </div>
@@ -100,30 +98,29 @@
 
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
                     <div>
-                        <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-2">Gestion des Utilisateurs</h2>
-                        <p class="text-slate-500 text-lg">
+                        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-2">Gestion des Utilisateurs</h2>
+                        <p class="text-sm md:text-base text-slate-500">
                             Gérez les comptes, les rôles et les statuts des utilisateurs.
                         </p>
                     </div>
 
-                    <button id="refreshBtn" class="px-5 py-3 rounded-full bg-blue-600 text-white font-semibold shadow">
+                    <button id="refreshBtn" class="px-5 py-2.5 rounded-full bg-blue-600 text-white text-sm font-semibold shadow">
                         Actualiser
                     </button>
                 </div>
 
                 <!-- FILTERS -->
-                <section class="bg-white rounded-[24px] border border-slate-200 p-5 shadow-sm mb-6">
+                <section class="bg-white rounded-[20px] border border-slate-200 p-5 shadow-sm mb-6">
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <!-- Recherche-->
                         <div>
                             <label class="block text-sm text-slate-500 mb-2">Recherche</label>
                             <input
-                                type="text"
-                                id="filterSearch"
-                                placeholder="Nom ou email"
+                                type="text" id="filterSearch" placeholder="Nom ou email"
                                 class="w-full rounded-2xl border border-slate-200 bg-[#f7f8fb] px-4 py-3 outline-none focus:border-blue-500"
                             >
                         </div>
-
+                        <!-- Role -->
                         <div>
                             <label class="block text-sm text-slate-500 mb-2">Rôle</label>
                             <select id="filterRole" class="w-full rounded-2xl border border-slate-200 bg-[#f7f8fb] px-4 py-3 outline-none focus:border-blue-500">
@@ -133,7 +130,7 @@
                                 <option value="admin">Admin</option>
                             </select>
                         </div>
-
+                        <!-- status actif ou inactif --> 
                         <div>
                             <label class="block text-sm text-slate-500 mb-2">Statut</label>
                             <select id="filterStatus" class="w-full rounded-2xl border border-slate-200 bg-[#f7f8fb] px-4 py-3 outline-none focus:border-blue-500">
@@ -142,7 +139,7 @@
                                 <option value="0">Inactif</option>
                             </select>
                         </div>
-
+                        <!-- FILtrer et réinitialiser -->
                         <div class="flex items-end gap-3">
                             <button id="applyFiltersBtn" class="flex-1 rounded-2xl bg-blue-600 text-white py-3 font-semibold">
                                 Filtrer
@@ -154,20 +151,20 @@
                     </div>
                 </section>
 
-                <!-- MESSAGE -->
+                <!-- MESSAGE Pour erreur ou seccus -->
                 <div id="messageBox" class="hidden mb-6 rounded-2xl p-4 text-sm"></div>
 
-                <!-- TABLE -->
-                <section class="bg-white rounded-[24px] border border-slate-200 shadow-sm overflow-hidden">
+                <!-- TABLE des Users -->
+                <section class="bg-white rounded-[20px] border border-slate-200 shadow-sm overflow-hidden">
                     <div class="px-6 py-5 border-b border-slate-200 flex items-center justify-between">
-                        <h3 class="text-3xl font-bold text-slate-900">Liste des Utilisateurs</h3>
-                        <span class="text-slate-400" id="usersTotalLabel">0 utilisateur(s)</span>
+                        <h3 class="text-xl font-bold text-slate-900">Liste des Utilisateurs</h3>
+                        <span class="text-sm text-slate-400" id="usersTotalLabel">0 utilisateur(s)</span>
                     </div>
-
+                    <!-- la table -->
                     <div class="overflow-x-auto">
                         <table class="w-full">
                             <thead class="bg-[#fafbfd]">
-                                <tr class="text-left text-slate-400 uppercase text-sm">
+                                <tr class="text-left text-slate-400 uppercase text-xs">
                                     <th class="px-6 py-4">Utilisateur</th>
                                     <th class="px-6 py-4">Rôle</th>
                                     <th class="px-6 py-4">Statut</th>
@@ -183,15 +180,15 @@
                             </tbody>
                         </table>
                     </div>
-
+                    <!-- Pagination -->
                     <div class="px-6 py-5 border-t border-slate-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                        <p class="text-slate-500" id="paginationInfo">Chargement...</p>
-
+                        <p class="text-sm text-slate-500" id="paginationInfo">Chargement...</p>
+                        
                         <div class="flex gap-3">
-                            <button id="prevPageBtn" class="px-5 py-2 rounded-full border border-slate-300 bg-white font-semibold">
+                            <button id="prevPageBtn" class="px-5 py-2 rounded-full border border-slate-300 bg-white text-sm font-semibold">
                                 Précédent
                             </button>
-                            <button id="nextPageBtn" class="px-5 py-2 rounded-full border border-slate-300 bg-white font-semibold">
+                            <button id="nextPageBtn" class="px-5 py-2 rounded-full border border-slate-300 bg-white text-sm font-semibold">
                                 Suivant
                             </button>
                         </div>
@@ -201,10 +198,10 @@
         </div>
     </div>
 
-    <!-- MODAL ROLE -->
+    <!-- MODAL Changer le role -->
     <div id="roleModal" class="hidden fixed inset-0 bg-black/40 z-50 items-center justify-center px-4">
         <div class="bg-white rounded-[24px] w-full max-w-md p-6">
-            <h3 class="text-2xl font-bold mb-4">Changer le rôle</h3>
+            <h3 class="text-xl font-bold mb-4">Changer le rôle</h3>
 
             <input type="hidden" id="selectedUserId">
 
@@ -227,7 +224,7 @@
             </div>
         </div>
     </div>
-
+    
     <script>
         const usersTableBody = document.getElementById('usersTableBody');
         const usersTotalLabel = document.getElementById('usersTotalLabel');
@@ -256,6 +253,7 @@
         let lastPage = 1;
 
         document.addEventListener('DOMContentLoaded', function () {
+            guardAdminAccess();
             loadAdminInfo();
             loadUsers();
         });
@@ -305,10 +303,35 @@
         });
 
         logoutBtn.addEventListener('click', function () {
-            localStorage.removeItem('token');
+            localStorage.removeItem('access_token');
             localStorage.removeItem('user');
             window.location.href = '/login';
         });
+
+        function getToken() {
+            return localStorage.getItem('access_token');
+        }
+
+        function getAuthHeaders() {
+            return {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + getToken()
+            };
+        }
+
+        function guardAdminAccess() {
+            const token = getToken();
+            const user = JSON.parse(localStorage.getItem('user'));
+
+            if (!token || !user) {
+                window.location.href = '/login';
+                return;
+            }
+
+            if (user.role !== 'admin') {
+                window.location.href = '/';
+            }
+        }
 
         function loadAdminInfo() {
             const user = JSON.parse(localStorage.getItem('user'));
@@ -320,8 +343,6 @@
         }
 
         async function loadUsers() {
-            const token = localStorage.getItem('token');
-
             usersTableBody.innerHTML = `
                 <tr>
                     <td colspan="4" class="px-6 py-8 text-center text-slate-400">
@@ -330,7 +351,7 @@
                 </tr>
             `;
 
-            let url = 'http://127.0.0.1:8000/api/admin/users?page=' + currentPage;
+            let url = '/api/admin/users?page=' + currentPage;
 
             if (filterSearch.value.trim() !== '') {
                 url += '&search=' + encodeURIComponent(filterSearch.value.trim());
@@ -347,10 +368,7 @@
             try {
                 const response = await fetch(url, {
                     method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Authorization': 'Bearer ' + token
-                    }
+                    headers: getAuthHeaders()
                 });
 
                 const result = await response.json();
@@ -363,6 +381,11 @@
                     usersTotalLabel.textContent = result.data.total + ' utilisateur(s)';
                     paginationInfo.textContent = 'Page ' + result.data.current_page + ' / ' + result.data.last_page;
                 } else {
+                    if (response.status === 401 || response.status === 403) {
+                        window.location.href = '/login';
+                        return;
+                    }
+
                     renderErrorRow('Impossible de charger les utilisateurs.');
                 }
             } catch (error) {
@@ -386,12 +409,12 @@
 
             users.forEach(function (user) {
                 const row = document.createElement('tr');
-                row.className = 'border-t border-slate-100';
+                row.className = 'border-t border-slate-100 text-sm';
 
                 row.innerHTML = `
-                    <td class="px-6 py-5">
+                    <td class="px-6 py-4">
                         <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700">
+                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700">
                                 ${getInitials(user.name)}
                             </div>
                             <div>
@@ -401,37 +424,37 @@
                         </div>
                     </td>
 
-                    <td class="px-6 py-5">
+                    <td class="px-6 py-4">
                         <span class="px-3 py-1 rounded-full text-xs font-bold ${getRoleClass(user.role)}">
                             ${user.role.toUpperCase()}
                         </span>
                     </td>
 
-                    <td class="px-6 py-5">
+                    <td class="px-6 py-4">
                         <div class="flex items-center gap-2 text-slate-500">
                             <span class="w-2.5 h-2.5 rounded-full ${user.is_active ? 'bg-green-500' : 'bg-slate-300'}"></span>
                             <span>${user.is_active ? 'Actif' : 'Inactif'}</span>
                         </div>
                     </td>
 
-                    <td class="px-6 py-5">
+                    <td class="px-6 py-4">
                         <div class="flex items-center gap-3 flex-wrap">
                             <button
-                                class="px-3 py-2 rounded-full bg-blue-50 text-blue-600 text-sm font-semibold"
+                                class="px-3 py-1.5 rounded-full bg-blue-50 text-blue-600 text-xs font-semibold"
                                 onclick="openRoleModal(${user.id}, '${user.role}')"
                             >
                                 Rôle
                             </button>
 
                             <button
-                                class="px-3 py-2 rounded-full ${user.is_active ? 'bg-orange-50 text-orange-600' : 'bg-green-50 text-green-600'} text-sm font-semibold"
+                                class="px-3 py-1.5 rounded-full ${user.is_active ? 'bg-orange-50 text-orange-600' : 'bg-green-50 text-green-600'} text-xs font-semibold"
                                 onclick="toggleUserStatus(${user.id}, ${user.is_active ? 0 : 1})"
                             >
                                 ${user.is_active ? 'Désactiver' : 'Activer'}
                             </button>
 
                             <button
-                                class="px-3 py-2 rounded-full bg-red-50 text-red-600 text-sm font-semibold"
+                                class="px-3 py-1.5 rounded-full bg-red-50 text-red-600 text-xs font-semibold"
                                 onclick="deleteUser(${user.id})"
                             >
                                 Supprimer
@@ -489,16 +512,14 @@
         }
 
         async function updateUserRole() {
-            const token = localStorage.getItem('token');
             const userId = selectedUserId.value;
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/admin/users/' + userId + '/role', {
+                const response = await fetch('/api/admin/users/' + userId + '/role', {
                     method: 'PATCH',
                     headers: {
+                        ...getAuthHeaders(),
                         'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'Authorization': 'Bearer ' + token
                     },
                     body: JSON.stringify({
                         role: newRole.value
@@ -520,15 +541,12 @@
         }
 
         async function toggleUserStatus(userId, newStatus) {
-            const token = localStorage.getItem('token');
-
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/admin/users/' + userId + '/status', {
+                const response = await fetch('/api/admin/users/' + userId + '/status', {
                     method: 'PATCH',
                     headers: {
+                        ...getAuthHeaders(),
                         'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'Authorization': 'Bearer ' + token
                     },
                     body: JSON.stringify({
                         is_active: newStatus
@@ -549,19 +567,14 @@
         }
 
         async function deleteUser(userId) {
-            const token = localStorage.getItem('token');
-
             const confirmed = confirm('Voulez-vous vraiment supprimer cet utilisateur ?');
 
             if (!confirmed) return;
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/admin/users/' + userId, {
+                const response = await fetch('/api/admin/users/' + userId, {
                     method: 'DELETE',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Authorization': 'Bearer ' + token
-                    }
+                    headers: getAuthHeaders()
                 });
 
                 const result = await response.json();
