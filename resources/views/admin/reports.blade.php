@@ -6,22 +6,23 @@
     <title>Rapports Admin - Family Organizer</title>
     @vite(['resources/css/app.css'])
 </head>
+
 <body class="bg-[#f5f7fb] min-h-screen text-slate-800">
 
     <div class="flex min-h-screen">
 
         <!-- SIDEBAR -->
-        <aside class="w-[260px] bg-white border-r border-slate-200 hidden lg:flex flex-col">
-            <div class="h-20 flex items-center px-8 border-b border-slate-200">
-                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                    <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+        <aside class="w-[240px] bg-white border-r border-slate-200 hidden lg:flex flex-col">
+            <div class="h-16 flex items-center px-8 border-b border-slate-200">
+                <div class="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                    <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M16 11c1.66 0 3-1.57 3-3.5S17.66 4 16 4s-3 1.57-3 3.5S14.34 11 16 11zm-8 0c1.66 0 3-1.57 3-3.5S9.66 4 8 4 5 5.57 5 7.5 6.34 11 8 11zm0 2c-2.33 0-7 1.17-7 3.5V20h14v-3.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.95 1.97 3.45V20h6v-3.5c0-2.33-4.67-3.5-7-3.5z"/>
                     </svg>
                 </div>
-                <h1 class="text-2xl font-bold">Family Organizer</h1>
+                <h1 class="text-xl font-bold">Family Organizer</h1>
             </div>
 
-            <div class="px-7 pt-8">
+            <div class="px-6 pt-7">
                 <p class="text-xs uppercase tracking-widest text-slate-400 font-bold mb-4">Menu principal</p>
 
                 <nav class="space-y-2">
@@ -67,18 +68,18 @@
         <div class="flex-1 flex flex-col">
 
             <!-- TOPBAR -->
-            <header class="h-20 bg-white border-b border-slate-200 px-5 md:px-8 flex items-center justify-between">
+            <header class="h-16 bg-white border-b border-slate-200 px-5 md:px-8 flex items-center justify-between">
                 <div>
-                    <h2 class="text-2xl font-bold text-slate-900">Rapports</h2>
+                    <h2 class="text-xl font-bold text-slate-900">Rapports</h2>
                 </div>
 
                 <div class="hidden md:flex items-center gap-4 border-l border-slate-200 pl-6">
                     <div class="text-right">
-                        <p class="font-bold text-slate-900" id="adminName">Admin</p>
-                        <p class="text-sm text-slate-500" id="adminRole">admin</p>
+                        <p class="text-sm font-bold text-slate-900" id="adminName">Admin</p>
+                        <p class="text-xs text-slate-500" id="adminRole">admin</p>
                     </div>
 
-                    <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700">
                         A
                     </div>
                 </div>
@@ -88,8 +89,8 @@
             <main class="p-5 md:p-8">
 
                 <div class="mb-8">
-                    <h3 class="text-4xl md:text-5xl font-bold text-slate-900 mb-2">Exports et rapports</h3>
-                    <p class="text-slate-500 text-lg">
+                    <h3 class="text-3xl md:text-4xl font-bold text-slate-900 mb-2">Exports et rapports</h3>
+                    <p class="text-sm md:text-base text-slate-500">
                         Téléchargez les rapports PDF des utilisateurs et des tâches.
                     </p>
                 </div>
@@ -97,25 +98,25 @@
                 <div id="messageBox" class="hidden mb-6 rounded-2xl p-4 text-sm"></div>
 
                 <!-- SUMMARY -->
-                <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
-                    <div class="bg-white rounded-[24px] border border-slate-200 p-6 shadow-sm">
-                        <p class="text-slate-500 text-lg mb-3">Utilisateurs</p>
-                        <p id="usersCount" class="text-4xl font-bold text-slate-900">0</p>
+                <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-7">
+                    <div class="bg-white rounded-[18px] border border-slate-200 p-5 shadow-sm">
+                        <p class="text-slate-500 text-sm font-semibold mb-2">Utilisateurs</p>
+                        <p id="usersCount" class="text-3xl font-bold text-slate-900">0</p>
                     </div>
 
-                    <div class="bg-white rounded-[24px] border border-slate-200 p-6 shadow-sm">
-                        <p class="text-slate-500 text-lg mb-3">Familles</p>
-                        <p id="familiesCount" class="text-4xl font-bold text-slate-900">0</p>
+                    <div class="bg-white rounded-[18px] border border-slate-200 p-5 shadow-sm">
+                        <p class="text-slate-500 text-sm font-semibold mb-2">Familles</p>
+                        <p id="familiesCount" class="text-3xl font-bold text-slate-900">0</p>
                     </div>
 
-                    <div class="bg-white rounded-[24px] border border-slate-200 p-6 shadow-sm">
-                        <p class="text-slate-500 text-lg mb-3">Tâches</p>
-                        <p id="tasksCount" class="text-4xl font-bold text-slate-900">0</p>
+                    <div class="bg-white rounded-[18px] border border-slate-200 p-5 shadow-sm">
+                        <p class="text-slate-500 text-sm font-semibold mb-2">Tâches</p>
+                        <p id="tasksCount" class="text-3xl font-bold text-slate-900">0</p>
                     </div>
 
-                    <div class="bg-white rounded-[24px] border border-slate-200 p-6 shadow-sm">
-                        <p class="text-slate-500 text-lg mb-3">Messages</p>
-                        <p id="messagesCount" class="text-4xl font-bold text-slate-900">0</p>
+                    <div class="bg-white rounded-[18px] border border-slate-200 p-5 shadow-sm">
+                        <p class="text-slate-500 text-sm font-semibold mb-2">Messages</p>
+                        <p id="messagesCount" class="text-3xl font-bold text-slate-900">0</p>
                     </div>
                 </section>
 
@@ -123,67 +124,68 @@
                 <section class="grid grid-cols-1 xl:grid-cols-2 gap-6">
 
                     <!-- USERS REPORT -->
-                    <div class="bg-white rounded-[24px] border border-slate-200 shadow-sm p-6">
-                        <div class="flex items-start justify-between gap-4 mb-6">
+                    <div class="bg-white rounded-[20px] border border-slate-200 shadow-sm p-5">
+                        <div class="flex items-start justify-between gap-4 mb-5">
                             <div>
-                                <h4 class="text-2xl font-bold text-slate-900 mb-2">Rapport des utilisateurs</h4>
-                                <p class="text-slate-500">
+                                <h4 class="text-xl font-bold text-slate-900 mb-2">Rapport des utilisateurs</h4>
+                                <p class="text-sm text-slate-500">
                                     Export complet des utilisateurs avec rôle, statut et date de création.
                                 </p>
                             </div>
-                            <div class="text-4xl">👥</div>
+                            <div class="text-3xl">👥</div>
                         </div>
 
-                        <div class="space-y-3 mb-6 text-slate-600">
+                        <div class="space-y-2 mb-5 text-sm text-slate-600">
                             <p>• Total utilisateurs</p>
                             <p>• Parents / Nounous / Admins</p>
                             <p>• Utilisateurs actifs et inactifs</p>
                         </div>
 
                         <div class="flex gap-3">
-                            <button id="downloadUsersPdfBtn" class="flex-1 rounded-2xl bg-blue-600 text-white py-3 font-semibold hover:bg-blue-700">
+                            <button id="downloadUsersPdfBtn" class="flex-1 rounded-2xl bg-blue-600 text-white py-2.5 text-sm font-semibold hover:bg-blue-700">
                                 Télécharger PDF
                             </button>
                         </div>
                     </div>
 
                     <!-- TASKS REPORT -->
-                    <div class="bg-white rounded-[24px] border border-slate-200 shadow-sm p-6">
-                        <div class="flex items-start justify-between gap-4 mb-6">
+                    <div class="bg-white rounded-[20px] border border-slate-200 shadow-sm p-5">
+                        <div class="flex items-start justify-between gap-4 mb-5">
                             <div>
-                                <h4 class="text-2xl font-bold text-slate-900 mb-2">Rapport des tâches</h4>
-                                <p class="text-slate-500">
+                                <h4 class="text-xl font-bold text-slate-900 mb-2">Rapport des tâches</h4>
+                                <p class="text-sm text-slate-500">
                                     Export des tâches avec priorité, statut, enfant associé et utilisateur affecté.
                                 </p>
                             </div>
-                            <div class="text-4xl">🗂</div>
+                            <div class="text-3xl">🗂</div>
                         </div>
 
-                        <div class="space-y-3 mb-6 text-slate-600">
+                        <div class="space-y-2 mb-5 text-sm text-slate-600">
                             <p>• Tâches en attente, en cours, terminées</p>
                             <p>• Priorité et échéance</p>
                             <p>• Parent créateur et nounou affectée</p>
                         </div>
 
                         <div class="flex gap-3">
-                            <button id="downloadTasksPdfBtn" class="flex-1 rounded-2xl bg-blue-600 text-white py-3 font-semibold hover:bg-blue-700">
+                            <button id="downloadTasksPdfBtn" class="flex-1 rounded-2xl bg-blue-600 text-white py-2.5 text-sm font-semibold hover:bg-blue-700">
                                 Télécharger PDF
                             </button>
                         </div>
                     </div>
+                    
                 </section>
 
                 <!-- OPTIONAL FUTURE REPORTS -->
-                <section class="mt-8 bg-white rounded-[24px] border border-slate-200 shadow-sm p-6">
-                    <h4 class="text-2xl font-bold text-slate-900 mb-3">Rapports futurs</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-slate-500">
-                        <div class="rounded-2xl bg-[#f8fafc] border border-slate-200 p-4">
+                <section class="mt-7 bg-white rounded-[20px] border border-slate-200 shadow-sm p-5">
+                    <h4 class="text-xl font-bold text-slate-900 mb-3">Rapports futurs</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-slate-500">
+                        <div class="rounded-2xl bg-[#f8fafc] border border-slate-200 p-3.5">
                             Rapport des commentaires
                         </div>
-                        <div class="rounded-2xl bg-[#f8fafc] border border-slate-200 p-4">
+                        <div class="rounded-2xl bg-[#f8fafc] border border-slate-200 p-3.5">
                             Rapport des conversations
                         </div>
-                        <div class="rounded-2xl bg-[#f8fafc] border border-slate-200 p-4">
+                        <div class="rounded-2xl bg-[#f8fafc] border border-slate-200 p-3.5">
                             Rapport global par période
                         </div>
                     </div>
@@ -205,12 +207,13 @@
         const downloadTasksPdfBtn = document.getElementById('downloadTasksPdfBtn');
 
         document.addEventListener('DOMContentLoaded', function () {
+            guardAdminAccess();
             loadAdminInfo();
             loadDashboardStats();
         });
 
         logoutBtn.addEventListener('click', function () {
-            localStorage.removeItem('token');
+            localStorage.removeItem('access_token');
             localStorage.removeItem('user');
             window.location.href = '/login';
         });
@@ -223,8 +226,34 @@
             downloadReport('tasks');
         });
 
+        function getToken() {
+            return localStorage.getItem('access_token');
+        }
+
+        function getStoredUser() {
+            try {
+                return JSON.parse(localStorage.getItem('user'));
+            } catch (error) {
+                return null;
+            }
+        }
+
+        function guardAdminAccess() {
+            const token = getToken();
+            const user = getStoredUser();
+
+            if (!token || !user) {
+                window.location.href = '/login';
+                return;
+            }
+
+            if (user.role !== 'admin') {
+                window.location.href = '/';
+            }
+        }
+
         function loadAdminInfo() {
-            const user = JSON.parse(localStorage.getItem('user'));
+            const user = getStoredUser();
 
             if (user) {
                 document.getElementById('adminName').textContent = user.name || 'Admin';
@@ -233,10 +262,10 @@
         }
 
         async function loadDashboardStats() {
-            const token = localStorage.getItem('token');
+            const token = getToken();
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/admin/dashboard', {
+                const response = await fetch('/api/admin/dashboard', {
                     method: 'GET',
                     headers: {
                         'Accept': 'application/json',
@@ -262,26 +291,35 @@
         }
 
         async function downloadReport(type) {
-            const token = localStorage.getItem('token');
+            const token = getToken();
             let url = '';
 
             if (type === 'users') {
-                url = 'http://127.0.0.1:8000/api/admin/reports/users/pdf';
+                url = '/api/admin/reports/users/pdf';
             } else if (type === 'tasks') {
-                url = 'http://127.0.0.1:8000/api/admin/reports/tasks/pdf';
+                url = '/api/admin/reports/tasks/pdf';
             }
 
             try {
                 const response = await fetch(url, {
                     method: 'GET',
                     headers: {
+                        'Accept': 'application/pdf, application/json',
                         'Authorization': 'Bearer ' + token
                     }
                 });
 
                 if (!response.ok) {
-                    const errorData = await response.json();
-                    showMessage(errorData.message || 'Erreur lors du téléchargement du rapport.', 'error');
+                    let message = 'Erreur lors du téléchargement du rapport.';
+
+                    try {
+                        const errorData = await response.json();
+                        message = errorData.message || message;
+                    } catch (error) {
+                        message = response.status === 401 ? 'Session expirée. Veuillez vous reconnecter.' : message;
+                    }
+
+                    showMessage(message, 'error');
                     return;
                 }
 
