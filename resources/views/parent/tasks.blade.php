@@ -6,70 +6,84 @@
     <title>Mes tâches - Parent</title>
     @vite(['resources/css/app.css'])
 </head>
-<body class="bg-[#eef3f9] text-slate-900 min-h-screen">
+<body class="bg-[#f3f7fc] text-slate-900 min-h-screen">
 
     <div class="flex min-h-screen">
 
         <!-- SIDEBAR -->
-        <aside class="w-[320px] bg-white border-r border-slate-300 hidden lg:flex flex-col">
-            <div class="px-8 pt-10 pb-8 border-b border-slate-200">
+        <aside class="w-[290px] bg-white border-r border-slate-300 hidden lg:flex flex-col">
+            <div class="px-8 pt-8 pb-8">
                 <div class="flex items-center gap-4">
-                    <div class="w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center">
-                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <div class="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M16 11c1.66 0 3-1.57 3-3.5S17.66 4 16 4s-3 1.57-3 3.5S14.34 11 16 11zm-8 0c1.66 0 3-1.57 3-3.5S9.66 4 8 4 5 5.57 5 7.5 6.34 11 8 11zm0 2c-2.33 0-7 1.17-7 3.5V20h14v-3.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.95 1.97 3.45V20h6v-3.5c0-2.33-4.67-3.5-7-3.5z"/>
                         </svg>
                     </div>
 
                     <div>
-                        <h1 class="text-4xl font-bold leading-tight">Organisateur<br>Familial</h1>
+                        <h1 class="text-lg font-bold leading-tight">Organisateur<br>Familial</h1>
                     </div>
                 </div>
             </div>
 
-            <div class="px-6 pt-10">
-                <div class="flex items-center gap-4 mb-10">
-                    <div id="familyAvatar" class="w-20 h-20 rounded-full bg-pink-100 flex items-center justify-center text-2xl font-bold text-pink-600">
+            <div class="px-5 pt-16">
+                <div class="flex items-center gap-4 mb-12">
+                    <div id="familyAvatar" class="w-14 h-14 rounded-full bg-pink-100 flex items-center justify-center text-lg font-bold text-pink-600">
                         F
                     </div>
 
                     <div>
-                        <p id="familyName" class="text-4xl font-semibold leading-none mb-2">Ma famille</p>
-                        <p class="text-slate-500 text-2xl">Premium plan</p>
+                        <p id="familyName" class="text-2xl font-semibold leading-none mb-1">Ma famille</p>
+                        <p class="text-slate-500 text-lg">Premium plan</p>
                     </div>
                 </div>
 
-                <nav class="space-y-6">
-                    <a href="{{ route('parent.dashboard') }}" class="flex items-center gap-4 px-6 py-4 text-2xl text-slate-800 hover:text-blue-600">
-                        <span class="text-3xl text-blue-300">▦</span>
+                <nav class="space-y-8">
+                    <a href="{{ route('parent.dashboard') }}" class="flex items-center gap-4 px-7 py-2 text-xl text-slate-800 hover:text-blue-600">
+                        <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/>
+                        </svg>
                         <span>Tableau de bord</span>
                     </a>
 
-                    <a href="{{ route('parent.tasks') }}" class="flex items-center gap-4 bg-blue-100 text-blue-600 px-6 py-5 rounded-[36px] text-2xl font-semibold">
-                        <span class="text-3xl">🗓</span>
+                    <a href="{{ route('parent.tasks') }}" class="flex items-center gap-4 bg-blue-100 text-blue-600 px-7 py-4 rounded-[32px] text-xl font-semibold">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2Z"/>
+                        </svg>
                         <span>Planning</span>
                     </a>
 
-                    <a href="#" class="flex items-center gap-4 px-6 py-4 text-2xl text-slate-800 hover:text-blue-600">
-                        <span class="text-3xl text-blue-300">💬</span>
+                    <a href="{{ route('parent.messages') }}" class="flex items-center gap-4 px-7 py-2 text-xl text-slate-800 hover:text-blue-600">
+                        <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
+                        </svg>
                         <span>Messagerie</span>
                     </a>
 
-                    <a href="#" class="flex items-center gap-4 px-6 py-4 text-2xl text-slate-800 hover:text-blue-600">
-                        <span class="text-3xl text-blue-300">📈</span>
+                    <a href="#" class="flex items-center gap-4 px-7 py-2 text-xl text-slate-800 hover:text-blue-600">
+                        <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 19V5M8 17l4-4 3 3 5-7"/>
+                        </svg>
                         <span>Rapports</span>
                     </a>
                 </nav>
             </div>
 
-            <div class="mt-auto px-8 pb-10">
-                <div class="space-y-5 text-xl">
+            <div class="mt-auto px-8 pb-12">
+                <div class="space-y-5 text-sm">
                     <button class="flex items-center gap-3 text-slate-700 hover:text-blue-600">
-                        <span>⚙</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06A2 2 0 1 1 7.03 3.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3a2 2 0 1 1 4 0v.09A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.22.35.57.58 1 .6h.6a2 2 0 1 1 0 4h-.09A1.7 1.7 0 0 0 19.4 15Z"/>
+                        </svg>
                         <span>Paramètres</span>
                     </button>
 
                     <button id="logoutBtn" class="flex items-center gap-3 text-red-500 hover:text-red-600">
-                        <span>↪</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m16 17 5-5-5-5M21 12H9"/>
+                        </svg>
                         <span>Déconnexions</span>
                     </button>
                 </div>
@@ -78,40 +92,40 @@
 
         <!-- MAIN -->
         <div class="flex-1 min-w-0">
-            <header class="bg-white/70 backdrop-blur border-b border-slate-200 px-6 md:px-10 py-7 flex items-center justify-between">
+            <header class="bg-white px-6 md:px-8 py-6 flex items-center justify-between">
                 <div>
-                    <h2 class="text-5xl font-bold mb-2">Mes tâches</h2>
-                    <p class="text-slate-400 text-3xl">Planifiez et suivez les tâches familiales</p>
+                    <h2 class="text-2xl font-bold mb-1">Mes tâches</h2>
+                    <p class="text-slate-400 text-lg">Planifiez et suivez les tâches familiales</p>
                 </div>
 
-                <button id="openCreateModalBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full text-2xl font-semibold shadow-lg">
+                <button id="openCreateModalBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-7 py-3 rounded-full text-base font-semibold shadow-lg">
                     + Ajouter une tâche
                 </button>
             </header>
 
-            <main class="p-6 md:p-10">
+            <main class="p-6 md:p-8">
                 <div id="messageBox" class="hidden mb-6 rounded-2xl p-4 text-sm"></div>
 
                 <!-- STATS -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div class="bg-white rounded-[32px] border border-slate-200 shadow-sm p-6">
-                        <p class="text-slate-500 text-xl mb-3">Total des tâches</p>
-                        <p id="totalTasksCount" class="text-5xl font-bold">0</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-white rounded-[24px] border border-slate-100 shadow-sm p-5">
+                        <p class="text-slate-500 text-sm mb-2">Total des tâches</p>
+                        <p id="totalTasksCount" class="text-3xl font-bold">0</p>
                     </div>
 
-                    <div class="bg-white rounded-[32px] border border-slate-200 shadow-sm p-6">
-                        <p class="text-slate-500 text-xl mb-3">En cours / en attente</p>
-                        <p id="activeTasksCount" class="text-5xl font-bold text-blue-600">0</p>
+                    <div class="bg-white rounded-[24px] border border-slate-100 shadow-sm p-5">
+                        <p class="text-slate-500 text-sm mb-2">En cours / en attente</p>
+                        <p id="activeTasksCount" class="text-3xl font-bold text-blue-600">0</p>
                     </div>
 
-                    <div class="bg-white rounded-[32px] border border-slate-200 shadow-sm p-6">
-                        <p class="text-slate-500 text-xl mb-3">Terminées</p>
-                        <p id="completedTasksCount" class="text-5xl font-bold text-green-600">0</p>
+                    <div class="bg-white rounded-[24px] border border-slate-100 shadow-sm p-5">
+                        <p class="text-slate-500 text-sm mb-2">Terminées</p>
+                        <p id="completedTasksCount" class="text-3xl font-bold text-green-600">0</p>
                     </div>
                 </div>
 
                 <!-- FILTERS -->
-                <section class="bg-white rounded-[32px] border border-slate-200 shadow-sm p-6 mb-8">
+                <section class="bg-white rounded-[24px] border border-slate-100 shadow-sm p-5 mb-6">
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <div>
                             <label class="block text-sm text-slate-500 mb-2">Recherche</label>
@@ -152,9 +166,9 @@
                 </section>
 
                 <!-- TASKS LIST -->
-                <section class="bg-white rounded-[32px] border border-slate-200 shadow-sm overflow-hidden">
+                <section class="bg-white rounded-[24px] border border-slate-100 shadow-sm overflow-hidden">
                     <div class="px-6 py-5 border-b border-slate-200 flex items-center justify-between">
-                        <h3 class="text-3xl font-bold">Liste des tâches</h3>
+                        <h3 class="text-xl font-bold">Liste des tâches</h3>
                         <span id="tasksCountLabel" class="text-slate-500">0 tâche(s)</span>
                     </div>
 
@@ -170,10 +184,10 @@
 
     <!-- MODAL -->
     <div id="taskModal" class="hidden fixed inset-0 bg-black/40 z-50 items-center justify-center px-4">
-        <div class="bg-white rounded-[28px] w-full max-w-2xl p-6">
+        <div class="bg-white rounded-[24px] w-full max-w-2xl p-6">
             <div class="flex items-center justify-between mb-6">
-                <h3 id="modalTitle" class="text-3xl font-bold">Créer une tâche</h3>
-                <button id="closeModalBtn" class="text-3xl text-slate-400 hover:text-slate-700">×</button>
+                <h3 id="modalTitle" class="text-2xl font-bold">Créer une tâche</h3>
+                <button id="closeModalBtn" class="text-2xl text-slate-400 hover:text-slate-700">×</button>
             </div>
 
             <form id="taskForm" class="space-y-5">
@@ -267,13 +281,17 @@
         let filteredTasks = [];
 
         document.addEventListener('DOMContentLoaded', function () {
-            checkAuth();
+            guardParentAccess();
             loadParentInfo();
             loadTasks();
+
+            if (new URLSearchParams(window.location.search).get('create') === '1') {
+                openCreateModal();
+            }
         });
 
         logoutBtn.addEventListener('click', function () {
-            localStorage.removeItem('token');
+            localStorage.removeItem('access_token');
             localStorage.removeItem('user');
             window.location.href = '/login';
         });
@@ -306,12 +324,33 @@
             }
         });
 
-        function checkAuth() {
-            const token = localStorage.getItem('token');
-            const user = localStorage.getItem('user');
+        function getToken() {
+            return localStorage.getItem('access_token');
+        }
+
+        function getAuthHeaders() {
+            return {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + getToken()
+            };
+        }
+
+        function guardParentAccess() {
+            const token = getToken();
+            const user = JSON.parse(localStorage.getItem('user'));
 
             if (!token || !user) {
                 window.location.href = '/login';
+                return;
+            }
+
+            if (user.role === 'admin') {
+                window.location.href = '/admin/dashboard';
+                return;
+            }
+
+            if (user.role !== 'parent') {
+                window.location.href = '/';
             }
         }
 
@@ -325,8 +364,6 @@
         }
 
         async function loadTasks() {
-            const token = localStorage.getItem('token');
-
             tasksList.innerHTML = `
                 <div class="px-6 py-8 text-center text-slate-400">
                     Chargement...
@@ -334,12 +371,9 @@
             `;
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/tasks', {
+                const response = await fetch('/api/tasks', {
                     method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Authorization': 'Bearer ' + token
-                    }
+                    headers: getAuthHeaders()
                 });
 
                 const result = await response.json();
@@ -347,6 +381,8 @@
                 if (response.ok) {
                     allTasks = result.data.data || [];
                     applyFilters();
+                } else if (response.status === 401 || response.status === 403) {
+                    window.location.href = '/login';
                 } else {
                     tasksList.innerHTML = `
                         <div class="px-6 py-8 text-center text-red-500">
@@ -423,13 +459,13 @@
 
             filteredTasks.forEach(function (task) {
                 const item = document.createElement('div');
-                item.className = 'px-6 py-6';
+                item.className = 'px-6 py-5';
 
                 item.innerHTML = `
                     <div class="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-5">
                         <div class="flex-1">
                             <div class="flex flex-wrap items-center gap-3 mb-3">
-                                <h4 class="text-2xl font-bold">${task.title}</h4>
+                                <h4 class="text-lg font-bold">${task.title}</h4>
                                 <span class="px-3 py-1 rounded-full text-xs font-bold ${getStatusClass(task.status)}">
                                     ${getStatusLabel(task.status)}
                                 </span>
@@ -438,7 +474,7 @@
                                 </span>
                             </div>
 
-                            <p class="text-slate-600 text-lg mb-3">
+                            <p class="text-sm text-slate-600 mb-3">
                                 ${task.description ? task.description : 'Aucune description'}
                             </p>
 
@@ -450,21 +486,21 @@
 
                         <div class="flex flex-wrap gap-3">
                             <button
-                                class="px-4 py-2 rounded-full bg-blue-50 text-blue-600 font-semibold"
+                                class="px-4 py-2 rounded-full bg-blue-50 text-sm font-semibold text-blue-600"
                                 onclick="openEditModal(${task.id})"
                             >
                                 Modifier
                             </button>
 
                             <button
-                                class="px-4 py-2 rounded-full bg-green-50 text-green-600 font-semibold"
+                                class="px-4 py-2 rounded-full bg-green-50 text-sm font-semibold text-green-600"
                                 onclick="markAsCompleted(${task.id})"
                             >
                                 Terminer
                             </button>
 
                             <button
-                                class="px-4 py-2 rounded-full bg-red-50 text-red-600 font-semibold"
+                                class="px-4 py-2 rounded-full bg-red-50 text-sm font-semibold text-red-600"
                                 onclick="deleteTask(${task.id})"
                             >
                                 Supprimer
@@ -514,15 +550,12 @@
         }
 
         async function createTask() {
-            const token = localStorage.getItem('token');
-
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/tasks', {
+                const response = await fetch('/api/tasks', {
                     method: 'POST',
                     headers: {
+                        ...getAuthHeaders(),
                         'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'Authorization': 'Bearer ' + token
                     },
                     body: JSON.stringify({
                         title: taskTitle.value.trim(),
@@ -548,15 +581,12 @@
         }
 
         async function updateTask() {
-            const token = localStorage.getItem('token');
-
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/tasks/' + taskId.value, {
+                const response = await fetch('/api/tasks/' + taskId.value, {
                     method: 'PUT',
                     headers: {
+                        ...getAuthHeaders(),
                         'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'Authorization': 'Bearer ' + token
                     },
                     body: JSON.stringify({
                         title: taskTitle.value.trim(),
@@ -582,15 +612,12 @@
         }
 
         async function markAsCompleted(id) {
-            const token = localStorage.getItem('token');
-
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/tasks/' + id + '/status', {
+                const response = await fetch('/api/tasks/' + id + '/status', {
                     method: 'PATCH',
                     headers: {
+                        ...getAuthHeaders(),
                         'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'Authorization': 'Bearer ' + token
                     },
                     body: JSON.stringify({
                         status: 'completed'
@@ -611,18 +638,14 @@
         }
 
         async function deleteTask(id) {
-            const token = localStorage.getItem('token');
             const confirmed = confirm('Voulez-vous vraiment supprimer cette tâche ?');
 
             if (!confirmed) return;
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/tasks/' + id, {
+                const response = await fetch('/api/tasks/' + id, {
                     method: 'DELETE',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Authorization': 'Bearer ' + token
-                    }
+                    headers: getAuthHeaders()
                 });
 
                 const result = await response.json();

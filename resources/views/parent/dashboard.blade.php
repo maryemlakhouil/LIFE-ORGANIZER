@@ -46,14 +46,14 @@
                         <span>Tableau de bord</span>
                     </a>
 
-                    <a href="#" class="flex items-center gap-4 px-7 py-2 text-xl text-slate-800 hover:text-blue-600">
+                    <a href="{{ route('parent.tasks') }}" class="flex items-center gap-4 px-7 py-2 text-xl text-slate-800 hover:text-blue-600">
                         <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2Z"/>
                         </svg>
                         <span>Planning</span>
                     </a>
 
-                    <a href="#" class="flex items-center gap-4 px-7 py-2 text-xl text-slate-800 hover:text-blue-600">
+                    <a href="{{ route('parent.messages') }}" class="flex items-center gap-4 px-7 py-2 text-xl text-slate-800 hover:text-blue-600">
                         <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
                         </svg>
@@ -245,15 +245,15 @@
         });
 
         addTaskBtn.addEventListener('click', function () {
-            showMessage('La page création de tâche sera branchée ensuite.', 'success');
+            window.location.href = '{{ route('parent.tasks') }}?create=1';
         });
 
         createTaskQuickBtn.addEventListener('click', function () {
-            showMessage('La page création de tâche sera branchée ensuite.', 'success');
+            window.location.href = '{{ route('parent.tasks') }}?create=1';
         });
 
         messageNannyBtn.addEventListener('click', function () {
-            showMessage('La page messagerie sera branchée ensuite.', 'success');
+            window.location.href = '{{ route('parent.messages') }}';
         });
 
         function getToken() {

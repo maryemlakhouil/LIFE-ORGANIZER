@@ -34,3 +34,8 @@ Route::get('/parent/dashboard', function () {
 Route::get('/parent/tasks', function () {
     return view('parent.tasks');
 })->name('parent.tasks');
+
+Route::get('/parent/messages', function () {
+    return view('parent.messages');
+})->name('parent.messages');
+
