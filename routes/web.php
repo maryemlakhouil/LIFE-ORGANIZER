@@ -25,7 +25,7 @@ Route::get('/admin/reports', function () {
 Route::get('/', function () {
     return view('home');
 })->name('home');
-
+// 
 Route::get('/parent/dashboard', function () {
     return view('parent.dashboard');
 })->name('parent.dashboard');
@@ -41,3 +41,23 @@ Route::get('/parent/messages', function () {
 Route::get('/nounou/dashboard', function () {
     return view('nounou.dashboard');
 })->name('nounou.dashboard');
+
+Route::get('/nounou/planning', function () {
+    return view('nounou.planning');
+})->name('nounou.planning');
+
+Route::get('/nounou/messages', function () {
+    return view('nounou.messages');
+})->name('nounou.messages');
+
+Route::get('/nounou/profile', function () {
+    return view('nounou.profile');
+})->name('nounou.profile');
+
+Route::get('/parent/family', function () {
+    return view('parent.family');
+})->name('parent.family');
+
+Route::get('/parent/nanny-profile', function () {
+    return view('parent.nanny-profile');
+})->name('parent.nanny-profile');

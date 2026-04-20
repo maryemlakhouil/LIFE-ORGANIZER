@@ -12,27 +12,28 @@
 
         <!-- TOP NAV -->
         <header class="bg-white border-b border-slate-200">
-            <div class="max-w-[1400px] mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="max-w-[1180px] mx-auto px-5 md:px-6 py-3 flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center">
-                        <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M16 11c1.66 0 3-1.57 3-3.5S17.66 4 16 4s-3 1.57-3 3.5S14.34 11 16 11zm-8 0c1.66 0 3-1.57 3-3.5S9.66 4 8 4 5 5.57 5 7.5 6.34 11 8 11zm0 2c-2.33 0-7 1.17-7 3.5V20h14v-3.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.95 1.97 3.45V20h6v-3.5c0-2.33-4.67-3.5-7-3.5z"/>
                         </svg>
                     </div>
-                    <span class="text-2xl font-bold">Family Organizer</span>
+                    <span class="text-lg font-bold">Family Organizer</span>
                 </div>
 
-                <nav class="hidden md:flex items-center gap-10 text-xl">
+                <nav class="hidden md:flex items-center gap-6 text-sm">
                     <a href="{{ route('nounou.dashboard') }}" class="text-blue-600 font-semibold border-b-2 border-blue-600 pb-1">
                         Tableau de bord
                     </a>
-                    <a href="#" class="text-slate-600 hover:text-blue-600">Planning</a>
-                    <a href="{{ route('parent.messages') }}" class="text-slate-600 hover:text-blue-600">Messagerie</a>
+                    <a href="{{ route('nounou.planning') }}" class="text-slate-600 hover:text-blue-600">Planning</a>
+                    <a href="{{ route('nounou.messages') }}" class="text-slate-600 hover:text-blue-600">Messagerie</a>
+                    <a href="{{ route('nounou.profile') }}" class="text-slate-600 hover:text-blue-600">Mon profil</a>
                     <a href="#" id="nannyNameTop" class="text-slate-700 font-medium">Marie (Nounou)</a>
                 </nav>
 
                 <div class="flex items-center gap-4">
-                    <div id="nannyAvatarTop" class="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold text-lg">
+                    <div id="nannyAvatarTop" class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold text-base">
                         N
                     </div>
                 </div>
@@ -40,78 +41,78 @@
         </header>
 
         <!-- PAGE -->
-        <main class="max-w-[1400px] mx-auto px-6 py-8">
+        <main class="max-w-[1180px] mx-auto px-5 md:px-6 py-6">
             <div id="messageBox" class="hidden mb-6 rounded-2xl p-4 text-sm"></div>
 
             <!-- TITLE -->
-            <section class="mb-8">
-                <h1 id="helloTitle" class="text-6xl font-black mb-3">Bonjour, Marie !</h1>
-                <p class="text-slate-500 text-3xl">
+            <section class="mb-6">
+                <h1 id="helloTitle" class="text-2xl md:text-3xl font-black mb-2">Bonjour, Marie !</h1>
+                <p class="text-sm text-slate-500">
                     C'est une belle journée pour s'occuper des enfants. Voici votre programme.
                 </p>
             </section>
 
             <!-- CARDS -->
-            <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
-                <div class="bg-white rounded-[28px] border border-slate-200 p-6 shadow-sm">
-                    <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-2xl mb-5">◔</div>
-                    <p class="text-xl font-bold uppercase tracking-wide mb-3">En attente</p>
-                    <p id="pendingCount" class="text-5xl font-black text-slate-600">0 tâche</p>
+            <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+                <div class="bg-white rounded-[18px] border border-slate-200 p-4 shadow-sm">
+                    <div class="w-9 h-9 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-lg mb-3">◔</div>
+                    <p class="text-xs font-bold uppercase tracking-wide mb-2 text-slate-500">En attente</p>
+                    <p id="pendingCount" class="text-2xl font-black text-slate-700">0 tâche</p>
                 </div>
 
-                <div class="bg-white rounded-[28px] border border-slate-200 p-6 shadow-sm">
-                    <div class="w-12 h-12 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-2xl mb-5">✓</div>
-                    <p class="text-xl font-bold uppercase tracking-wide mb-3">Terminé</p>
-                    <p id="completedCount" class="text-5xl font-black text-slate-600">0 tâche</p>
+                <div class="bg-white rounded-[18px] border border-slate-200 p-4 shadow-sm">
+                    <div class="w-9 h-9 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-lg mb-3">✓</div>
+                    <p class="text-xs font-bold uppercase tracking-wide mb-2 text-slate-500">Terminé</p>
+                    <p id="completedCount" class="text-2xl font-black text-slate-700">0 tâche</p>
                 </div>
 
-                <div class="bg-white rounded-[28px] border border-slate-200 p-6 shadow-sm">
-                    <div class="w-12 h-12 rounded-full bg-orange-100 text-orange-500 flex items-center justify-center text-2xl mb-5">!</div>
-                    <p class="text-xl font-bold uppercase tracking-wide mb-3">Priorité haute</p>
-                    <p id="highPriorityCount" class="text-5xl font-black text-slate-600">0 urgente</p>
+                <div class="bg-white rounded-[18px] border border-slate-200 p-4 shadow-sm">
+                    <div class="w-9 h-9 rounded-full bg-orange-100 text-orange-500 flex items-center justify-center text-lg mb-3">!</div>
+                    <p class="text-xs font-bold uppercase tracking-wide mb-2 text-slate-500">Priorité haute</p>
+                    <p id="highPriorityCount" class="text-2xl font-black text-slate-700">0 urgente</p>
                 </div>
 
-                <div class="bg-white rounded-[28px] border border-slate-200 p-6 shadow-sm">
-                    <div class="w-12 h-12 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-2xl mb-5">💬</div>
-                    <p class="text-xl font-bold uppercase tracking-wide mb-3">Messages</p>
-                    <p id="messagesCount" class="text-5xl font-black text-slate-600">0 nouveau</p>
+                <div class="bg-white rounded-[18px] border border-slate-200 p-4 shadow-sm">
+                    <div class="w-9 h-9 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-lg mb-3">💬</div>
+                    <p class="text-xs font-bold uppercase tracking-wide mb-2 text-slate-500">Messages</p>
+                    <p id="messagesCount" class="text-2xl font-black text-slate-700">0 nouveau</p>
                 </div>
             </section>
 
             <!-- CONTENT -->
-            <section class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+            <section class="grid grid-cols-1 xl:grid-cols-3 gap-5">
 
                 <!-- LEFT -->
-                <div class="xl:col-span-2 space-y-8">
+                <div class="xl:col-span-2 space-y-5">
 
                     <!-- TASKS TODAY -->
-                    <div class="bg-white rounded-[30px] border border-slate-200 shadow-sm overflow-hidden">
-                        <div class="px-6 py-5 border-b border-slate-200 flex items-center justify-between">
+                    <div class="bg-white rounded-[20px] border border-slate-200 shadow-sm overflow-hidden">
+                        <div class="px-5 py-4 border-b border-slate-200 flex items-center justify-between">
                             <div class="flex items-center gap-3">
-                                <span class="text-blue-600 text-2xl">🗒</span>
-                                <h2 class="text-4xl font-black">Mes tâches d'aujourd'hui</h2>
+                                <span class="text-blue-600 text-lg">🗒</span>
+                                <h2 class="text-lg font-black">Mes tâches d'aujourd'hui</h2>
                             </div>
-                            <a href="#" class="text-blue-600 text-2xl font-semibold">Voir tout</a>
+                            <a href="{{ route('nounou.planning') }}" class="text-blue-600 text-sm font-semibold">Voir tout</a>
                         </div>
 
                         <div id="todayTasksList" class="divide-y divide-slate-200">
-                            <div class="px-6 py-8 text-slate-400 text-xl">Chargement...</div>
+                            <div class="px-5 py-6 text-slate-400 text-sm">Chargement...</div>
                         </div>
                     </div>
 
                     <!-- RECENT MESSAGES -->
-                    <div class="bg-white rounded-[30px] border border-slate-200 shadow-sm overflow-hidden">
-                        <div class="px-6 py-5 border-b border-slate-200 flex items-center gap-3">
-                            <span class="text-blue-600 text-2xl">💬</span>
-                            <h2 class="text-4xl font-black">Messages récents</h2>
+                    <div class="bg-white rounded-[20px] border border-slate-200 shadow-sm overflow-hidden">
+                        <div class="px-5 py-4 border-b border-slate-200 flex items-center gap-3">
+                            <span class="text-blue-600 text-lg">💬</span>
+                            <h2 class="text-lg font-black">Messages récents</h2>
                         </div>
 
                         <div id="recentMessagesList" class="divide-y divide-slate-200">
-                            <div class="px-6 py-8 text-slate-400 text-xl">Chargement...</div>
+                            <div class="px-5 py-6 text-slate-400 text-sm">Chargement...</div>
                         </div>
 
-                        <div class="p-6">
-                            <a href="{{ route('parent.messages') }}" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white rounded-2xl py-4 text-2xl font-semibold">
+                        <div class="p-4">
+                            <a href="{{ route('nounou.messages') }}" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white rounded-2xl py-2.5 text-sm font-semibold">
                                 Ouvrir la messagerie
                             </a>
                         </div>
@@ -119,50 +120,55 @@
                 </div>
 
                 <!-- RIGHT -->
-                <div class="space-y-8">
+                <div class="space-y-5">
 
                     <!-- WEEK PREVIEW -->
-                    <div class="bg-white rounded-[30px] border border-slate-200 shadow-sm overflow-hidden">
-                        <div class="px-6 py-5 border-b border-slate-200 flex items-center gap-3">
-                            <span class="text-blue-600 text-2xl">🗓</span>
-                            <h2 class="text-4xl font-black">Aperçu de la semaine</h2>
+                    <div class="bg-white rounded-[20px] border border-slate-200 shadow-sm overflow-hidden">
+                        <div class="px-5 py-4 border-b border-slate-200 flex items-center gap-3">
+                            <span class="text-blue-600 text-lg">🗓</span>
+                            <h2 class="text-lg font-black">Aperçu de la semaine</h2>
                         </div>
 
-                        <div id="weekPreviewList" class="p-6 space-y-5">
-                            <div class="text-slate-400 text-xl">Chargement...</div>
+                        <div id="weekPreviewList" class="p-4 space-y-3">
+                            <div class="text-slate-400 text-sm">Chargement...</div>
                         </div>
 
-                        <div class="mx-6 mb-6 rounded-[24px] border border-dashed border-blue-300 bg-blue-50 p-5">
-                            <p class="text-blue-600 text-sm font-bold uppercase tracking-widest mb-3">Note de la semaine</p>
-                            <p id="weekNoteText" class="text-slate-600 text-xl leading-8">
+                        <div class="mx-4 mb-4 rounded-[18px] border border-dashed border-blue-300 bg-blue-50 p-3.5">
+                            <p class="text-blue-600 text-xs font-bold uppercase tracking-widest mb-2">Note de la semaine</p>
+                            <p id="weekNoteText" class="text-sm text-slate-600 leading-6">
                                 Pensez à vérifier les besoins particuliers des enfants avant chaque sortie.
                             </p>
                         </div>
                     </div>
 
                     <!-- QUICK ACTIONS -->
-                    <div class="bg-blue-600 rounded-[30px] shadow-xl p-6 text-white">
-                        <h2 class="text-4xl font-black mb-6">Actions rapides</h2>
+                    <div class="bg-blue-600 rounded-[20px] shadow-xl shadow-blue-600/20 p-4 text-white">
+                        <h2 class="text-lg font-black mb-4">Actions rapides</h2>
 
-                        <div class="grid grid-cols-2 gap-4">
-                            <button id="quickPhotoBtn" class="bg-white/10 hover:bg-white/20 rounded-[22px] py-8 flex flex-col items-center justify-center gap-3">
-                                <span class="text-3xl">📷</span>
-                                <span class="text-xl">Photo</span>
+                        <div class="grid grid-cols-2 gap-3">
+                            <a href="{{ route('nounou.profile') }}" class="bg-white/10 hover:bg-white/20 rounded-[16px] py-4 flex flex-col items-center justify-center gap-2">
+                                <span class="text-xl">👤</span>
+                                <span class="text-sm font-semibold">Profil</span>
+                            </a>
+
+                            <button id="quickPhotoBtn" class="bg-white/10 hover:bg-white/20 rounded-[16px] py-4 flex flex-col items-center justify-center gap-2">
+                                <span class="text-xl">📷</span>
+                                <span class="text-sm font-semibold">Photo</span>
                             </button>
 
-                            <button id="quickUrgencyBtn" class="bg-white/10 hover:bg-white/20 rounded-[22px] py-8 flex flex-col items-center justify-center gap-3">
-                                <span class="text-3xl">◇</span>
-                                <span class="text-xl">Urgence</span>
+                            <button id="quickUrgencyBtn" class="bg-white/10 hover:bg-white/20 rounded-[16px] py-4 flex flex-col items-center justify-center gap-2">
+                                <span class="text-xl">◇</span>
+                                <span class="text-sm font-semibold">Urgence</span>
                             </button>
 
-                            <button id="quickMealBtn" class="bg-white/10 hover:bg-white/20 rounded-[22px] py-8 flex flex-col items-center justify-center gap-3">
-                                <span class="text-3xl">🍽</span>
-                                <span class="text-xl">Repas</span>
+                            <button id="quickMealBtn" class="bg-white/10 hover:bg-white/20 rounded-[16px] py-4 flex flex-col items-center justify-center gap-2">
+                                <span class="text-xl">🍽</span>
+                                <span class="text-sm font-semibold">Repas</span>
                             </button>
 
-                            <button id="quickHistoryBtn" class="bg-white/10 hover:bg-white/20 rounded-[22px] py-8 flex flex-col items-center justify-center gap-3">
-                                <span class="text-3xl">↺</span>
-                                <span class="text-xl">Historique</span>
+                            <button id="quickHistoryBtn" class="bg-white/10 hover:bg-white/20 rounded-[16px] py-4 flex flex-col items-center justify-center gap-2">
+                                <span class="text-xl">↺</span>
+                                <span class="text-sm font-semibold">Historique</span>
                             </button>
                         </div>
                     </div>
@@ -220,16 +226,31 @@
         });
 
         function checkAuth() {
-            const token = localStorage.getItem('token');
-            const user = localStorage.getItem('user');
+            const token = getToken();
+            const user = getStoredUser();
 
             if (!token || !user) {
                 window.location.href = '/login';
+                return;
+            }
+
+            if (user.role === 'admin') {
+                window.location.href = '/admin/dashboard';
+                return;
+            }
+
+            if (user.role === 'parent') {
+                window.location.href = '/parent/dashboard';
+                return;
+            }
+
+            if (user.role !== 'nounou') {
+                window.location.href = '/';
             }
         }
 
         function loadUserInfo() {
-            currentUser = JSON.parse(localStorage.getItem('user'));
+            currentUser = getStoredUser();
 
             if (currentUser) {
                 helloTitle.textContent = 'Bonjour, ' + firstName(currentUser.name) + ' !';
@@ -239,15 +260,10 @@
         }
 
         async function loadTasks() {
-            const token = localStorage.getItem('token');
-
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/tasks', {
+                const response = await fetch('/api/tasks', {
                     method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Authorization': 'Bearer ' + token
-                    }
+                    headers: getAuthHeaders()
                 });
 
                 const result = await response.json();
@@ -268,15 +284,10 @@
         }
 
         async function loadNotifications() {
-            const token = localStorage.getItem('token');
-
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/notifications', {
+                const response = await fetch('/api/notifications', {
                     method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Authorization': 'Bearer ' + token
-                    }
+                    headers: getAuthHeaders()
                 });
 
                 const result = await response.json();
@@ -284,6 +295,7 @@
                 if (response.ok) {
                     allNotifications = result.data.data || [];
                     renderRecentMessages();
+                    renderTaskStats();
                 } else {
                     renderRecentMessages();
                 }
@@ -326,7 +338,7 @@
 
             if (todayTasks.length === 0) {
                 todayTasksList.innerHTML = `
-                    <div class="px-6 py-8 text-slate-400 text-xl">
+                    <div class="px-5 py-6 text-slate-400 text-sm">
                         Aucune tâche prévue aujourd'hui.
                     </div>
                 `;
@@ -337,23 +349,23 @@
                 const completed = task.status === 'completed';
 
                 const item = document.createElement('div');
-                item.className = 'px-6 py-5 flex items-center gap-4';
+                item.className = 'px-5 py-4 flex items-center gap-3';
 
                 item.innerHTML = `
                     <button
-                        class="w-9 h-9 rounded-xl border-2 ${completed ? 'bg-blue-500 border-blue-500 text-white' : 'border-slate-300 bg-white'} flex items-center justify-center text-lg"
+                        class="w-8 h-8 rounded-xl border-2 ${completed ? 'bg-blue-500 border-blue-500 text-white' : 'border-slate-300 bg-white'} flex items-center justify-center text-base"
                         onclick="toggleTaskStatus(${task.id}, '${task.status}')"
                     >
                         ${completed ? '✓' : ''}
                     </button>
 
                     <div class="flex-1">
-                        <p class="text-2xl ${completed ? 'line-through text-slate-400' : 'font-medium'}">
+                        <p class="text-base ${completed ? 'line-through text-slate-400' : 'font-semibold'}">
                             ${task.title}
                         </p>
 
-                        <div class="flex flex-wrap items-center gap-3 mt-2 text-sm">
-                            <span class="px-3 py-1 rounded-full font-bold ${getPriorityClass(task.priority)}">
+                        <div class="flex flex-wrap items-center gap-3 mt-2 text-xs">
+                            <span class="px-2.5 py-1 rounded-full font-bold ${getPriorityClass(task.priority)}">
                                 ${getPriorityLabel(task.priority)}
                             </span>
 
@@ -377,7 +389,7 @@
 
             if (messageNotifications.length === 0) {
                 recentMessagesList.innerHTML = `
-                    <div class="px-6 py-8 text-slate-400 text-xl">
+                    <div class="px-5 py-6 text-slate-400 text-sm">
                         Aucun message récent.
                     </div>
                 `;
@@ -386,25 +398,25 @@
 
             messageNotifications.forEach(function (notification) {
                 const item = document.createElement('div');
-                item.className = 'px-6 py-5';
+                item.className = 'px-5 py-4';
 
                 const sender = notification.data.sender_name || 'Parent';
                 const message = notification.data.content || 'Nouveau message';
                 const time = formatNotificationTime(notification.created_at);
 
                 item.innerHTML = `
-                    <div class="flex items-start gap-4">
-                        <div class="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700 text-sm">
                             ${getInitials(sender)}
                         </div>
 
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center justify-between gap-3">
-                                <p class="text-2xl font-bold">${sender}</p>
-                                <span class="text-sm text-slate-400">${time}</span>
+                                <p class="text-sm font-bold">${sender}</p>
+                                <span class="text-xs text-slate-400">${time}</span>
                             </div>
 
-                            <p class="text-slate-600 text-xl mt-2 break-words">
+                            <p class="text-sm text-slate-600 mt-1.5 break-words">
                                 "${escapeHtml(message)}"
                             </p>
                         </div>
@@ -435,7 +447,7 @@
 
             if (futureTasks.length === 0) {
                 weekPreviewList.innerHTML = `
-                    <div class="text-slate-400 text-xl">Aucune tâche prévue cette semaine.</div>
+                    <div class="text-slate-400 text-sm">Aucune tâche prévue cette semaine.</div>
                 `;
                 return;
             }
@@ -444,18 +456,18 @@
                 const due = new Date(task.due_date + 'T00:00:00');
 
                 const item = document.createElement('div');
-                item.className = 'flex items-start gap-4';
+                item.className = 'flex items-start gap-3';
 
                 item.innerHTML = `
-                    <div class="w-16 h-16 rounded-2xl bg-[#eef3fb] text-blue-600 flex flex-col items-center justify-center shrink-0">
+                    <div class="w-10 h-10 rounded-xl bg-[#eef3fb] text-blue-600 flex flex-col items-center justify-center shrink-0">
                         <span class="text-xs font-bold uppercase">${dayNameShort(due)}</span>
-                        <span class="text-2xl font-black">${due.getDate()}</span>
+                        <span class="text-base font-black">${due.getDate()}</span>
                     </div>
 
                     <div>
-                        <p class="text-2xl font-bold">${task.title}</p>
-                        <p class="text-slate-500 text-xl mt-1">${fullDayName(due)}</p>
-                        <p class="text-slate-400 text-lg mt-1">${task.description ? escapeHtml(task.description) : 'Tâche planifiée'}</p>
+                        <p class="text-sm font-bold">${task.title}</p>
+                        <p class="text-sm text-slate-500 mt-1">${fullDayName(due)}</p>
+                        <p class="text-sm text-slate-400 mt-1">${task.description ? escapeHtml(task.description) : 'Tâche planifiée'}</p>
                     </div>
                 `;
 
@@ -466,16 +478,14 @@
         }
 
         async function toggleTaskStatus(taskId, currentStatus) {
-            const token = localStorage.getItem('token');
             const nextStatus = currentStatus === 'completed' ? 'in_progress' : 'completed';
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/tasks/' + taskId + '/status', {
+                const response = await fetch('/api/tasks/' + taskId + '/status', {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'Authorization': 'Bearer ' + token
+                        ...getAuthHeaders()
                     },
                     body: JSON.stringify({
                         status: nextStatus
@@ -495,8 +505,27 @@
         }
 
         function renderEmptyTaskBlocks() {
-            todayTasksList.innerHTML = '<div class="px-6 py-8 text-slate-400 text-xl">Aucune donnée.</div>';
-            weekPreviewList.innerHTML = '<div class="text-slate-400 text-xl">Aucune donnée.</div>';
+            todayTasksList.innerHTML = '<div class="px-5 py-6 text-slate-400 text-sm">Aucune donnée.</div>';
+            weekPreviewList.innerHTML = '<div class="text-slate-400 text-sm">Aucune donnée.</div>';
+        }
+
+        function getToken() {
+            return localStorage.getItem('access_token');
+        }
+
+        function getAuthHeaders() {
+            return {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + getToken()
+            };
+        }
+
+        function getStoredUser() {
+            try {
+                return JSON.parse(localStorage.getItem('user'));
+            } catch (error) {
+                return null;
+            }
         }
 
         function getPriorityClass(priority) {

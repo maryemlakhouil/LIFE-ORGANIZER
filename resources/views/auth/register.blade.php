@@ -245,6 +245,8 @@
 
                     if (data.user && data.user.role === 'parent') {
                         window.location.href = '/parent/dashboard';
+                    } else if (data.user && data.user.role === 'nounou') {
+                        window.location.href = '/nounou/dashboard';
                     } else if (data.user && data.user.role === 'admin') {
                         window.location.href = '/admin/dashboard';
                     } else {

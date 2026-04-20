@@ -3,10 +3,7 @@ import Pusher from 'pusher-js';
 
 window.Pusher = Pusher;
 
-const apiBaseUrl = (import.meta.env.VITE_API_URL ?? 'http://localhost/api').replace(
-    /\/api$/,
-    '',
-);
+const apiBaseUrl = (import.meta.env.VITE_API_URL ?? '').replace(/\/api$/, '');
 
 const resolveApiToken = () =>
     window.localStorage.getItem('access_token') ||
@@ -53,6 +50,19 @@ window.Echo = new Echo({
 });
 
 window.Realtime = {
+    listenPrivateConversation(conversationId, handlers = {}) {
+        return window.Echo.private(`conversation.${conversationId}`)
+            .listen('.message.sent', (event) => handlers.messageSent?.(event))
+            .listen('.message.updated', (event) => handlers.messageUpdated?.(event))
+            .listen('.message.deleted', (event) => handlers.messageDeleted?.(event))
+            .listen('.call.invited', (event) => handlers.callInvited?.(event))
+            .listen('.call.accepted', (event) => handlers.callAccepted?.(event))
+            .listen('.call.rejected', (event) => handlers.callRejected?.(event))
+            .listen('.call.ended', (event) => handlers.callEnded?.(event))
+            .listen('.call.signal', (event) => handlers.callSignal?.(event))
+            .error((error) => handlers.error?.(error));
+    },
+
     joinConversationPresence(conversationId, handlers = {}) {
         return window.Echo.join(`conversation.${conversationId}`)
             .here((users) => handlers.here?.(users))

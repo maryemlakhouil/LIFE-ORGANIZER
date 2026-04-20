@@ -3,84 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messagerie Parent - Family Organizer</title>
+    <title>Messagerie Nounou - Family Organizer</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-[#f3f6fb] text-slate-900 min-h-screen">
 
     <div class="flex min-h-screen">
 
-        <!-- LEFT SIDEBAR -->
-        <aside class="w-[300px] bg-white border-r border-slate-200 hidden lg:flex flex-col">
+        <!-- SIDEBAR -->
+        <aside class="w-[280px] bg-white border-r border-slate-200 hidden lg:flex flex-col">
 
-            <!-- LOGO -->
-            <div class="px-6 pt-6 pb-5 border-b border-slate-100">
-                <a href="{{ route('parent.dashboard') }}" class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center">
+            <div class="h-16 px-5 flex items-center border-b border-slate-200">
+                <a href="{{ route('nounou.dashboard') }}" class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center">
                         <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M16 11c1.66 0 3-1.57 3-3.5S17.66 4 16 4s-3 1.57-3 3.5S14.34 11 16 11zm-8 0c1.66 0 3-1.57 3-3.5S9.66 4 8 4 5 5.57 5 7.5 6.34 11 8 11zm0 2c-2.33 0-7 1.17-7 3.5V20h14v-3.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.95 1.97 3.45V20h6v-3.5c0-2.33-4.67-3.5-7-3.5z"/>
                         </svg>
                     </div>
-                    <span class="text-lg font-bold">Family Organizer</span>
+                    <span class="text-xl font-bold">Family Organizer</span>
                 </a>
-
-                <nav class="grid grid-cols-3 gap-2 mt-5 text-xs font-semibold">
-                    <a href="{{ route('parent.dashboard') }}" class="rounded-full bg-slate-100 px-3 py-2 text-center text-slate-600 hover:bg-blue-50 hover:text-blue-600">Dashboard</a>
-                    <a href="{{ route('parent.tasks') }}" class="rounded-full bg-slate-100 px-3 py-2 text-center text-slate-600 hover:bg-blue-50 hover:text-blue-600">Tâches</a>
-                    <a href="{{ route('parent.messages') }}" class="rounded-full bg-blue-600 px-3 py-2 text-center text-white">Messages</a>
-                </nav>
             </div>
 
-            <!-- SEARCH -->
-            <div class="p-5 border-b border-slate-200">
+            <div class="px-5 py-4 border-b border-slate-200">
                 <div class="relative">
-                    <svg class="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <circle cx="11" cy="11" r="8"/>
-                        <path stroke-linecap="round" d="m21 21-4.35-4.35"/>
-                    </svg>
+                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">🔎</span>
                     <input
                         type="text"
                         id="searchConversationInput"
-                        placeholder="Rechercher une conversation..."
+                        placeholder="Rechercher..."
                         class="w-full rounded-2xl bg-[#f4f7fb] border border-transparent pl-11 pr-4 py-3 text-sm outline-none focus:border-blue-500"
                     >
                 </div>
             </div>
 
-            <!-- CONVERSATIONS -->
             <div id="conversationsList" class="flex-1 overflow-y-auto">
                 <div class="p-6 text-slate-400">Chargement des conversations...</div>
             </div>
 
-            <!-- FOOTER -->
-            <div class="p-5 border-t border-slate-200">
-                <button id="accountSettingsBtn" class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#f4f7fb]">
-                    <span class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="3"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06A2 2 0 1 1 7.03 3.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3a2 2 0 1 1 4 0v.09A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.22.35.57.58 1 .6h.6a2 2 0 1 1 0 4h-.09A1.7 1.7 0 0 0 19.4 15Z"/>
-                        </svg>
-                    </span>
-                    <span class="text-sm font-medium">Paramètres</span>
+            <div class="p-4 border-t border-slate-200">
+                <button id="backDashboardBtn" class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#f4f7fb]">
+                    <span class="w-9 h-9 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-lg">←</span>
+                    <span class="text-sm font-medium">Retour dashboard</span>
                 </button>
             </div>
         </aside>
 
-        <!-- MAIN CONTENT -->
+        <!-- MAIN -->
         <div class="flex-1 flex flex-col min-w-0">
 
-            <!-- CHAT HEADER -->
-            <header class="h-16 bg-white border-b border-slate-200 px-5 flex items-center justify-between">
+            <!-- HEADER -->
+            <header class="h-16 bg-white border-b border-slate-200 px-5 md:px-6 flex items-center justify-between">
                 <div class="flex items-center gap-4 min-w-0">
-                    <div id="chatAvatar" class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold text-sm">
-                        M
+                    <div id="chatAvatar" class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold text-base">
+                        C
                     </div>
 
                     <div class="min-w-0">
-                        <p id="chatTitle" class="text-lg font-bold truncate">Sélectionnez une conversation</p>
-                        <div class="flex items-center gap-2 text-xs text-slate-500">
-                            <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
-                            <span id="chatStatus">Aucun chat ouvert</span>
+                        <p id="chatTitle" class="text-lg md:text-xl font-bold truncate">Sélectionnez une conversation</p>
+                        <div class="flex items-center gap-2 text-sm text-slate-500">
+                            <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                            <span id="chatStatus">Aucune conversation ouverte</span>
                         </div>
                     </div>
                 </div>
@@ -92,23 +74,23 @@
                 </div>
             </header>
 
-            <!-- DAY LABEL -->
-            <div class="px-5 py-3 bg-[#f9fbff] border-b border-slate-100">
+            <!-- LABEL -->
+            <div class="px-6 py-3 bg-[#f9fbff] border-b border-slate-100">
                 <div class="flex justify-center">
                     <span class="px-5 py-2 rounded-full bg-white text-slate-500 text-xs font-bold tracking-widest uppercase shadow-sm">
-                        Today
+                        Aujourd'hui
                     </span>
                 </div>
             </div>
 
             <!-- MESSAGES -->
-            <div id="messagesContainer" class="flex-1 overflow-y-auto px-5 py-6 space-y-5 bg-[#f8fbff]">
+            <div id="messagesContainer" class="flex-1 overflow-y-auto px-5 md:px-6 py-6 space-y-5 bg-[#f8fbff]">
                 <div class="text-center text-slate-400">
                     Ouvrez une conversation pour voir les messages.
                 </div>
             </div>
 
-            <!-- TYPING INDICATOR -->
+            <!-- TYPING -->
             <div id="typingIndicatorWrapper" class="hidden px-6 py-2 bg-[#f8fbff]">
                 <div class="inline-flex items-center gap-3 bg-white px-4 py-2 rounded-full border border-slate-200 shadow-sm">
                     <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-600">
@@ -118,8 +100,8 @@
                 </div>
             </div>
 
-            <!-- INPUT BAR -->
-            <div class="bg-white border-t border-slate-200 px-5 py-4">
+            <!-- INPUT -->
+            <div class="bg-white border-t border-slate-200 px-5 md:px-6 py-4">
                 <div id="messageBox" class="hidden mb-4 rounded-xl p-4 text-sm"></div>
 
                 <div class="flex items-center gap-3 bg-[#f7f9fc] border border-slate-200 rounded-[22px] px-4 py-2.5">
@@ -130,7 +112,7 @@
                         type="text"
                         id="messageInput"
                         placeholder="Tapez un message..."
-                        class="flex-1 bg-transparent outline-none text-base text-slate-700"
+                        class="flex-1 bg-transparent outline-none text-slate-700 text-base"
                     >
 
                     <button id="emojiBtn" class="text-xl text-slate-500 hover:text-blue-600">☺</button>
@@ -143,9 +125,9 @@
                 <input id="imageInput" type="file" accept="image/*" class="hidden">
                 <input id="fileInput" type="file" class="hidden">
 
-                <div class="mt-3 flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-slate-400">
-                    <button id="setReminderBtn" class="hover:text-blue-600">⏰ Set reminder</button>
-                    <button id="shareScheduleBtn" class="hover:text-blue-600">🗓 Share schedule</button>
+                <div class="mt-3 flex items-center gap-6 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                    <button id="quickPhotoBtn" class="hover:text-blue-600">📷 envoyer photo</button>
+                    <button id="quickReportBtn" class="hover:text-blue-600">📝 envoyer rapport</button>
                 </div>
             </div>
         </div>
@@ -175,9 +157,9 @@
         const audioCallBtn = document.getElementById('audioCallBtn');
         const videoCallBtn = document.getElementById('videoCallBtn');
         const chatInfoBtn = document.getElementById('chatInfoBtn');
-        const setReminderBtn = document.getElementById('setReminderBtn');
-        const shareScheduleBtn = document.getElementById('shareScheduleBtn');
-        const accountSettingsBtn = document.getElementById('accountSettingsBtn');
+        const quickPhotoBtn = document.getElementById('quickPhotoBtn');
+        const quickReportBtn = document.getElementById('quickReportBtn');
+        const backDashboardBtn = document.getElementById('backDashboardBtn');
 
         let allConversations = [];
         let currentConversationId = null;
@@ -186,7 +168,7 @@
         let currentUser = null;
 
         document.addEventListener('DOMContentLoaded', function () {
-            guardParentAccess();
+            checkAuth();
             loadUser();
             loadConversations();
         });
@@ -204,6 +186,10 @@
                 e.preventDefault();
                 sendMessage();
             }
+        });
+
+        backDashboardBtn.addEventListener('click', function () {
+            window.location.href = '/nounou/dashboard';
         });
 
         imageBtn.addEventListener('click', function () {
@@ -241,35 +227,20 @@
         });
 
         chatInfoBtn.addEventListener('click', function () {
-            showMessage('Panneau info conversation sera branché ensuite.', 'success');
+            showMessage('Informations conversation à brancher ensuite.', 'success');
         });
 
-        setReminderBtn.addEventListener('click', function () {
-            showMessage('Rappel message sera branché ensuite.', 'success');
+        quickPhotoBtn.addEventListener('click', function () {
+            imageInput.click();
         });
 
-        shareScheduleBtn.addEventListener('click', function () {
-            showMessage('Partage de planning sera branché ensuite.', 'success');
+        quickReportBtn.addEventListener('click', function () {
+            showMessage('Envoi rapport rapide à brancher ensuite.', 'success');
         });
 
-        accountSettingsBtn.addEventListener('click', function () {
-            showMessage('Page paramètres compte à brancher ensuite.', 'success');
-        });
-
-        function getToken() {
-            return localStorage.getItem('access_token');
-        }
-
-        function getAuthHeaders() {
-            return {
-                'Accept': 'application/json',
-                'Authorization': 'Bearer ' + getToken()
-            };
-        }
-
-        function guardParentAccess() {
+        function checkAuth() {
             const token = getToken();
-            const user = JSON.parse(localStorage.getItem('user'));
+            const user = getStoredUser();
 
             if (!token || !user) {
                 window.location.href = '/login';
@@ -281,17 +252,22 @@
                 return;
             }
 
-            if (user.role !== 'parent') {
+            if (user.role === 'parent') {
+                window.location.href = '/parent/dashboard';
+                return;
+            }
+
+            if (user.role !== 'nounou') {
                 window.location.href = '/';
             }
         }
 
         function loadUser() {
-            currentUser = JSON.parse(localStorage.getItem('user'));
+            currentUser = getStoredUser();
         }
 
         async function loadConversations(autoOpen = true) {
-            conversationsList.innerHTML = '<div class="p-6 text-slate-400">Chargement des conversations...</div>';
+            conversationsList.innerHTML = '<div class="p-5 text-sm text-slate-400">Chargement des conversations...</div>';
 
             try {
                 const response = await fetch('/api/conversations', {
@@ -308,13 +284,11 @@
                     if (autoOpen && allConversations.length > 0) {
                         openConversation(allConversations[0].id);
                     }
-                } else if (response.status === 401 || response.status === 403) {
-                    window.location.href = '/login';
                 } else {
-                    conversationsList.innerHTML = '<div class="p-6 text-red-500">Impossible de charger les conversations.</div>';
+                    conversationsList.innerHTML = '<div class="p-5 text-sm text-red-500">Impossible de charger les conversations.</div>';
                 }
             } catch (error) {
-                conversationsList.innerHTML = '<div class="p-6 text-red-500">Erreur serveur.</div>';
+                conversationsList.innerHTML = '<div class="p-5 text-sm text-red-500">Erreur serveur.</div>';
             }
         }
 
@@ -332,7 +306,7 @@
             }
 
             if (conversations.length === 0) {
-                conversationsList.innerHTML = '<div class="p-6 text-slate-400">Aucune conversation trouvée.</div>';
+                conversationsList.innerHTML = '<div class="p-5 text-sm text-slate-400">Aucune conversation trouvée.</div>';
                 return;
             }
 
@@ -342,27 +316,27 @@
                 const lastMessage = getConversationLastMessage(conversation);
 
                 const item = document.createElement('button');
-                item.className = 'w-full text-left px-4 py-3 border-b border-slate-100 hover:bg-[#f8fbff] transition';
+                item.className = 'w-full text-left px-4 py-3.5 border-b border-slate-100 hover:bg-[#f8fbff] transition';
 
                 if (isActive) {
                     item.className += ' bg-blue-50';
                 }
 
                 item.innerHTML = `
-                    <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-4">
                         <div class="relative">
-                            <div class="w-11 h-11 rounded-full bg-blue-100 flex items-center justify-center text-sm font-bold text-blue-700">
+                            <div class="w-11 h-11 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-base">
                                 ${getInitials(conversationName)}
                             </div>
-                            <span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-green-500 border-2 border-white"></span>
+                            <span class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-green-500 border-2 border-white"></span>
                         </div>
 
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center justify-between gap-3">
-                                <p class="truncate text-sm font-bold">${conversationName}</p>
+                                <p class="font-bold text-sm truncate">${conversationName}</p>
                                 <span class="text-xs text-slate-400">${getConversationTime(conversation)}</span>
                             </div>
-                            <p class="truncate text-xs text-slate-500">${lastMessage}</p>
+                            <p class="text-sm text-slate-500 truncate">${lastMessage}</p>
                         </div>
                     </div>
                 `;
@@ -373,6 +347,25 @@
 
                 conversationsList.appendChild(item);
             });
+        }
+
+        function getToken() {
+            return localStorage.getItem('access_token');
+        }
+
+        function getAuthHeaders() {
+            return {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + getToken()
+            };
+        }
+
+        function getStoredUser() {
+            try {
+                return JSON.parse(localStorage.getItem('user'));
+            } catch (error) {
+                return null;
+            }
         }
 
         async function openConversation(conversationId) {
@@ -465,10 +458,9 @@
             const conversationName = getConversationName(conversation);
 
             chatTitle.textContent = conversationName;
-            chatStatus.textContent = 'ONLINE';
+            chatStatus.textContent = 'En ligne';
             chatAvatar.textContent = getInitials(conversationName);
-
-            typingIndicatorText.textContent = conversationName + ' is typing...';
+            typingIndicatorText.textContent = conversationName + ' est en train d’écrire...';
         }
 
         async function loadMessages(conversationId) {
@@ -507,12 +499,10 @@
                 const wrapper = document.createElement('div');
                 wrapper.className = isMine ? 'flex justify-end' : 'flex justify-start';
 
-                let content = message.content || '';
-
                 wrapper.innerHTML = `
                     <div class="max-w-[70%]">
                         <div class="${isMine ? 'bg-blue-600 text-white rounded-[22px] rounded-br-md' : 'bg-white text-slate-700 rounded-[22px] rounded-bl-md border border-slate-200'} px-5 py-3 shadow-sm">
-                            <p class="break-words text-sm leading-7">${escapeHtml(content)}</p>
+                            <p class="text-sm md:text-base leading-7 break-words">${escapeHtml(message.content || '')}</p>
                             ${renderMessageAttachments(message, isMine)}
                         </div>
                         <p class="text-xs text-slate-400 mt-2 ${isMine ? 'text-right' : 'text-left'}">
@@ -544,8 +534,8 @@
                 const response = await fetch('/api/messages', {
                     method: 'POST',
                     headers: {
-                        ...getAuthHeaders(),
                         'Content-Type': 'application/json',
+                        ...getAuthHeaders()
                     },
                     body: JSON.stringify({
                         conversation_id: currentConversationId,
@@ -581,8 +571,8 @@
                 const messageResponse = await fetch('/api/messages', {
                     method: 'POST',
                     headers: {
-                        ...getAuthHeaders(),
                         'Content-Type': 'application/json',
+                        ...getAuthHeaders()
                     },
                     body: JSON.stringify({
                         conversation_id: currentConversationId,
@@ -714,14 +704,8 @@
             const now = new Date();
             const diff = Math.floor((now - date) / (1000 * 60));
 
-            if (diff < 60) {
-                return diff + 'm';
-            }
-
-            if (diff < 1440) {
-                return Math.floor(diff / 60) + 'h';
-            }
-
+            if (diff < 60) return diff + 'm';
+            if (diff < 1440) return Math.floor(diff / 60) + 'h';
             return 'Hier';
         }
 
@@ -779,7 +763,7 @@
         }
 
         function escapeHtml(text) {
-            return text
+            return String(text)
                 .replace(/&/g, '&amp;')
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;')
@@ -811,12 +795,11 @@
             messageBox.classList.remove('hidden');
 
             if (type === 'success') {
-                messageBox.className = 'hidden mb-4 rounded-xl p-4 text-sm bg-green-100 text-green-700';
+                messageBox.className = 'mb-4 rounded-xl p-4 text-sm bg-green-100 text-green-700';
             } else {
-                messageBox.className = 'hidden mb-4 rounded-xl p-4 text-sm bg-red-100 text-red-700';
+                messageBox.className = 'mb-4 rounded-xl p-4 text-sm bg-red-100 text-red-700';
             }
 
-            messageBox.classList.remove('hidden');
             messageBox.innerHTML = message;
 
             setTimeout(function () {

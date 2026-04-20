@@ -6,13 +6,14 @@
     <title>Dashboard Parent - Family Organizer</title>
     @vite(['resources/css/app.css'])
 </head>
+
 <body class="bg-[#f3f7fc] text-slate-900 min-h-screen">
 
     <div class="flex min-h-screen">
 
         <!-- SIDEBAR -->
-        <aside class="w-[290px] bg-white border-r border-slate-300 hidden lg:flex flex-col">
-            <div class="px-8 pt-8 pb-8">
+        <aside class="w-[270px] bg-white border-r border-slate-200 hidden lg:flex flex-col">
+            <div class="px-7 pt-7 pb-7">
                 <div class="flex items-center gap-4">
                     <div class="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center">
                         <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -26,51 +27,60 @@
                 </div>
             </div>
 
-            <div class="px-5 pt-16">
-                <div class="flex items-center gap-4 mb-12">
-                    <div id="familyAvatar" class="w-14 h-14 rounded-full bg-pink-100 flex items-center justify-center text-lg font-bold text-pink-600">
+            <div class="px-5 pt-12">
+                <div class="flex items-center gap-4 mb-10">
+                    <div id="familyAvatar" class="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center text-base font-bold text-pink-600">
                         F
                     </div>
 
                     <div>
-                        <p id="familyName" class="text-2xl font-semibold leading-none mb-1">The Andersons</p>
-                        <p id="familyPlan" class="text-slate-500 text-lg">Premium plan</p>
+                        <p id="familyName" class="text-xl font-semibold leading-none mb-1">The Andersons</p>
+                        <p id="familyPlan" class="text-slate-500 text-base">Premium plan</p>
                     </div>
                 </div>
 
-                <nav class="space-y-8">
-                    <a href="{{ route('parent.dashboard') }}" class="flex items-center gap-4 bg-blue-100 text-blue-600 px-7 py-4 rounded-[32px] text-xl font-semibold">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <nav class="space-y-5">
+                    <a href="{{ route('parent.dashboard') }}" class="flex items-center gap-4 bg-blue-100 text-blue-600 px-6 py-3.5 rounded-[26px] text-lg font-semibold shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/>
                         </svg>
                         <span>Tableau de bord</span>
                     </a>
 
-                    <a href="{{ route('parent.tasks') }}" class="flex items-center gap-4 px-7 py-2 text-xl text-slate-800 hover:text-blue-600">
+                    <a href="{{ route('parent.tasks') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-[24px]">
                         <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2Z"/>
                         </svg>
                         <span>Planning</span>
                     </a>
 
-                    <a href="{{ route('parent.messages') }}" class="flex items-center gap-4 px-7 py-2 text-xl text-slate-800 hover:text-blue-600">
+                    <a href="{{ route('parent.messages') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-[24px]">
                         <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
                         </svg>
                         <span>Messagerie</span>
                     </a>
 
-                    <a href="#" class="flex items-center gap-4 px-7 py-2 text-xl text-slate-800 hover:text-blue-600">
+                    <a href="{{ route('parent.family') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-[24px]">
                         <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 19V5M8 17l4-4 3 3 5-7"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 11l9-8 9 8"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 10v10h14V10"/>
                         </svg>
-                        <span>Rapports</span>
+                        <span>Profil famille</span>
+                    </a>
+
+                    <a href="{{ route('parent.nanny-profile') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-[24px]">
+                        <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <circle cx="12" cy="7" r="4"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 21a7 7 0 0 1 14 0"/>
+                        </svg>
+                        <span>Profil nounou</span>
                     </a>
                 </nav>
             </div>
 
-            <div class="mt-auto px-8 pb-12">
-                <div class="space-y-5 text-sm">
+            <div class="mt-auto px-7 pb-10">
+                <div class="space-y-4 text-sm">
                     <button class="flex items-center gap-3 text-slate-700 hover:text-blue-600">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <circle cx="12" cy="12" r="3"/>
@@ -84,7 +94,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
                             <path stroke-linecap="round" stroke-linejoin="round" d="m16 17 5-5-5-5M21 12H9"/>
                         </svg>
-                        <span>Déconnexions</span>
+                        <span>Déconnexion</span>
                     </button>
                 </div>
             </div>
@@ -92,92 +102,100 @@
 
         <!-- MAIN -->
         <div class="flex-1 min-w-0">
-            <header class="bg-white px-6 md:px-8 py-6 flex items-center justify-between">
+            <header class="bg-white px-6 md:px-8 py-5 flex items-center justify-between border-b border-slate-100">
                 <div>
                     <h2 class="text-2xl font-bold mb-1">Tableau de bord Parent</h2>
-                    <p id="todayDate" class="text-slate-400 text-xl">Mardi 24 Octobre</p>
+                    <p id="todayDate" class="text-slate-400 text-lg">Mardi 24 Octobre</p>
                 </div>
 
-                <div class="flex items-center gap-6">
+                <div class="flex items-center gap-4 md:gap-5">
                     <button id="notificationsBtn" class="text-slate-700 hover:text-blue-600">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.4-1.4A2 2 0 0 1 18 14.2V11a6 6 0 1 0-12 0v3.2a2 2 0 0 1-.6 1.4L4 17h5"/>
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10 21h4"/>
                         </svg>
                     </button>
-                    <button id="addTaskBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-lg">
-                        + Ajouter une tache
+                    <button id="addTaskBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-full text-base font-semibold shadow-lg shadow-blue-600/20">
+                        + Ajouter une tâche
                     </button>
                 </div>
             </header>
 
-            <main class="p-6 md:p-8">
+            <main class="p-5 md:p-8">
                 <div id="messageBox" class="hidden mb-6 rounded-2xl p-4 text-sm"></div>
 
                 <!-- TOP AREA -->
-                <div class="grid grid-cols-1 xl:grid-cols-4 gap-3 mb-10">
+                <div class="grid grid-cols-1 xl:grid-cols-4 gap-5 mb-8">
 
                     <!-- PROGRESS -->
-                    <section class="xl:col-span-3 bg-white rounded-[36px] shadow-[0_4px_0_rgba(15,23,42,0.12)] border border-slate-100 p-7">
-                        <div class="flex items-center justify-between mb-5">
-                            <h3 class="text-xl font-bold">Progression quotidienne</h3>
-                            <div class="bg-blue-50 text-blue-600 px-8 py-2 rounded-full text-lg font-medium">
+                    <section class="xl:col-span-3 bg-white rounded-[30px] shadow-[0_8px_24px_rgba(15,23,42,0.06)] border border-slate-100 p-6">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
+                            <h3 class="text-lg font-bold">Progression quotidienne</h3>
+                            <div class="bg-blue-50 text-blue-600 px-6 py-2 rounded-full text-base font-medium">
                                 <span id="progressPercent">0 % terminé</span>
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between mb-3">
-                            <p id="progressDayLabel" class="text-lg">Aujourd'hui</p>
-                            <p id="progressRatio" class="text-lg font-semibold text-blue-600">0/0</p>
+                            <p id="progressDayLabel" class="text-base">Aujourd'hui</p>
+                            <p id="progressRatio" class="text-base font-semibold text-blue-600">0/0</p>
                         </div>
 
-                        <div class="w-full h-3 bg-slate-200 rounded-full overflow-hidden mb-5">
+                        <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden mb-5">
                             <div id="progressBar" class="h-full bg-blue-600 rounded-full" style="width: 0%;"></div>
                         </div>
 
-                        <p id="progressText" class="text-sm text-slate-600 mb-8">
+                        <p id="progressText" class="text-sm text-slate-600 mb-7">
                             Aucune tâche planifiée pour aujourd’hui.
                         </p>
 
-                        <div id="todayTasksPreview" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="bg-slate-100 rounded-3xl px-5 py-4 text-slate-500 text-sm">
+                        <div id="todayTasksPreview" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-slate-100 rounded-2xl px-5 py-3.5 text-slate-500 text-sm">
                                 Pas encore de tâches aujourd’hui
                             </div>
                         </div>
                     </section>
 
                     <!-- QUICK LINKS -->
-                    <section class="bg-blue-600 rounded-[36px] text-white shadow-[0_4px_0_rgba(15,23,42,0.12)] p-8 flex flex-col justify-between">
+                    <section class="bg-blue-600 rounded-[30px] text-white shadow-[0_8px_24px_rgba(37,99,235,0.18)] p-6 flex flex-col justify-between">
                         <div>
-                            <h3 class="text-xl font-bold mb-20">Liens rapides</h3>
+                            <h3 class="text-lg font-bold mb-16">Liens rapides</h3>
                         </div>
 
-                        <div class="space-y-4">
-                            <button id="createTaskQuickBtn" class="w-full bg-white text-blue-600 rounded-full py-3 text-lg font-semibold flex items-center justify-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <div class="space-y-3">
+                            <button id="createTaskQuickBtn" class="w-full bg-white text-blue-600 rounded-full py-2.5 text-base font-semibold flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14"/>
                                 </svg>
-                                Créer une tache
+                                Créer une tâche
                             </button>
 
-                            <button id="messageNannyBtn" class="w-full bg-blue-300/70 text-white rounded-full py-3 text-lg font-semibold flex items-center justify-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <button id="messageNannyBtn" class="w-full bg-blue-300/70 text-white rounded-full py-2.5 text-base font-semibold flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16v12H4z"/>
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m4 7 8 6 8-6"/>
                                 </svg>
                                 Message nounou
+                            </button>
+
+                            <button id="nannyProfileQuickBtn" class="w-full bg-white/15 text-white rounded-full py-2.5 text-base font-semibold flex items-center justify-center gap-2 hover:bg-white/20">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="7" r="4"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 21a7 7 0 0 1 14 0"/>
+                                </svg>
+                                Profil nounou
                             </button>
                         </div>
                     </section>
                 </div>
 
                 <!-- BOTTOM AREA -->
-                <div class="grid grid-cols-1 xl:grid-cols-2 gap-3">
+                <div class="grid grid-cols-1 xl:grid-cols-2 gap-5">
 
                     <!-- RECENT ACTIVITY -->
-                    <section class="bg-white rounded-[32px] shadow-[0_4px_0_rgba(15,23,42,0.12)] border border-slate-100 overflow-hidden">
-                        <div class="px-7 pt-7 pb-6 flex items-center justify-between">
-                            <h3 class="text-2xl font-bold">Activité récente</h3>
+                    <section class="bg-white rounded-[28px] shadow-[0_8px_24px_rgba(15,23,42,0.06)] border border-slate-100 overflow-hidden">
+                        <div class="px-6 pt-6 pb-5 flex items-center justify-between">
+                            <h3 class="text-xl font-bold">Activité récente</h3>
                             <a href="#" class="text-blue-600 font-semibold text-sm">Voir tout</a>
                         </div>
 
@@ -190,12 +208,12 @@
                     </section>
 
                     <!-- WEEK -->
-                    <section class="bg-white rounded-[32px] shadow-[0_4px_0_rgba(15,23,42,0.12)] border border-slate-100 p-8">
-                        <h3 class="text-2xl font-bold mb-8">la semaine a venir</h3>
+                    <section class="bg-white rounded-[28px] shadow-[0_8px_24px_rgba(15,23,42,0.06)] border border-slate-100 p-6">
+                        <h3 class="text-xl font-bold mb-7">La semaine à venir</h3>
 
-                        <div id="weekDaysRow" class="grid grid-cols-7 gap-2 text-center mb-8"></div>
+                        <div id="weekDaysRow" class="grid grid-cols-7 gap-2 text-center mb-7"></div>
 
-                        <div id="weekTasksList" class="space-y-5">
+                        <div id="weekTasksList" class="space-y-4">
                             <div class="text-slate-400 text-sm">Aucune tâche à venir.</div>
                         </div>
                     </section>
@@ -203,7 +221,7 @@
             </main>
         </div>
     </div>
-
+    
     <script>
         const todayDate = document.getElementById('todayDate');
         const familyName = document.getElementById('familyName');
@@ -224,6 +242,7 @@
         const addTaskBtn = document.getElementById('addTaskBtn');
         const createTaskQuickBtn = document.getElementById('createTaskQuickBtn');
         const messageNannyBtn = document.getElementById('messageNannyBtn');
+        const nannyProfileQuickBtn = document.getElementById('nannyProfileQuickBtn');
         const messageBox = document.getElementById('messageBox');
 
         let allTasks = [];
@@ -256,6 +275,10 @@
             window.location.href = '{{ route('parent.messages') }}';
         });
 
+        nannyProfileQuickBtn.addEventListener('click', function () {
+            window.location.href = '{{ route('parent.nanny-profile') }}';
+        });
+
         function getToken() {
             return localStorage.getItem('access_token');
         }
@@ -267,9 +290,17 @@
             };
         }
 
+        function getStoredUser() {
+            try {
+                return JSON.parse(localStorage.getItem('user'));
+            } catch (error) {
+                return null;
+            }
+        }
+
         function guardParentAccess() {
             const token = getToken();
-            const user = JSON.parse(localStorage.getItem('user'));
+            const user = getStoredUser();
 
             if (!token || !user) {
                 window.location.href = '/login';
@@ -300,7 +331,7 @@
         }
 
         function loadParentInfo() {
-            const user = JSON.parse(localStorage.getItem('user'));
+            const user = getStoredUser();
 
             if (user) {
                 familyName.textContent = user.name || 'Ma famille';

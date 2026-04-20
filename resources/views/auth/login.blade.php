@@ -243,6 +243,8 @@
                             window.location.href = '/admin/dashboard';
                         } else if (data.user.role === 'parent') {
                             window.location.href = '/parent/dashboard';
+                        } else if (data.user.role === 'nounou') {
+                            window.location.href = '/nounou/dashboard';
                         } else {
                             window.location.href = '/';
                         }
