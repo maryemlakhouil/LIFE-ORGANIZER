@@ -194,6 +194,7 @@
     </div>
 
     <script>
+
         const messageBox = document.getElementById('messageBox');
         const logoutBtn = document.getElementById('logoutBtn');
 
@@ -210,6 +211,7 @@
             loadAdminInfo();
             loadDashboardStats();
         });
+        // Déconnexion
 
         logoutBtn.addEventListener('click', function () {
             localStorage.removeItem('access_token');
@@ -228,6 +230,7 @@
         function getToken() {
             return localStorage.getItem('access_token');
         }
+        // Lire utilisateur depuis localStorage 
 
         function getStoredUser() {
             try {
@@ -259,6 +262,7 @@
                 document.getElementById('adminRole').textContent = user.role || 'admin';
             }
         }
+        // Charger statistiques dashboard
 
         async function loadDashboardStats() {
             const token = getToken();
@@ -288,6 +292,8 @@
                 showMessage('Erreur serveur lors du chargement des statistiques.', 'error');
             }
         }
+        
+        // Télécharger PDF depuis serveur
 
         async function downloadReport(type) {
             const token = getToken();
@@ -321,10 +327,11 @@
                     showMessage(message, 'error');
                     return;
                 }
+                // Blob = fichier PDF binaire 
 
                 const blob = await response.blob();
                 const fileURL = window.URL.createObjectURL(blob);
-
+                // créer lien invisible
                 const link = document.createElement('a');
                 link.href = fileURL;
 
