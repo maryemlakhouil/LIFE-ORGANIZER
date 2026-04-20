@@ -39,3 +39,6 @@ Route::get('/parent/messages', function () {
     return view('parent.messages');
 })->name('parent.messages');
 
+Route::get('/nounou/dashboard', function () {
+    return view('nounou.dashboard');
+})->name('nounou.dashboard');

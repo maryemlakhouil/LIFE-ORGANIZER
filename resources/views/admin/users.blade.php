@@ -6,6 +6,7 @@
     <title>Gestion des Utilisateurs - Family Organizer</title>
     @vite(['resources/css/app.css'])
 </head>
+
 <body class="bg-[#f5f7fb] min-h-screen text-slate-800">
 
     <div class="flex min-h-screen">
