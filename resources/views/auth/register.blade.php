@@ -21,27 +21,27 @@
 
             <div class="absolute inset-0 bg-black/25"></div>
 
-            <div class="absolute top-8 left-8 flex items-center gap-2 text-white">
-                <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">
+            <div class="absolute top-7 left-8 flex items-center gap-2 text-white">
+                <div class="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center text-sm text-white font-bold">
                     FO
                 </div>
-                <span class="text-2xl font-semibold">Family Organizer</span>
+                <span class="text-xl font-semibold">Family Organizer</span>
             </div>
 
-            <div class="absolute left-12 bottom-24 text-white max-w-xl">
-                <h1 class="text-5xl font-bold leading-tight mb-6">
+            <div class="absolute left-12 bottom-20 text-white max-w-lg">
+                <h1 class="text-4xl font-bold leading-tight mb-5">
                     Rejoignez notre communauté
                 </h1>
-                <p class="text-xl leading-relaxed text-white/90">
+                <p class="text-base leading-relaxed text-white/90">
                     Gérez votre vie de famille en toute sérénité avec nos outils premium.
                     Le lien qui unit les parents et les nounous de confiance.
                 </p>
 
-                <div class="flex gap-4 mt-8">
-                    <div class="px-5 py-3 rounded-full border border-white/40 bg-white/10 backdrop-blur-sm text-white">
+                <div class="flex gap-3 mt-7">
+                    <div class="px-4 py-2 rounded-full border border-white/40 bg-white/10 backdrop-blur-sm text-sm text-white">
                         100% Sécurisé
                     </div>
-                    <div class="px-5 py-3 rounded-full border border-white/40 bg-white/10 backdrop-blur-sm text-white">
+                    <div class="px-4 py-2 rounded-full border border-white/40 bg-white/10 backdrop-blur-sm text-sm text-white">
                         10k+ Familles
                     </div>
                 </div>
@@ -54,69 +54,69 @@
 
         <!-- SIDE droite de forme -->
 
-        <div class="flex items-center justify-center px-6 py-10 bg-[#f7f9fc]">
-            <div class="w-full max-w-xl">
-                <div class="mb-8">
-                    <h2 class="text-5xl font-bold text-slate-900 mb-3">Créer un compte</h2>
-                    <p class="text-slate-500 text-xl">
+        <div class="flex items-center justify-center px-6 py-8 bg-[#f7f9fc]">
+            <div class="w-full max-w-lg">
+                <div class="mb-6">
+                    <h2 class="text-4xl font-bold text-slate-900 mb-2">Créer un compte</h2>
+                    <p class="text-base text-slate-500">
                         Commencez votre voyage vers une organisation parfaite.
                     </p>
                 </div>
 
                 <!-- role switch -->
 
-                <div class="bg-[#eaf0fb] rounded-full p-1 flex mb-8">
+                <div class="bg-[#eaf0fb] rounded-full p-1 flex mb-6">
 
                     <button id="parentBtn" type="button"
-                        class="w-1/2 py-3 rounded-full bg-white text-blue-600 font-semibold shadow-sm transition">
+                        class="w-1/2 py-2.5 rounded-full bg-white text-blue-600 font-semibold shadow-sm transition">
                         Parent
                     </button>
 
                     <button id="nounouBtn" type="button"
-                        class="w-1/2 py-3 rounded-full text-slate-600 font-semibold transition">
+                        class="w-1/2 py-2.5 rounded-full text-slate-600 font-semibold transition">
                         Nounou
                     </button>
                 </div>
 
-                <form id="registerForm" class="space-y-5">
+                <form id="registerForm" class="space-y-4">
 
                     <input type="hidden" id="role" name="role" value="parent">
 
                     <div>
-                        <label for="name" class="block text-slate-700 font-semibold mb-2">
+                        <label for="name" class="block text-sm text-slate-700 font-semibold mb-2">
                             Nom complet
                         </label>
                         <input type="text" id="name"  name="name" placeholder="Jean Dupont"
-                            class="w-full rounded-2xl bg-[#eef2f7] border border-transparent px-5 py-4 outline-none focus:border-blue-500"
+                            class="w-full rounded-2xl bg-[#eef2f7] border border-transparent px-5 py-3 outline-none focus:border-blue-500"
                         >
                     </div>
 
                     <div>
-                        <label for="email" class="block text-slate-700 font-semibold mb-2">
+                        <label for="email" class="block text-sm text-slate-700 font-semibold mb-2">
                             Adresse Email
                         </label>
                         <input type="email" id="email" name="email" placeholder="jean.dupont@email.com"
-                            class="w-full rounded-2xl bg-[#eef2f7] border border-transparent px-5 py-4 outline-none focus:border-blue-500"
+                            class="w-full rounded-2xl bg-[#eef2f7] border border-transparent px-5 py-3 outline-none focus:border-blue-500"
                         >
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
                         <div>
-                            <label for="password" class="block text-slate-700 font-semibold mb-2">
+                            <label for="password" class="block text-sm text-slate-700 font-semibold mb-2">
                                 Mot de passe
                             </label>
                             <input type="password" id="password" name="password" placeholder="**********"
-                                class="w-full rounded-2xl bg-[#eef2f7] border border-transparent px-5 py-4 outline-none focus:border-blue-500"
+                                class="w-full rounded-2xl bg-[#eef2f7] border border-transparent px-5 py-3 outline-none focus:border-blue-500"
                             >
                         </div>
 
                         <div>
-                            <label for="password_confirmation" class="block text-slate-700 font-semibold mb-2">
+                            <label for="password_confirmation" class="block text-sm text-slate-700 font-semibold mb-2">
                                 Confirmation
                             </label>
                             <input type="password" id="password_confirmation" name="password_confirmation" placeholder="********"
-                                class="w-full rounded-2xl bg-[#eef2f7] border border-transparent px-5 py-4 outline-none focus:border-blue-500"
+                                class="w-full rounded-2xl bg-[#eef2f7] border border-transparent px-5 py-3 outline-none focus:border-blue-500"
                             >
                         </div>
 
@@ -124,28 +124,28 @@
 
                     <button
                         type="submit"
-                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-2xl py-4 rounded-3xl shadow-lg transition">
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-lg py-3 rounded-2xl shadow-lg transition">
                         Créer mon compte →
                     </button>
 
                 </form>
 
-                <div class="flex items-center gap-4 my-8">
+                <div class="flex items-center gap-4 my-6">
                     <div class="flex-1 h-px bg-slate-300"></div>
                     <span class="text-slate-400 font-semibold text-sm">Ou continuer avec </span>
                     <div class="flex-1 h-px bg-slate-300"></div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <button type="button" class="border rounded-2xl py-4 bg-white font-semibold text-slate-700">
+                    <button type="button" class="border rounded-2xl py-3 bg-white font-semibold text-slate-700">
                         Google
                     </button>
-                    <button type="button" class="border rounded-2xl py-4 bg-white font-semibold text-slate-700">
+                    <button type="button" class="border rounded-2xl py-3 bg-white font-semibold text-slate-700">
                         Apple
                     </button>
                 </div>
 
-                <p class="text-center text-slate-500 mt-8">
+                <p class="text-center text-sm text-slate-500 mt-6">
                     Déjà inscrit ?
                     <a href="{{ route('login') }}" class="text-blue-600 font-semibold">Se connecter</a>
                 </p>
