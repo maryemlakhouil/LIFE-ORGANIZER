@@ -40,7 +40,7 @@
                     ☰
                 </button>
             </div>
-
+            <!-- Menu version mobile -->
             <div id="mobileMenu" class="hidden md:hidden pb-4">
                 <div class="flex flex-col gap-3 text-slate-600 font-medium">
                     <a href="#hero" class="py-2">Accueil</a>
@@ -53,7 +53,8 @@
         </div>
     </header>
 
-    <!-- HERO -->
+    <!-- Premier section Hero -->
+
     <section id="hero" class="py-14 md:py-16 bg-white">
         <div class="max-w-6xl mx-auto px-4 md:px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -100,9 +101,11 @@
         </div>
     </section>
 
-    <!-- FEATURES -->
+    <!-- Deuxieme section : Features-->
+
     <section id="features" class="py-16 bg-white">
         <div class="max-w-5xl mx-auto px-4 md:px-6">
+            <!-- Titre -->
             <div class="text-center mb-10">
                 <p class="text-blue-600 uppercase text-[10px] font-bold tracking-[0.28em] mb-3">
                     Fonctionnalités
@@ -113,6 +116,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Planification partagée-->
                 <div class="bg-[#f7f9fc] rounded-[14px] p-7 border border-slate-100">
                     <div class="w-9 h-9 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center mb-5">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -124,7 +128,7 @@
                         Un calendrier commun pour synchroniser les emplois du temps de toute la famille, de l'école et de la nounou en temps réel.
                     </p>
                 </div>
-
+                <!-- Messagerie sécurisée-->
                 <div class="bg-[#f7f9fc] rounded-[14px] p-7 border border-slate-100">
                     <div class="w-9 h-9 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center mb-5">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -136,7 +140,7 @@
                         Communiquez instantanément avec vos proches et vos prestataires. Partagez photos et documents importants en toute sécurité.
                     </p>
                 </div>
-
+                <!-- Rapports d'activité -->
                 <div class="bg-[#f7f9fc] rounded-[14px] p-7 border border-slate-100">
                     <div class="w-9 h-9 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center mb-5">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -152,9 +156,10 @@
         </div>
     </section>
 
-    <!-- SECTION NOUNOU -->
+    <!-- Troisieme section : Nounou -->
     <section class="py-16 bg-[#f7f9fc]">
         <div class="max-w-5xl mx-auto px-4 md:px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Images  -->
             <div>
                 <img
                     src="{{ asset('images/image2.jpeg') }}"
@@ -162,6 +167,8 @@
                     class="w-full max-w-[430px] h-[320px] object-cover rounded-sm shadow-[0_18px_45px_rgba(15,23,42,0.14)]"
                 >
             </div>
+
+            <!-- Texte -->
 
             <div>
                 <h2 class="text-3xl md:text-4xl font-black mb-5">
@@ -192,7 +199,8 @@
         </div>
     </section>
 
-    <!-- TESTIMONIALS -->
+    <!-- 4 eme section : TESTIMONIALS Et feedback -->
+
     <section id="testimonials" class="py-16 bg-[#eef3fb]">
         <div class="max-w-5xl mx-auto px-4 md:px-6">
             <div class="text-center mb-10">
@@ -233,7 +241,8 @@
         </div>
     </section>
 
-    <!-- CTA -->
+    <!-- 5 eme section : Pret a retrouver -->
+     
     <section class="py-16 bg-white">
         <div class="max-w-4xl mx-auto px-4 md:px-6">
             <div class="relative overflow-hidden bg-blue-600 rounded-[18px] px-8 md:px-16 py-12 text-center text-white shadow-2xl">
@@ -266,6 +275,8 @@
     <footer class="relative z-10 block w-full bg-[#07142f] text-white pt-16 pb-8">
         <div class="max-w-6xl mx-auto px-4 md:px-6">
             <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 mb-10">
+
+                <!-- Familiy organiser  -->
                 <div>
                     <div class="flex items-center gap-2 mb-4">
                         <div class="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center">
@@ -281,6 +292,8 @@
                     </p>
                 </div>
 
+                <!-- Produit  -->
+
                 <div>
                     <h4 class="font-bold text-sm mb-4">Produit</h4>
                     <div class="space-y-2 text-xs text-slate-300">
@@ -289,7 +302,7 @@
                         <a href="#" class="block hover:text-white">Applications mobiles</a>
                     </div>
                 </div>
-
+                 <!-- aide-->
                 <div>
                     <h4 class="font-bold text-sm mb-4">Aide</h4>
                     <div class="space-y-2 text-xs text-slate-300">
@@ -299,6 +312,7 @@
                     </div>
                 </div>
 
+                <!-- Legal-->
                 <div>
                     <h4 class="font-bold text-sm mb-4">Légal</h4>
                     <div class="space-y-2 text-xs text-slate-300">
@@ -314,7 +328,8 @@
             </div>
         </div>
     </footer>
-
+    
+    <!-- La Partie js -->
     <script>
         const menuBtn = document.getElementById('menuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
