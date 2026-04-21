@@ -62,17 +62,15 @@
 
                 <nav class="space-y-2">
                     <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 hover:bg-slate-100">
-                        <span>▦</span>
                         <span>Tableau de bord</span>
                     </a>
 
                     <a href="{{ route('admin.users') }}" class="flex items-center gap-3 px-4 py-3 rounded-full bg-blue-600 text-white font-medium shadow">
-                        <span>◉</span>
+                        
                         <span>Utilisateurs</span>
                     </a>
 
                     <a href="{{ route('admin.reports') }}" class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 hover:bg-slate-100">
-                        <span>▣</span>
                         <span>Rapports</span>
                     </a>
                 </nav>
@@ -86,7 +84,6 @@
                     </a>
 
                     <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 hover:bg-slate-100">
-                        <span>🛡</span>
                         <span>Sécurité</span>
                     </a>
                 </nav>
