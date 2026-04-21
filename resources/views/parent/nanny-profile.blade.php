@@ -21,6 +21,7 @@
             <div class="hidden md:flex items-center gap-2 text-xs font-semibold">
                 <a href="{{ route('parent.dashboard') }}" class="rounded-full bg-slate-100 px-3 py-2 text-slate-600 hover:bg-blue-50 hover:text-blue-600">Dashboard</a>
                 <a href="{{ route('parent.family') }}" class="rounded-full bg-slate-100 px-3 py-2 text-slate-600 hover:bg-blue-50 hover:text-blue-600">Famille</a>
+                <a href="{{ route('parent.calendar') }}" class="rounded-full bg-slate-100 px-3 py-2 text-slate-600 hover:bg-blue-50 hover:text-blue-600">Calendrier</a>
                 <a href="{{ route('parent.messages') }}" class="rounded-full bg-slate-100 px-3 py-2 text-slate-600 hover:bg-blue-50 hover:text-blue-600">Messages</a>
                 <button id="shareBtn" class="w-9 h-9 rounded-full bg-[#f3f6fb] hover:bg-slate-200 text-slate-600">
                     ⤴
