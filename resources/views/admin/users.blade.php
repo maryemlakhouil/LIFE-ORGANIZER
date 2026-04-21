@@ -5,9 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des Utilisateurs - Family Organizer</title>
     @vite(['resources/css/app.css'])
+    <style>
+        .admin-theme .bg-white { background-color: #fffaf3 !important; }
+        .admin-theme .bg-blue-600,
+        .admin-theme .bg-blue-500 { background-color: #8f6b43 !important; }
+        .admin-theme .hover\:bg-blue-700:hover { background-color: #795936 !important; }
+        .admin-theme .bg-blue-100,
+        .admin-theme .bg-blue-50,
+        .admin-theme .hover\:bg-blue-50:hover { background-color: #efe2cf !important; }
+        .admin-theme .bg-slate-100,
+        .admin-theme .bg-slate-200,
+        .admin-theme .hover\:bg-slate-100:hover,
+        .admin-theme .hover\:bg-slate-200:hover,
+        .admin-theme .bg-\[\#f2f6ff\],
+        .admin-theme .bg-\[\#f4f7fb\],
+        .admin-theme .bg-\[\#fafbfd\],
+        .admin-theme .bg-\[\#f7f8fb\],
+        .admin-theme .bg-\[\#f8fafc\] { background-color: #f3e8d9 !important; }
+        .admin-theme .text-blue-600,
+        .admin-theme .text-blue-700,
+        .admin-theme .hover\:text-blue-600:hover { color: #8f6b43 !important; }
+        .admin-theme .text-blue-100,
+        .admin-theme .text-blue-300 { color: #d9b98c !important; }
+        .admin-theme .text-slate-900 { color: #2f281f !important; }
+        .admin-theme .text-slate-800,
+        .admin-theme .text-slate-700 { color: #5d4c39 !important; }
+        .admin-theme .text-slate-600,
+        .admin-theme .text-slate-500 { color: #6d5c49 !important; }
+        .admin-theme .text-slate-400,
+        .admin-theme .text-slate-300 { color: #9a8469 !important; }
+        .admin-theme .border-slate-100,
+        .admin-theme .border-slate-200,
+        .admin-theme .border-slate-300,
+        .admin-theme .border-blue-100 { border-color: #eadfce !important; }
+        .admin-theme .focus\:border-blue-500:focus { border-color: #8f6b43 !important; }
+    </style>
 </head>
 
-<body class="bg-[#f5f7fb] min-h-screen text-slate-800">
+<body class="admin-theme bg-[#f7f0e7] min-h-screen text-[#2f281f]">
 
     <div class="flex min-h-screen">
 
