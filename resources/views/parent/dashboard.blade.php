@@ -100,6 +100,14 @@
                         <span>Profil famille</span>
                     </a>
 
+                    <a href="{{ route('parent.nannies') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <svg class="w-5 h-5 text-[#b08a5f]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <circle cx="12" cy="7" r="4"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 21a7 7 0 0 1 14 0"/>
+                        </svg>
+                        <span>Nounous</span>
+                    </a>
+
                     <a href="{{ route('parent.nanny-profile') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
                         <svg class="w-5 h-5 text-[#b08a5f]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <circle cx="12" cy="7" r="4"/>
@@ -254,7 +262,9 @@
         </div>
     </div>
     
+    <!--La Partie js de la page dashboard du parent -->
     <script>
+
         const todayDate = document.getElementById('todayDate');
         const familyName = document.getElementById('familyName');
         const familyPlan = document.getElementById('familyPlan');
@@ -264,8 +274,7 @@
         const progressRatio = document.getElementById('progressRatio');
         const progressBar = document.getElementById('progressBar');
         const progressText = document.getElementById('progressText');
-        const todayTasksPreview = document.getElementById('todayTasksPreview');
-
+        const todayTasksPreview = document.getElementById('todayTasksPreview'); 
         const recentActivityList = document.getElementById('recentActivityList');
         const weekDaysRow = document.getElementById('weekDaysRow');
         const weekTasksList = document.getElementById('weekTasksList');
@@ -349,6 +358,7 @@
             }
         }
 
+        // Afficher date du jour 
         function renderTodayDate() {
             const now = new Date();
             const options = {
@@ -356,12 +366,13 @@
                 day: 'numeric',
                 month: 'long'
             };
+            // lundi 21 avril
 
             let formatted = now.toLocaleDateString('fr-FR', options);
             formatted = formatted.charAt(0).toUpperCase() + formatted.slice(1);
             todayDate.textContent = formatted;
         }
-
+        
         function loadParentInfo() {
             const user = getStoredUser();
 
@@ -372,6 +383,7 @@
             }
         }
 
+        // Charger taches API 
         async function loadTasks() {
             try {
                 const response = await fetch('/api/tasks', {
@@ -395,6 +407,7 @@
             }
         }
 
+        // Charger notifications 
         async function loadNotifications() {
             try {
                 const response = await fetch('/api/notifications', {
@@ -415,13 +428,15 @@
             }
         }
 
+        // Progression du jour 
         function renderDailyProgress() {
+
             const today = new Date();
             const todayString = formatDate(today);
 
+            // Garde seulement taches du jour
             const todayTasks = allTasks.filter(function (task) {
-                if (!task.due_date) return false;
-                return task.due_date === todayString;
+                return getTaskDueDate(task) === todayString;
             });
 
             const completedTasks = todayTasks.filter(function (task) {
@@ -450,13 +465,15 @@
             renderTodayTasksPreview(todayTasks);
         }
 
+        // Mini aperçu taches du jour 
+        
         function renderTodayTasksPreview(tasks) {
             todayTasksPreview.innerHTML = '';
 
             if (tasks.length === 0) {
                 todayTasksPreview.innerHTML = `
                     <div class="bg-slate-100 rounded-3xl px-5 py-4 text-slate-500 text-sm">
-                        Pas encore de tâches aujourd’hui
+                        Pas encore de taches aujourd’hui
                     </div>
                 `;
                 return;
@@ -482,7 +499,10 @@
             });
         }
 
+        // afficher les notifications recente
+
         function renderRecentActivity() {
+
             recentActivityList.innerHTML = '';
 
             if (allNotifications.length === 0) {
@@ -494,7 +514,7 @@
                 `;
                 return;
             }
-
+            // On Prend les 3 plus récentes
             const latest = allNotifications.slice(0, 3);
 
             latest.forEach(function (notification) {
@@ -533,6 +553,7 @@
             });
         }
 
+        // afficher les 7 jours de la semaine
         function renderWeekDays() {
             weekDaysRow.innerHTML = '';
 
@@ -540,7 +561,7 @@
             const monday = getMonday(base);
 
             const labels = ['lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
-
+            // si lendi 21 => [21,22,23,24...]
             for (let i = 0; i < 7; i++) {
                 const day = new Date(monday);
                 day.setDate(monday.getDate() + i);
@@ -549,6 +570,7 @@
                 label.className = 'text-center';
 
                 const dayName = labels[i];
+                // Numéro du jour 
                 const dayNumber = day.getDate();
                 const isToday = formatDate(day) === formatDate(new Date());
 
@@ -571,11 +593,16 @@
             const sunday = new Date(monday);
             sunday.setDate(monday.getDate() + 6);
 
-            const weekTasks = allTasks.filter(function (task) {
-                if (!task.due_date) return false;
+            const weekStart = formatDate(monday);
+            const weekEnd = formatDate(sunday);
 
-                const due = new Date(task.due_date + 'T00:00:00');
-                return due >= monday && due <= sunday;
+            // filter les tahces de la semaine
+            const weekTasks = allTasks.filter(function (task) {
+                const dueDate = getTaskDueDate(task);
+
+                return dueDate && dueDate >= weekStart && dueDate <= weekEnd;
+            }).sort(function (a, b) {
+                return getTaskDueDate(a).localeCompare(getTaskDueDate(b));
             });
 
             if (weekTasks.length === 0) {
@@ -584,7 +611,7 @@
                 `;
                 return;
             }
-
+            // garder max 4 tahces 
             weekTasks.slice(0, 4).forEach(function (task) {
                 const colorClass = getTaskColor(task.priority);
 
@@ -595,20 +622,22 @@
                     <div class="w-2 rounded-full h-12 ${colorClass}"></div>
                     <div>
                         <p class="text-base font-semibold">${task.title}</p>
-                        <p class="text-slate-400 text-sm mt-1">${formatTaskDate(task.due_date)}</p>
+                        <p class="text-slate-400 text-sm mt-1">${formatTaskDate(getTaskDueDate(task))}</p>
                     </div>
                 `;
 
                 weekTasksList.appendChild(item);
             });
         }
-
+        // couleur de la prierotie
         function getTaskColor(priority) {
             if (priority === 'high') return 'bg-red-500';
             if (priority === 'medium') return 'bg-blue-600';
             if (priority === 'low') return 'bg-green-500';
             return 'bg-slate-300';
         }
+        // d = 0 et j = 4 ==>d = 4-1=3 
+        // date = 18 => 18 - 3 = (lundi de la semaine 15 ) 
 
         function getMonday(date) {
             const d = new Date(date);
@@ -618,7 +647,7 @@
             d.setHours(0, 0, 0, 0);
             return d;
         }
-
+        
         function formatDate(date) {
             const y = date.getFullYear();
             const m = String(date.getMonth() + 1).padStart(2, '0');
@@ -631,9 +660,9 @@
 
             return date.toLocaleDateString('fr-FR', {
                 day: 'numeric',
-                month: 'short'
+                month: 'short' // comme janv
             }) + ' - ' + date.toLocaleTimeString('fr-FR', {
-                hour: '2-digit',
+                hour: '2-digit', 
                 minute: '2-digit'
             });
         }
@@ -649,6 +678,14 @@
                 day: 'numeric',
                 month: 'long'
             });
+        }
+        
+        // Recuperer la date de la tache 
+        function getTaskDueDate(task) {
+            if (!task || !task.due_date) {
+                return '';
+            }
+            return String(task.due_date).substring(0, 10);
         }
 
         function getInitials(name) {
