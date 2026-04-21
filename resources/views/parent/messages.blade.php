@@ -27,6 +27,7 @@
                 <nav class="grid grid-cols-3 gap-2 mt-5 text-xs font-semibold">
                     <a href="{{ route('parent.dashboard') }}" class="rounded-full bg-slate-100 px-3 py-2 text-center text-slate-600 hover:bg-blue-50 hover:text-blue-600">Dashboard</a>
                     <a href="{{ route('parent.tasks') }}" class="rounded-full bg-slate-100 px-3 py-2 text-center text-slate-600 hover:bg-blue-50 hover:text-blue-600">Tâches</a>
+                    <a href="{{ route('parent.calendar') }}" class="rounded-full bg-slate-100 px-3 py-2 text-center text-slate-600 hover:bg-blue-50 hover:text-blue-600">Calendrier</a>
                     <a href="{{ route('parent.messages') }}" class="rounded-full bg-blue-600 px-3 py-2 text-center text-white">Messages</a>
                 </nav>
             </div>

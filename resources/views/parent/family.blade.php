@@ -6,95 +6,110 @@
     <title>Famille - Organisateur Familial</title>
     @vite(['resources/css/app.css'])
 </head>
-<body class="bg-[#f5f7fb] text-slate-900 min-h-screen flex flex-col">
+<body class="bg-[#f7f0e7] text-[#2f281f] min-h-screen flex flex-col">
 
     <!-- TOPBAR -->
-    <header class="bg-white border-b border-slate-200">
-        <div class="max-w-[1200px] mx-auto px-6 py-4 flex items-center justify-between">
+    <header class="bg-[#fffaf3]/90 backdrop-blur border-b border-[#eadfce]">
+        <div class="max-w-[1120px] mx-auto px-5 py-3 flex items-center justify-between">
             <a href="{{ route('parent.dashboard') }}" class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center">
-                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <div class="w-9 h-9 rounded-2xl bg-[#8f6b43] flex items-center justify-center shadow-sm">
+                    <svg class="w-5 h-5 text-[#fffaf3]" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M16 11c1.66 0 3-1.57 3-3.5S17.66 4 16 4s-3 1.57-3 3.5S14.34 11 16 11zm-8 0c1.66 0 3-1.57 3-3.5S9.66 4 8 4 5 5.57 5 7.5 6.34 11 8 11zm0 2c-2.33 0-7 1.17-7 3.5V20h14v-3.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.95 1.97 3.45V20h6v-3.5c0-2.33-4.67-3.5-7-3.5z"/>
                     </svg>
                 </div>
-                <span class="text-xl font-bold">Organisateur Familial</span>
+                <span class="text-lg font-black tracking-tight">Organisateur Familial</span>
             </a>
 
-            <div class="hidden md:flex items-center gap-3 text-sm font-semibold">
-                <a href="{{ route('parent.dashboard') }}" class="rounded-full bg-slate-100 px-4 py-2 text-slate-600 hover:bg-blue-50 hover:text-blue-600">Dashboard</a>
-                <a href="{{ route('parent.tasks') }}" class="rounded-full bg-slate-100 px-4 py-2 text-slate-600 hover:bg-blue-50 hover:text-blue-600">Tâches</a>
-                <a href="{{ route('parent.messages') }}" class="rounded-full bg-slate-100 px-4 py-2 text-slate-600 hover:bg-blue-50 hover:text-blue-600">Messages</a>
-                <a href="{{ route('parent.nanny-profile') }}" class="rounded-full bg-slate-100 px-4 py-2 text-slate-600 hover:bg-blue-50 hover:text-blue-600">Nounou</a>
+            <div class="hidden md:flex items-center gap-2 text-xs font-bold">
+                <a href="{{ route('parent.dashboard') }}" class="rounded-full bg-white px-4 py-2 text-[#6d5c49] hover:bg-[#efe2cf] hover:text-[#8f6b43]">Dashboard</a>
+                <a href="{{ route('parent.tasks') }}" class="rounded-full bg-white px-4 py-2 text-[#6d5c49] hover:bg-[#efe2cf] hover:text-[#8f6b43]">Tâches</a>
+                <a href="{{ route('parent.calendar') }}" class="rounded-full bg-white px-4 py-2 text-[#6d5c49] hover:bg-[#efe2cf] hover:text-[#8f6b43]">Calendrier</a>
+                <a href="{{ route('parent.messages') }}" class="rounded-full bg-white px-4 py-2 text-[#6d5c49] hover:bg-[#efe2cf] hover:text-[#8f6b43]">Messages</a>
+                <a href="{{ route('parent.nanny-profile') }}" class="rounded-full bg-white px-4 py-2 text-[#6d5c49] hover:bg-[#efe2cf] hover:text-[#8f6b43]">Nounou</a>
             </div>
         </div>
     </header>
 
     <!-- CONTENT -->
-    <main class="flex-1 max-w-[1200px] mx-auto w-full px-6 py-8">
+    <main class="flex-1 max-w-[1120px] mx-auto w-full px-5 py-7">
         <div id="messageBox" class="hidden mb-6 rounded-2xl p-4 text-sm"></div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-[300px_minmax(0,1fr)] gap-8">
+        <div class="mb-7 rounded-[32px] bg-gradient-to-br from-[#fffaf3] via-[#f2e3cf] to-[#d9b98c] border border-[#eadfce] p-6 md:p-8 shadow-sm overflow-hidden relative">
+            <div class="absolute -right-16 -top-16 w-48 h-48 rounded-full bg-white/25"></div>
+            <div class="relative max-w-2xl">
+                <p class="text-xs uppercase tracking-[0.22em] text-[#8f6b43] font-black mb-3">Espace famille</p>
+                <h1 class="text-3xl md:text-4xl font-black leading-tight mb-3">Votre cocon familial, simple et bien organisé.</h1>
+                <p class="text-[#6d5c49] text-sm md:text-base leading-7">
+                    Retrouvez les informations importantes de la famille, les enfants, les routines et les besoins à partager avec la nounou.
+                </p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-[280px_minmax(0,1fr)] gap-6">
 
             <!-- LEFT COLUMN -->
             <div class="space-y-6">
 
                 <!-- FAMILY CARD -->
-                <section class="bg-white rounded-[32px] border border-slate-200 shadow-sm p-8 text-center">
-                    <div class="relative w-fit mx-auto mb-6">
+                <section class="bg-[#fffaf3] rounded-[30px] border border-[#eadfce] shadow-sm p-6 text-center">
+                    <input id="parentPhotoInput" type="file" accept="image/*" class="hidden">
+
+                    <div class="relative w-fit mx-auto mb-5">
                         <img
                             id="familyPhoto"
-                            src="{{ asset('images/family-default.jpg') }}"
-                            alt="Famille"
-                            class="w-52 h-52 rounded-full object-cover border-4 border-slate-100"
+                            src="{{ asset('images/image1.jpeg') }}"
+                            alt="Photo du parent"
+                            class="w-36 h-36 rounded-[34px] object-cover border-4 border-white shadow-md"
                         >
 
                         <button id="editPhotoBtn"
-                            class="absolute bottom-2 right-2 w-12 h-12 rounded-full bg-blue-600 text-white shadow-lg hover:bg-blue-700">
+                            class="absolute -bottom-2 -right-2 w-10 h-10 rounded-2xl bg-[#8f6b43] text-white shadow-lg hover:bg-[#795936]">
                             ✎
                         </button>
                     </div>
 
-                    <h1 id="familyName" class="text-4xl font-bold mb-3">Lakhouil Family</h1>
+                    <p class="text-xs uppercase tracking-[0.18em] text-[#b08a5f] font-black mb-2">Photo parent</p>
+                    <h1 id="familyName" class="text-2xl font-black mb-2">Lakhouil Family</h1>
 
-                    <p id="familyLocation" class="text-slate-500 text-xl flex items-center justify-center gap-2">
+                    <p id="familyLocation" class="text-[#7b6b58] text-sm flex items-center justify-center gap-2">
                         <span>📍</span>
                         <span>Safi, Maroc</span>
                     </p>
                 </section>
 
                 <!-- ACCOUNT SETTINGS -->
-                <section class="bg-white rounded-[32px] border border-slate-200 shadow-sm p-6">
-                    <div class="flex items-start gap-3 mb-6">
-                        <span class="text-blue-600 text-2xl">⚙</span>
-                        <h2 class="text-3xl font-bold leading-tight">Paramètres du compte</h2>
+                <section class="bg-[#fffaf3] rounded-[30px] border border-[#eadfce] shadow-sm p-5">
+                    <div class="flex items-start gap-3 mb-5">
+                        <span class="text-[#8f6b43] text-xl">⚙</span>
+                        <h2 class="text-xl font-black leading-tight">Paramètres du compte</h2>
                     </div>
 
-                    <div class="space-y-5">
+                    <div class="space-y-4">
                         <div>
-                            <p class="text-sm uppercase tracking-wide text-slate-400 font-semibold mb-2">Email</p>
-                            <p id="parentEmail" class="text-2xl font-medium break-all">sophie.lefebvre@email.com</p>
+                            <p class="text-xs uppercase tracking-wide text-[#b08a5f] font-black mb-2">Email</p>
+                            <p id="parentEmail" class="text-sm font-semibold break-all text-[#4a3c2d]">sophie.lefebvre@email.com</p>
                         </div>
 
                         <div class="flex items-center justify-between">
-                            <span class="text-xl text-slate-700">Notifications App</span>
+                            <span class="text-sm text-[#5d4c39] font-semibold">Notifications App</span>
                             <button id="notificationsToggle"
-                                class="w-14 h-8 rounded-full bg-blue-500 relative transition">
+                                class="w-12 h-7 rounded-full bg-[#8f6b43] relative transition">
                                 <span id="notificationsDot"
-                                    class="absolute top-1 right-1 w-6 h-6 bg-white rounded-full shadow transition"></span>
+                                    class="absolute top-1 right-1 w-5 h-5 bg-white rounded-full shadow transition"></span>
                             </button>
                         </div>
 
                         <div class="flex items-center justify-between">
-                            <span class="text-xl text-slate-700">Résumé Hebdomadaire</span>
+                            <span class="text-sm text-[#5d4c39] font-semibold">Résumé Hebdomadaire</span>
                             <button id="weeklySummaryToggle"
-                                class="w-14 h-8 rounded-full bg-slate-300 relative transition">
+                                class="w-12 h-7 rounded-full bg-[#d8c7ae] relative transition">
                                 <span id="weeklySummaryDot"
-                                    class="absolute top-1 left-1 w-6 h-6 bg-white rounded-full shadow transition"></span>
+                                    class="absolute top-1 left-1 w-5 h-5 bg-white rounded-full shadow transition"></span>
                             </button>
                         </div>
 
                         <button id="editAccessBtn"
-                            class="w-full mt-3 rounded-full border-2 border-blue-600 text-blue-600 py-3 text-xl font-semibold hover:bg-blue-50">
+                            class="w-full mt-3 rounded-full border border-[#8f6b43] text-[#8f6b43] py-3 text-sm font-bold hover:bg-[#efe2cf]">
                             Modifier mes accès
                         </button>
                     </div>
@@ -105,19 +120,19 @@
             <div class="space-y-6">
 
                 <!-- ABOUT FAMILY -->
-                <section class="bg-white rounded-[32px] border border-slate-200 shadow-sm p-6">
+                <section class="bg-[#fffaf3] rounded-[30px] border border-[#eadfce] shadow-sm p-6">
                     <div class="flex items-start justify-between gap-4 mb-5">
                         <div class="flex items-start gap-3">
-                            <span class="text-blue-600 text-2xl">👨‍👩‍👧‍👦</span>
-                            <h2 class="text-4xl font-bold">À propos de notre famille</h2>
+                            <span class="text-[#8f6b43] text-xl">👨‍👩‍👧‍👦</span>
+                            <h2 class="text-2xl font-black">À propos de notre famille</h2>
                         </div>
 
-                        <button id="editAboutBtn" class="text-blue-600 font-semibold text-xl hover:underline">
+                        <button id="editAboutBtn" class="text-[#8f6b43] font-bold text-sm hover:underline">
                             Modifier
                         </button>
                     </div>
 
-                    <p id="familyAbout" class="text-slate-600 text-[30px] leading-[1.6]">
+                    <p id="familyAbout" class="text-[#6d5c49] text-base leading-7">
                         Une famille dynamique qui adore les sorties en plein air, les randonnées le week-end et les soirées jeux de société le vendredi soir. Nous privilégions une alimentation saine et essayons de réduire notre temps d’écran collectif.
                     </p>
                 </section>
@@ -126,40 +141,40 @@
                 <section>
                     <div class="flex items-center justify-between gap-4 mb-5">
                         <div class="flex items-center gap-3">
-                            <span class="text-blue-600 text-2xl">☺</span>
-                            <h2 class="text-4xl font-bold">Mes Enfants</h2>
+                            <span class="text-[#8f6b43] text-xl">☺</span>
+                            <h2 class="text-2xl font-black">Mes Enfants</h2>
                         </div>
 
                         <button id="addChildBtn"
-                            class="px-6 py-3 rounded-full bg-blue-100 text-blue-600 text-xl font-semibold hover:bg-blue-200">
+                            class="px-5 py-3 rounded-full bg-[#8f6b43] text-white text-sm font-bold hover:bg-[#795936] shadow-sm">
                             + Ajouter un enfant
                         </button>
                     </div>
 
-                    <div id="childrenList" class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        <div class="bg-white rounded-[28px] border border-slate-200 shadow-sm p-6 text-slate-400">
+                    <div id="childrenList" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-[#fffaf3] rounded-[26px] border border-[#eadfce] shadow-sm p-5 text-[#9a8469]">
                             Chargement...
                         </div>
                     </div>
                 </section>
 
                 <!-- NEEDS + ROUTINES -->
-                <section class="bg-white rounded-[32px] border border-slate-200 shadow-sm p-6">
-                    <div class="flex items-center gap-3 mb-6">
-                        <span class="text-blue-600 text-2xl">📋</span>
-                        <h2 class="text-4xl font-bold">Besoins spécifiques & Routines</h2>
+                <section class="bg-[#fffaf3] rounded-[30px] border border-[#eadfce] shadow-sm p-6">
+                    <div class="flex items-center gap-3 mb-5">
+                        <span class="text-[#8f6b43] text-xl">📋</span>
+                        <h2 class="text-2xl font-black">Besoins spécifiques & Routines</h2>
                     </div>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <!-- Allergies -->
                         <div>
                             <div class="flex items-center gap-2 mb-4">
-                                <span class="text-red-500 text-xl">⦿</span>
-                                <h3 class="text-2xl font-bold text-red-500">Allergies</h3>
+                                <span class="text-[#c46b5f] text-lg">⦿</span>
+                                <h3 class="text-lg font-black text-[#c46b5f]">Allergies</h3>
                             </div>
 
                             <div id="allergiesList" class="space-y-3">
-                                <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4 text-slate-400">
+                                <div class="rounded-2xl bg-[#f8efe4] border border-[#eadfce] p-4 text-[#9a8469] text-sm">
                                     Aucune donnée
                                 </div>
                             </div>
@@ -168,12 +183,12 @@
                         <!-- Routines -->
                         <div>
                             <div class="flex items-center gap-2 mb-4">
-                                <span class="text-blue-600 text-xl">◔</span>
-                                <h3 class="text-2xl font-bold text-blue-600">Routines</h3>
+                                <span class="text-[#8f6b43] text-lg">◔</span>
+                                <h3 class="text-lg font-black text-[#8f6b43]">Routines</h3>
                             </div>
 
                             <div id="routinesList" class="space-y-3">
-                                <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4 text-slate-400">
+                                <div class="rounded-2xl bg-[#f8efe4] border border-[#eadfce] p-4 text-[#9a8469] text-sm">
                                     Aucune donnée
                                 </div>
                             </div>
@@ -184,26 +199,26 @@
         </div>
     </main>
 
-    <footer class="py-8 text-center text-slate-400 text-lg">
+    <footer class="py-6 text-center text-[#9a8469] text-sm">
         © 2024 Organisateur Familial. Conçu avec soin pour votre famille.
     </footer>
 
     <!-- MODAL ABOUT -->
     <div id="aboutModal" class="hidden fixed inset-0 bg-black/40 z-50 items-center justify-center px-4">
-        <div class="bg-white rounded-[28px] w-full max-w-2xl p-6">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-3xl font-bold">Modifier la description</h3>
-                <button id="closeAboutModalBtn" class="text-3xl text-slate-400 hover:text-slate-700">×</button>
+        <div class="bg-[#fffaf3] rounded-[28px] w-full max-w-2xl p-6 border border-[#eadfce]">
+            <div class="flex items-center justify-between mb-5">
+                <h3 class="text-2xl font-black">Modifier la description</h3>
+                <button id="closeAboutModalBtn" class="text-3xl text-[#9a8469] hover:text-[#4a3c2d]">×</button>
             </div>
 
             <textarea id="aboutTextarea" rows="6"
-                class="w-full rounded-2xl border border-slate-200 bg-[#f7f9fc] px-4 py-3 outline-none focus:border-blue-500"></textarea>
+                class="w-full rounded-2xl border border-[#eadfce] bg-white px-4 py-3 outline-none focus:border-[#8f6b43]"></textarea>
 
             <div class="flex gap-3 mt-5">
-                <button id="cancelAboutBtn" class="flex-1 border border-slate-300 rounded-2xl py-3 font-semibold">
+                <button id="cancelAboutBtn" class="flex-1 border border-[#d8c7ae] rounded-2xl py-3 font-bold">
                     Annuler
                 </button>
-                <button id="saveAboutBtn" class="flex-1 bg-blue-600 text-white rounded-2xl py-3 font-semibold">
+                <button id="saveAboutBtn" class="flex-1 bg-[#8f6b43] text-white rounded-2xl py-3 font-bold">
                     Enregistrer
                 </button>
             </div>
@@ -212,43 +227,43 @@
 
     <!-- MODAL CHILD -->
     <div id="childModal" class="hidden fixed inset-0 bg-black/40 z-50 items-center justify-center px-4">
-        <div class="bg-white rounded-[28px] w-full max-w-xl p-6">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-3xl font-bold">Ajouter un enfant</h3>
-                <button id="closeChildModalBtn" class="text-3xl text-slate-400 hover:text-slate-700">×</button>
+        <div class="bg-[#fffaf3] rounded-[28px] w-full max-w-xl p-6 border border-[#eadfce]">
+            <div class="flex items-center justify-between mb-5">
+                <h3 class="text-2xl font-black">Ajouter un enfant</h3>
+                <button id="closeChildModalBtn" class="text-3xl text-[#9a8469] hover:text-[#4a3c2d]">×</button>
             </div>
 
             <div class="space-y-4">
                 <div>
-                    <label class="block text-sm text-slate-500 mb-2">Nom</label>
+                    <label class="block text-sm text-[#7b6b58] mb-2 font-semibold">Nom</label>
                     <input id="childNameInput" type="text"
-                        class="w-full rounded-2xl border border-slate-200 bg-[#f7f9fc] px-4 py-3 outline-none focus:border-blue-500">
+                        class="w-full rounded-2xl border border-[#eadfce] bg-white px-4 py-3 outline-none focus:border-[#8f6b43]">
                 </div>
 
                 <div>
-                    <label class="block text-sm text-slate-500 mb-2">Âge</label>
+                    <label class="block text-sm text-[#7b6b58] mb-2 font-semibold">Âge</label>
                     <input id="childAgeInput" type="number"
-                        class="w-full rounded-2xl border border-slate-200 bg-[#f7f9fc] px-4 py-3 outline-none focus:border-blue-500">
+                        class="w-full rounded-2xl border border-[#eadfce] bg-white px-4 py-3 outline-none focus:border-[#8f6b43]">
                 </div>
 
                 <div>
-                    <label class="block text-sm text-slate-500 mb-2">Allergies / besoins</label>
+                    <label class="block text-sm text-[#7b6b58] mb-2 font-semibold">Allergies / besoins</label>
                     <input id="childAllergiesInput" type="text" placeholder="Ex: Arachides"
-                        class="w-full rounded-2xl border border-slate-200 bg-[#f7f9fc] px-4 py-3 outline-none focus:border-blue-500">
+                        class="w-full rounded-2xl border border-[#eadfce] bg-white px-4 py-3 outline-none focus:border-[#8f6b43]">
                 </div>
 
                 <div>
-                    <label class="block text-sm text-slate-500 mb-2">Routine</label>
+                    <label class="block text-sm text-[#7b6b58] mb-2 font-semibold">Routine</label>
                     <input id="childRoutineInput" type="text" placeholder="Ex: Lecture du soir à 19h30"
-                        class="w-full rounded-2xl border border-slate-200 bg-[#f7f9fc] px-4 py-3 outline-none focus:border-blue-500">
+                        class="w-full rounded-2xl border border-[#eadfce] bg-white px-4 py-3 outline-none focus:border-[#8f6b43]">
                 </div>
             </div>
 
             <div class="flex gap-3 mt-5">
-                <button id="cancelChildBtn" class="flex-1 border border-slate-300 rounded-2xl py-3 font-semibold">
+                <button id="cancelChildBtn" class="flex-1 border border-[#d8c7ae] rounded-2xl py-3 font-bold">
                     Annuler
                 </button>
-                <button id="saveChildBtn" class="flex-1 bg-blue-600 text-white rounded-2xl py-3 font-semibold">
+                <button id="saveChildBtn" class="flex-1 bg-[#8f6b43] text-white rounded-2xl py-3 font-bold">
                     Ajouter
                 </button>
             </div>
@@ -271,6 +286,7 @@
         const weeklySummaryDot = document.getElementById('weeklySummaryDot');
 
         const editPhotoBtn = document.getElementById('editPhotoBtn');
+        const parentPhotoInput = document.getElementById('parentPhotoInput');
         const editAccessBtn = document.getElementById('editAccessBtn');
         const editAboutBtn = document.getElementById('editAboutBtn');
         const addChildBtn = document.getElementById('addChildBtn');
@@ -291,6 +307,7 @@
         const childRoutineInput = document.getElementById('childRoutineInput');
 
         const messageBox = document.getElementById('messageBox');
+        const defaultParentPhoto = '{{ asset('images/image1.jpeg') }}';
 
         let currentUser = null;
         let currentFamily = null;
@@ -311,7 +328,17 @@
         });
 
         editPhotoBtn.addEventListener('click', function () {
-            showMessage('Modification photo sera branchée ensuite.', 'success');
+            parentPhotoInput.click();
+        });
+
+        parentPhotoInput.addEventListener('change', function () {
+            previewParentPhoto();
+        });
+
+        familyPhoto.addEventListener('error', function () {
+            if (familyPhoto.src !== defaultParentPhoto) {
+                familyPhoto.src = defaultParentPhoto;
+            }
         });
 
         editAccessBtn.addEventListener('click', function () {
@@ -395,6 +422,8 @@
             if (currentUser) {
                 parentEmail.textContent = currentUser.email || '';
             }
+
+            loadSavedParentPhoto();
         }
 
         async function loadFamily() {
@@ -413,6 +442,12 @@
                         currentFamily = families[0];
                         renderFamily();
                         loadChildren();
+                    } else {
+                        childrenList.innerHTML = `
+                            <div class="bg-[#fffaf3] rounded-[26px] border border-[#eadfce] shadow-sm p-5 text-[#9a8469] text-sm">
+                                Aucune famille trouvée pour ce compte.
+                            </div>
+                        `;
                     }
                 }
             } catch (error) {
@@ -454,9 +489,7 @@
                 familyAbout.textContent = currentFamily.description;
             }
 
-            if (currentFamily.photo) {
-                familyPhoto.src = '/storage/' + currentFamily.photo;
-            }
+            loadSavedParentPhoto();
         }
 
         function renderChildren() {
@@ -464,7 +497,7 @@
 
             if (allChildren.length === 0) {
                 childrenList.innerHTML = `
-                    <div class="bg-white rounded-[28px] border border-slate-200 shadow-sm p-6 text-slate-400">
+                    <div class="bg-[#fffaf3] rounded-[26px] border border-[#eadfce] shadow-sm p-5 text-[#9a8469] text-sm">
                         Aucun enfant enregistré.
                     </div>
                 `;
@@ -473,21 +506,21 @@
 
             allChildren.forEach(function (child) {
                 const card = document.createElement('div');
-                card.className = 'bg-white rounded-[28px] border border-slate-200 shadow-sm p-6 flex items-center justify-between';
+                card.className = 'bg-[#fffaf3] rounded-[26px] border border-[#eadfce] shadow-sm p-5 flex items-center justify-between hover:-translate-y-0.5 hover:shadow-md transition';
 
                 card.innerHTML = `
-                    <div class="flex items-center gap-5">
-                        <div class="w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-3xl">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-[#efe2cf] text-[#8f6b43] flex items-center justify-center text-xl">
                             ☺
                         </div>
 
                         <div>
-                            <p class="text-3xl font-bold">${escapeHtml(child.name || '')}</p>
-                            <p class="text-slate-500 text-2xl mt-1">${child.age ? child.age + ' ans' : '-'}</p>
+                            <p class="text-xl font-black">${escapeHtml(child.name || '')}</p>
+                            <p class="text-[#7b6b58] text-sm mt-1">${child.age ? child.age + ' ans' : '-'}</p>
                         </div>
                     </div>
 
-                    <button class="text-slate-400 text-3xl hover:text-blue-600">›</button>
+                    <button class="text-[#b08a5f] text-2xl hover:text-[#8f6b43]">›</button>
                 `;
 
                 childrenList.appendChild(card);
@@ -506,10 +539,10 @@
                     hasAllergies = true;
 
                     const allergy = document.createElement('div');
-                    allergy.className = 'rounded-2xl bg-red-50 border border-red-100 p-4';
+                    allergy.className = 'rounded-2xl bg-[#fff1ed] border border-[#f1c7bd] p-4';
 
                     allergy.innerHTML = `
-                        <p class="text-red-500 text-xl font-medium">
+                        <p class="text-[#b55348] text-sm font-bold">
                             ${escapeHtml(child.name)}: ${escapeHtml(child.allergies)}
                         </p>
                     `;
@@ -521,7 +554,7 @@
                     hasRoutines = true;
 
                     const routine = document.createElement('div');
-                    routine.className = 'rounded-2xl bg-[#f2f6fc] border border-slate-200 p-4 text-slate-700 text-xl';
+                    routine.className = 'rounded-2xl bg-[#f8efe4] border border-[#eadfce] p-4 text-[#5d4c39] text-sm';
 
                     routine.innerHTML = escapeHtml(child.routine);
 
@@ -531,7 +564,7 @@
 
             if (!hasAllergies) {
                 allergiesList.innerHTML = `
-                    <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4 text-slate-400">
+                    <div class="rounded-2xl bg-[#f8efe4] border border-[#eadfce] p-4 text-[#9a8469] text-sm">
                         Aucune allergie renseignée.
                     </div>
                 `;
@@ -539,11 +572,55 @@
 
             if (!hasRoutines) {
                 routinesList.innerHTML = `
-                    <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4 text-slate-400">
+                    <div class="rounded-2xl bg-[#f8efe4] border border-[#eadfce] p-4 text-[#9a8469] text-sm">
                         Aucune routine renseignée.
                     </div>
                 `;
             }
+        }
+
+        function loadSavedParentPhoto() {
+            const savedPhoto = localStorage.getItem(getParentPhotoStorageKey());
+            familyPhoto.src = savedPhoto || defaultParentPhoto;
+        }
+
+        function previewParentPhoto() {
+            const file = parentPhotoInput.files[0];
+
+            if (!file) {
+                return;
+            }
+
+            if (!file.type.startsWith('image/')) {
+                showMessage('Veuillez choisir une image valide.', 'error');
+                parentPhotoInput.value = '';
+                return;
+            }
+
+            if (file.size > 2 * 1024 * 1024) {
+                showMessage('Veuillez choisir une image de moins de 2 Mo pour cet aperçu.', 'error');
+                parentPhotoInput.value = '';
+                return;
+            }
+
+            const reader = new FileReader();
+
+            reader.onload = function (event) {
+                const imageData = event.target.result;
+
+                familyPhoto.src = imageData;
+                localStorage.setItem(getParentPhotoStorageKey(), imageData);
+                showMessage('Photo ajoutée pour l’aperçu. L’enregistrement serveur sera branché ensuite.', 'success');
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+        function getParentPhotoStorageKey() {
+            const userId = currentUser && currentUser.id ? currentUser.id : 'guest';
+            const familyId = currentFamily && currentFamily.id ? currentFamily.id : 'default';
+
+            return 'parent_family_photo_' + userId + '_' + familyId;
         }
 
         async function saveFamilyAbout() {
@@ -623,16 +700,16 @@
         }
 
         function toggleSwitch(wrapper, dot) {
-            const isActive = wrapper.classList.contains('bg-blue-500');
+            const isActive = wrapper.classList.contains('bg-[#8f6b43]');
 
             if (isActive) {
-                wrapper.classList.remove('bg-blue-500');
-                wrapper.classList.add('bg-slate-300');
+                wrapper.classList.remove('bg-[#8f6b43]');
+                wrapper.classList.add('bg-[#d8c7ae]');
                 dot.classList.remove('right-1');
                 dot.classList.add('left-1');
             } else {
-                wrapper.classList.remove('bg-slate-300');
-                wrapper.classList.add('bg-blue-500');
+                wrapper.classList.remove('bg-[#d8c7ae]');
+                wrapper.classList.add('bg-[#8f6b43]');
                 dot.classList.remove('left-1');
                 dot.classList.add('right-1');
             }
@@ -688,9 +765,9 @@
             messageBox.classList.remove('hidden');
 
             if (type === 'success') {
-                messageBox.className = 'mb-6 rounded-2xl p-4 text-sm bg-green-100 text-green-700';
+                messageBox.className = 'mb-6 rounded-2xl p-4 text-sm bg-[#e6f3df] text-[#456b35] border border-[#cfe5c2]';
             } else {
-                messageBox.className = 'mb-6 rounded-2xl p-4 text-sm bg-red-100 text-red-700';
+                messageBox.className = 'mb-6 rounded-2xl p-4 text-sm bg-[#fff1ed] text-[#b55348] border border-[#f1c7bd]';
             }
 
             messageBox.innerHTML = message;
