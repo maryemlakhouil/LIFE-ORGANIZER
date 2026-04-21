@@ -61,3 +61,11 @@ Route::get('/parent/family', function () {
 Route::get('/parent/nanny-profile', function () {
     return view('parent.nanny-profile');
 })->name('parent.nanny-profile');
+
+Route::get('/parent/calendar', function () {
+    return view('parent.calendar');
+})->name('parent.calendar');
+
+Route::get('/parent/nannies', function () {
+    return view('parent.nannies');
+})->name('parent.nannies');

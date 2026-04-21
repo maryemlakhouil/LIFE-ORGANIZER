@@ -5,72 +5,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Parent - Family Organizer</title>
     @vite(['resources/css/app.css'])
+    <style>
+        .parent-dashboard-theme .bg-white { background-color: #fffaf3 !important; }
+        .parent-dashboard-theme .bg-blue-600 { background-color: #8f6b43 !important; }
+        .parent-dashboard-theme .bg-blue-700,
+        .parent-dashboard-theme .hover\:bg-blue-700:hover { background-color: #795936 !important; }
+        .parent-dashboard-theme .bg-blue-100,
+        .parent-dashboard-theme .bg-blue-50,
+        .parent-dashboard-theme .hover\:bg-blue-50:hover { background-color: #efe2cf !important; }
+        .parent-dashboard-theme .bg-blue-300\/70 { background-color: rgba(216, 199, 174, 0.78) !important; }
+        .parent-dashboard-theme .bg-slate-100,
+        .parent-dashboard-theme .bg-slate-200 { background-color: #f3e8d9 !important; }
+        .parent-dashboard-theme .text-blue-600,
+        .parent-dashboard-theme .hover\:text-blue-600:hover { color: #8f6b43 !important; }
+        .parent-dashboard-theme .text-blue-300 { color: #b08a5f !important; }
+        .parent-dashboard-theme .text-slate-900 { color: #2f281f !important; }
+        .parent-dashboard-theme .text-slate-700 { color: #5d4c39 !important; }
+        .parent-dashboard-theme .text-slate-600 { color: #6d5c49 !important; }
+        .parent-dashboard-theme .text-slate-500,
+        .parent-dashboard-theme .text-slate-400 { color: #9a8469 !important; }
+        .parent-dashboard-theme .border-slate-100,
+        .parent-dashboard-theme .border-slate-200 { border-color: #eadfce !important; }
+        .parent-dashboard-theme .shadow-blue-600\/20 { box-shadow: 0 12px 24px rgba(143, 107, 67, 0.18) !important; }
+    </style>
 </head>
 
-<body class="bg-[#f3f7fc] text-slate-900 min-h-screen">
+<body class="parent-dashboard-theme bg-[#f7f0e7] text-[#2f281f] min-h-screen">
 
     <div class="flex min-h-screen">
 
         <!-- SIDEBAR -->
-        <aside class="w-[270px] bg-white border-r border-slate-200 hidden lg:flex flex-col">
+        <aside class="w-[270px] bg-[#fffaf3] border-r border-[#eadfce] hidden lg:flex flex-col">
             <div class="px-7 pt-7 pb-7">
                 <div class="flex items-center gap-4">
-                    <div class="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center">
-                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <div class="w-9 h-9 rounded-2xl bg-[#8f6b43] flex items-center justify-center shadow-sm">
+                        <svg class="w-5 h-5 text-[#fffaf3]" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M16 11c1.66 0 3-1.57 3-3.5S17.66 4 16 4s-3 1.57-3 3.5S14.34 11 16 11zm-8 0c1.66 0 3-1.57 3-3.5S9.66 4 8 4 5 5.57 5 7.5 6.34 11 8 11zm0 2c-2.33 0-7 1.17-7 3.5V20h14v-3.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.95 1.97 3.45V20h6v-3.5c0-2.33-4.67-3.5-7-3.5z"/>
                         </svg>
                     </div>
 
                     <div>
-                        <h1 class="text-lg font-bold leading-tight">Organisateur<br>Familial</h1>
+                        <h1 class="text-lg font-black leading-tight tracking-tight">Family Organiser</h1>
                     </div>
                 </div>
             </div>
 
             <div class="px-5 pt-12">
                 <div class="flex items-center gap-4 mb-10">
-                    <div id="familyAvatar" class="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center text-base font-bold text-pink-600">
+                    <div id="familyAvatar" class="w-12 h-12 rounded-2xl bg-[#efe2cf] flex items-center justify-center text-base font-black text-[#8f6b43]">
                         F
                     </div>
 
                     <div>
-                        <p id="familyName" class="text-xl font-semibold leading-none mb-1">The Andersons</p>
-                        <p id="familyPlan" class="text-slate-500 text-base">Premium plan</p>
+                        <p id="familyName" class="text-xl font-black leading-none mb-1">The Andersons</p>
+                        <p id="familyPlan" class="text-[#9a8469] text-sm font-semibold">Premium plan</p>
                     </div>
                 </div>
 
                 <nav class="space-y-5">
-                    <a href="{{ route('parent.dashboard') }}" class="flex items-center gap-4 bg-blue-100 text-blue-600 px-6 py-3.5 rounded-[26px] text-lg font-semibold shadow-sm">
+                    <a href="{{ route('parent.dashboard') }}" class="flex items-center gap-4 bg-[#efe2cf] text-[#8f6b43] px-6 py-3.5 rounded-[26px] text-lg font-black shadow-sm">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/>
                         </svg>
-                        <span>Tableau de bord</span>
+                        <span>Dashboard</span>
                     </a>
 
-                    <a href="{{ route('parent.tasks') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-[24px]">
-                        <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <a href="{{ route('parent.tasks') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <svg class="w-5 h-5 text-[#b08a5f]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2Z"/>
                         </svg>
                         <span>Planning</span>
                     </a>
 
-                    <a href="{{ route('parent.messages') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-[24px]">
-                        <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <a href="{{ route('parent.calendar') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <svg class="w-5 h-5 text-[#b08a5f]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2Z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 14h3M8 18h8M14 14h2"/>
+                        </svg>
+                        <span>Calendrier</span>
+                    </a>
+
+                    <a href="{{ route('parent.messages') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <svg class="w-5 h-5 text-[#b08a5f]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
                         </svg>
                         <span>Messagerie</span>
                     </a>
 
-                    <a href="{{ route('parent.family') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-[24px]">
-                        <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <a href="{{ route('parent.family') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <svg class="w-5 h-5 text-[#b08a5f]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 11l9-8 9 8"/>
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 10v10h14V10"/>
                         </svg>
                         <span>Profil famille</span>
                     </a>
 
-                    <a href="{{ route('parent.nanny-profile') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-[24px]">
-                        <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <a href="{{ route('parent.nanny-profile') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <svg class="w-5 h-5 text-[#b08a5f]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <circle cx="12" cy="7" r="4"/>
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 21a7 7 0 0 1 14 0"/>
                         </svg>
@@ -81,7 +112,7 @@
 
             <div class="mt-auto px-7 pb-10">
                 <div class="space-y-4 text-sm">
-                    <button class="flex items-center gap-3 text-slate-700 hover:text-blue-600">
+                    <button class="flex items-center gap-3 text-[#5d4c39] hover:text-[#8f6b43]">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <circle cx="12" cy="12" r="3"/>
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06A2 2 0 1 1 7.03 3.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3a2 2 0 1 1 4 0v.09A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.22.35.57.58 1 .6h.6a2 2 0 1 1 0 4h-.09A1.7 1.7 0 0 0 19.4 15Z"/>
@@ -98,24 +129,25 @@
                     </button>
                 </div>
             </div>
+
         </aside>
 
         <!-- MAIN -->
         <div class="flex-1 min-w-0">
-            <header class="bg-white px-6 md:px-8 py-5 flex items-center justify-between border-b border-slate-100">
+            <header class="bg-[#fffaf3]/90 backdrop-blur px-6 md:px-8 py-5 flex items-center justify-between border-b border-[#eadfce]">
                 <div>
-                    <h2 class="text-2xl font-bold mb-1">Tableau de bord Parent</h2>
-                    <p id="todayDate" class="text-slate-400 text-lg">Mardi 24 Octobre</p>
+                    <h2 class="text-2xl font-black mb-1">Dashboard Parent</h2>
+                    <p id="todayDate" class="text-[#9a8469] text-base font-semibold">Mardi 24 Octobre</p>
                 </div>
 
                 <div class="flex items-center gap-4 md:gap-5">
-                    <button id="notificationsBtn" class="text-slate-700 hover:text-blue-600">
+                    <button id="notificationsBtn" class="text-[#5d4c39] hover:text-[#8f6b43]">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.4-1.4A2 2 0 0 1 18 14.2V11a6 6 0 1 0-12 0v3.2a2 2 0 0 1-.6 1.4L4 17h5"/>
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10 21h4"/>
                         </svg>
                     </button>
-                    <button id="addTaskBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-full text-base font-semibold shadow-lg shadow-blue-600/20">
+                    <button id="addTaskBtn" class="bg-[#8f6b43] hover:bg-[#795936] text-white px-6 py-2.5 rounded-full text-base font-bold shadow-lg shadow-[#8f6b43]/20">
                         + Ajouter une tâche
                     </button>
                 </div>
@@ -128,49 +160,49 @@
                 <div class="grid grid-cols-1 xl:grid-cols-4 gap-5 mb-8">
 
                     <!-- PROGRESS -->
-                    <section class="xl:col-span-3 bg-white rounded-[30px] shadow-[0_8px_24px_rgba(15,23,42,0.06)] border border-slate-100 p-6">
+                    <section class="xl:col-span-3 bg-[#fffaf3] rounded-[30px] shadow-[0_8px_24px_rgba(99,73,43,0.08)] border border-[#eadfce] p-6">
                         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
-                            <h3 class="text-lg font-bold">Progression quotidienne</h3>
-                            <div class="bg-blue-50 text-blue-600 px-6 py-2 rounded-full text-base font-medium">
+                            <h3 class="text-lg font-black">Progression quotidienne</h3>
+                            <div class="bg-[#efe2cf] text-[#8f6b43] px-6 py-2 rounded-full text-base font-bold">
                                 <span id="progressPercent">0 % terminé</span>
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between mb-3">
                             <p id="progressDayLabel" class="text-base">Aujourd'hui</p>
-                            <p id="progressRatio" class="text-base font-semibold text-blue-600">0/0</p>
+                            <p id="progressRatio" class="text-base font-bold text-[#8f6b43]">0/0</p>
                         </div>
 
-                        <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden mb-5">
-                            <div id="progressBar" class="h-full bg-blue-600 rounded-full" style="width: 0%;"></div>
+                        <div class="w-full h-2.5 bg-[#f3e8d9] rounded-full overflow-hidden mb-5">
+                            <div id="progressBar" class="h-full bg-[#8f6b43] rounded-full" style="width: 0%;"></div>
                         </div>
 
-                        <p id="progressText" class="text-sm text-slate-600 mb-7">
+                        <p id="progressText" class="text-sm text-[#6d5c49] mb-7">
                             Aucune tâche planifiée pour aujourd’hui.
                         </p>
 
                         <div id="todayTasksPreview" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="bg-slate-100 rounded-2xl px-5 py-3.5 text-slate-500 text-sm">
+                            <div class="bg-[#f3e8d9] rounded-2xl px-5 py-3.5 text-[#9a8469] text-sm">
                                 Pas encore de tâches aujourd’hui
                             </div>
                         </div>
                     </section>
 
                     <!-- QUICK LINKS -->
-                    <section class="bg-blue-600 rounded-[30px] text-white shadow-[0_8px_24px_rgba(37,99,235,0.18)] p-6 flex flex-col justify-between">
+                    <section class="bg-gradient-to-br from-[#8f6b43] to-[#b98e5d] rounded-[30px] text-white shadow-[0_8px_24px_rgba(143,107,67,0.20)] p-6 flex flex-col justify-between">
                         <div>
                             <h3 class="text-lg font-bold mb-16">Liens rapides</h3>
                         </div>
 
                         <div class="space-y-3">
-                            <button id="createTaskQuickBtn" class="w-full bg-white text-blue-600 rounded-full py-2.5 text-base font-semibold flex items-center justify-center gap-2">
+                            <button id="createTaskQuickBtn" class="w-full bg-[#fffaf3] text-[#8f6b43] rounded-full py-2.5 text-base font-bold flex items-center justify-center gap-2">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14"/>
                                 </svg>
                                 Créer une tâche
                             </button>
 
-                            <button id="messageNannyBtn" class="w-full bg-blue-300/70 text-white rounded-full py-2.5 text-base font-semibold flex items-center justify-center gap-2">
+                            <button id="messageNannyBtn" class="w-full bg-white/25 text-white rounded-full py-2.5 text-base font-bold flex items-center justify-center gap-2">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16v12H4z"/>
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m4 7 8 6 8-6"/>
@@ -178,7 +210,7 @@
                                 Message nounou
                             </button>
 
-                            <button id="nannyProfileQuickBtn" class="w-full bg-white/15 text-white rounded-full py-2.5 text-base font-semibold flex items-center justify-center gap-2 hover:bg-white/20">
+                            <button id="nannyProfileQuickBtn" class="w-full bg-white/15 text-white rounded-full py-2.5 text-base font-bold flex items-center justify-center gap-2 hover:bg-white/20">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                     <circle cx="12" cy="7" r="4"/>
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 21a7 7 0 0 1 14 0"/>
@@ -193,28 +225,28 @@
                 <div class="grid grid-cols-1 xl:grid-cols-2 gap-5">
 
                     <!-- RECENT ACTIVITY -->
-                    <section class="bg-white rounded-[28px] shadow-[0_8px_24px_rgba(15,23,42,0.06)] border border-slate-100 overflow-hidden">
+                    <section class="bg-[#fffaf3] rounded-[28px] shadow-[0_8px_24px_rgba(99,73,43,0.08)] border border-[#eadfce] overflow-hidden">
                         <div class="px-6 pt-6 pb-5 flex items-center justify-between">
-                            <h3 class="text-xl font-bold">Activité récente</h3>
-                            <a href="#" class="text-blue-600 font-semibold text-sm">Voir tout</a>
+                            <h3 class="text-xl font-black">Activité récente</h3>
+                            <a href="#" class="text-[#8f6b43] font-bold text-sm">Voir tout</a>
                         </div>
 
-                        <div id="recentActivityList" class="divide-y divide-slate-200">
+                        <div id="recentActivityList" class="divide-y divide-[#eadfce]">
                             <div class="px-7 py-5">
-                                <p class="text-base font-semibold">Chargement...</p>
-                                <p class="text-slate-400 text-sm mt-1">Veuillez patienter</p>
+                                <p class="text-base font-bold">Chargement...</p>
+                                <p class="text-[#9a8469] text-sm mt-1">Veuillez patienter</p>
                             </div>
                         </div>
                     </section>
 
                     <!-- WEEK -->
-                    <section class="bg-white rounded-[28px] shadow-[0_8px_24px_rgba(15,23,42,0.06)] border border-slate-100 p-6">
-                        <h3 class="text-xl font-bold mb-7">La semaine à venir</h3>
+                    <section class="bg-[#fffaf3] rounded-[28px] shadow-[0_8px_24px_rgba(99,73,43,0.08)] border border-[#eadfce] p-6">
+                        <h3 class="text-xl font-black mb-7">La semaine à venir</h3>
 
                         <div id="weekDaysRow" class="grid grid-cols-7 gap-2 text-center mb-7"></div>
 
                         <div id="weekTasksList" class="space-y-4">
-                            <div class="text-slate-400 text-sm">Aucune tâche à venir.</div>
+                            <div class="text-[#9a8469] text-sm">Aucune tâche à venir.</div>
                         </div>
                     </section>
                 </div>
