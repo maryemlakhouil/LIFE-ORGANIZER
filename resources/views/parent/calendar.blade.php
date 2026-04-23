@@ -4,8 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendrier Parent - Family Organizer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,0,0" rel="stylesheet">
     @vite(['resources/css/app.css'])
     <style>
+        .material-symbols-rounded {
+            font-family: 'Material Symbols Rounded';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 20px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
         .parent-calendar-theme .bg-white { background-color: #fffaf3 !important; }
         .parent-calendar-theme .bg-blue-600,
         .parent-calendar-theme .bg-blue-500 { background-color: #8f6b43 !important; }
@@ -35,46 +51,105 @@
 </head>
 <body class="parent-calendar-theme bg-[#f7f0e7] text-[#2f281f] min-h-screen">
 
-    <!-- TOPBAR -->
-    <header class="bg-[#fffaf3]/90 backdrop-blur border-b border-[#eadfce]">
-        <div class="max-w-[1180px] mx-auto px-5 py-3 flex items-center justify-between gap-6">
-            <div class="flex items-center gap-8">
-                <a href="{{ route('parent.dashboard') }}" class="flex items-center gap-3">
+    <div class="flex min-h-screen">
+        <!-- SIDEBAR -->
+        <aside class="w-[270px] bg-[#fffaf3] border-r border-[#eadfce] hidden lg:flex flex-col">
+            <div class="px-7 pt-7 pb-7">
+                <div class="flex items-center gap-4">
                     <div class="w-9 h-9 rounded-2xl bg-[#8f6b43] flex items-center justify-center shadow-sm">
-                        <svg class="w-5 h-5 text-[#fffaf3]" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M16 11c1.66 0 3-1.57 3-3.5S17.66 4 16 4s-3 1.57-3 3.5S14.34 11 16 11zm-8 0c1.66 0 3-1.57 3-3.5S9.66 4 8 4 5 5.57 5 7.5 6.34 11 8 11zm0 2c-2.33 0-7 1.17-7 3.5V20h14v-3.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.95 1.97 3.45V20h6v-3.5c0-2.33-4.67-3.5-7-3.5z"/>
-                        </svg>
+                        <span class="material-symbols-rounded text-[#fffaf3]">groups</span>
                     </div>
-                    <span class="text-lg font-black tracking-tight">Family Organizer</span>
-                </a>
 
-                <nav class="hidden lg:flex items-center gap-2 text-xs font-bold">
-                    <a href="{{ route('parent.dashboard') }}" class="rounded-full bg-white px-4 py-2 text-[#6d5c49] hover:bg-[#efe2cf] hover:text-[#8f6b43]">Dashboard</a>
-                    <a href="{{ route('parent.tasks') }}" class="rounded-full bg-white px-4 py-2 text-[#6d5c49] hover:bg-[#efe2cf] hover:text-[#8f6b43]">Tâches</a>
-                    <a href="{{ route('parent.calendar') }}" class="rounded-full bg-[#8f6b43] px-4 py-2 text-white">Calendrier</a>
-                    <a href="{{ route('parent.messages') }}" class="rounded-full bg-white px-4 py-2 text-[#6d5c49] hover:bg-[#efe2cf] hover:text-[#8f6b43]">Messages</a>
-                    <a href="{{ route('parent.family') }}" class="rounded-full bg-white px-4 py-2 text-[#6d5c49] hover:bg-[#efe2cf] hover:text-[#8f6b43]">Famille</a>
-                    <a href="{{ route('parent.nanny-profile') }}" class="rounded-full bg-white px-4 py-2 text-[#6d5c49] hover:bg-[#efe2cf] hover:text-[#8f6b43]">Nounou</a>
+                    <div>
+                        <h1 class="text-lg font-black leading-tight tracking-tight">Family Organiser</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-5 pt-12">
+                <div class="flex items-center gap-4 mb-10">
+                    <div id="profileAvatarTop" class="w-12 h-12 rounded-2xl bg-[#efe2cf] flex items-center justify-center text-base font-black text-[#8f6b43]">
+                        P
+                    </div>
+
+                    <div>
+                        <p id="sidebarUserName" class="text-xl font-black leading-none mb-1">Ma famille</p>
+                        <p class="text-[#9a8469] text-sm font-semibold">Premium plan</p>
+                    </div>
+                </div>
+
+                <nav class="space-y-5">
+                    <a href="{{ route('parent.dashboard') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">dashboard</span>
+                        <span>Dashboard</span>
+                    </a>
+
+                    <a href="{{ route('parent.tasks') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">event_note</span>
+                        <span>Planning</span>
+                    </a>
+
+                    <a href="{{ route('parent.calendar') }}" class="flex items-center gap-4 bg-[#efe2cf] text-[#8f6b43] px-6 py-3.5 rounded-[26px] text-lg font-black shadow-sm">
+                        <span class="material-symbols-rounded">calendar_month</span>
+                        <span>Calendrier</span>
+                    </a>
+
+                    <a href="{{ route('parent.messages') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">chat_bubble</span>
+                        <span>Messagerie</span>
+                    </a>
+
+                    <a href="{{ route('parent.family') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">home</span>
+                        <span>Profile Famille</span>
+                    </a>
+
+                    <a href="{{ route('parent.nannies') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">person_search</span>
+                        <span>Nounous</span>
+                    </a>
+
+                    <a href="{{ route('parent.nanny-profile') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">badge</span>
+                        <span>Profil nounou</span>
+                    </a>
                 </nav>
             </div>
 
-            <div class="flex items-center gap-4">
-                <button id="todayShortcutBtn" class="hidden md:block px-5 py-2.5 rounded-full bg-[#8f6b43] text-white font-bold hover:bg-[#795936]">
-                    Aujourd'hui
-                </button>
+            <div class="mt-auto px-7 pb-10">
+                <div class="space-y-4 text-sm">
+                    <button class="flex items-center gap-3 text-[#5d4c39] hover:text-[#8f6b43]">
+                        <span class="material-symbols-rounded !text-base">settings</span>
+                        <span>Paramètres</span>
+                    </button>
 
-                <button class="w-10 h-10 rounded-2xl flex items-center justify-center text-[#6d5c49] hover:bg-[#efe2cf]">
-                    🔔
-                </button>
-
-                <div id="profileAvatarTop" class="w-10 h-10 rounded-2xl bg-[#d9b98c] text-white flex items-center justify-center font-black">
-                    P
+                    <button id="logoutBtn" class="flex items-center gap-3 text-red-500 hover:text-red-600">
+                        <span class="material-symbols-rounded !text-base">logout</span>
+                        <span>Déconnexion</span>
+                    </button>
                 </div>
             </div>
-        </div>
-    </header>
+        </aside>
 
-    <main class="max-w-[1180px] mx-auto px-5 py-7">
+        <div class="flex-1 min-w-0">
+            <header class="bg-[#fffaf3]/90 backdrop-blur px-6 md:px-8 py-5 flex items-center justify-between border-b border-[#eadfce]">
+                <div>
+                    <h2 class="text-2xl font-black mb-1">Calendrier familial</h2>
+                    <p class="text-[#9a8469] text-base font-semibold">Visualisez les tâches planifiées jour par jour.</p>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button class="w-10 h-10 rounded-2xl flex items-center justify-center text-[#6d5c49] hover:bg-[#efe2cf]">
+                        <span class="material-symbols-rounded">notifications</span>
+                    </button>
+
+                    <button id="todayShortcutBtn" class="px-5 py-2.5 rounded-full bg-[#8f6b43] text-white font-bold hover:bg-[#795936]">
+                        Aujourd'hui
+                    </button>
+                </div>
+            </header>
+
+            <main class="p-5 md:p-8">
         <div id="messageBox" class="hidden mb-6 rounded-2xl p-4 text-sm"></div>
 
         <div class="rounded-[32px] bg-gradient-to-br from-[#fffaf3] via-[#f2e3cf] to-[#d9b98c] border border-[#eadfce] p-6 md:p-8 shadow-sm overflow-hidden relative mb-7">
@@ -89,13 +164,16 @@
                 </div>
 
                 <div class="flex flex-wrap gap-3">
-                    <button id="prevMonthBtn" class="px-5 py-3 rounded-full bg-[#fffaf3] border border-[#eadfce] font-bold hover:bg-[#efe2cf]">
-                        ← Mois précédent
+                    <button id="prevMonthBtn" class="px-5 py-3 rounded-full bg-[#fffaf3] border border-[#eadfce] font-bold hover:bg-[#efe2cf] flex items-center gap-2">
+                        <span class="material-symbols-rounded !text-base">chevron_left</span>
+                        Mois précédent
                     </button>
-                    <button id="nextMonthBtn" class="px-5 py-3 rounded-full bg-[#fffaf3] border border-[#eadfce] font-bold hover:bg-[#efe2cf]">
-                        Mois suivant →
+                    <button id="nextMonthBtn" class="px-5 py-3 rounded-full bg-[#fffaf3] border border-[#eadfce] font-bold hover:bg-[#efe2cf] flex items-center gap-2">
+                        Mois suivant
+                        <span class="material-symbols-rounded !text-base">chevron_right</span>
                     </button>
-                    <a href="{{ route('parent.tasks') }}" class="px-5 py-3 rounded-full bg-[#8f6b43] text-white font-bold hover:bg-[#795936] shadow">
+                    <a href="{{ route('parent.tasks') }}" class="px-5 py-3 rounded-full bg-[#8f6b43] text-white font-bold hover:bg-[#795936] shadow flex items-center gap-2">
+                        <span class="material-symbols-rounded !text-base">checklist</span>
                         Voir les tâches
                     </a>
                 </div>
@@ -186,10 +264,14 @@
                 </section>
             </aside>
         </div>
-    </main>
+            </main>
+        </div>
+    </div>
 
     <script>
         const profileAvatarTop = document.getElementById('profileAvatarTop');
+        const sidebarUserName = document.getElementById('sidebarUserName');
+        const logoutBtn = document.getElementById('logoutBtn');
         const monthLabel = document.getElementById('monthLabel');
         const calendarGrid = document.getElementById('calendarGrid');
         const selectedDateLabel = document.getElementById('selectedDateLabel');
@@ -241,12 +323,28 @@
             loadTasks();
         });
 
+        logoutBtn.addEventListener('click', function () {
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('user');
+            window.location.href = '/login';
+        });
+
         function checkAuth() {
             const token = getToken();
-            const user = localStorage.getItem('user');
+            const user = getStoredUser();
 
             if (!token || !user) {
                 window.location.href = '/login';
+                return;
+            }
+
+            if (user.role === 'admin') {
+                window.location.href = '/admin/dashboard';
+                return;
+            }
+
+            if (user.role !== 'parent') {
+                window.location.href = '/';
             }
         }
 
@@ -254,11 +352,20 @@
             return localStorage.getItem('access_token') || localStorage.getItem('token');
         }
 
+        function getStoredUser() {
+            try {
+                return JSON.parse(localStorage.getItem('user'));
+            } catch (error) {
+                return null;
+            }
+        }
+
         function loadUserInfo() {
-            currentUser = JSON.parse(localStorage.getItem('user'));
+            currentUser = getStoredUser();
 
             if (currentUser) {
                 profileAvatarTop.textContent = getInitials(currentUser.name || 'P');
+                sidebarUserName.textContent = currentUser.name || 'Ma famille';
             }
         }
 
@@ -277,7 +384,7 @@
                 const result = await response.json();
 
                 if (response.ok) {
-                    allTasks = result.data.data || [];
+                    allTasks = Array.isArray(result.data) ? result.data : (result.data?.data || []);
                     applyFilters();
                 } else {
                     showMessage(result.message || 'Impossible de charger les tâches.', 'error');
@@ -346,7 +453,7 @@
             const isSelected = dateString === selectedDate;
 
             const tasksForDay = filteredTasks.filter(function (task) {
-                return task.due_date === dateString;
+                return getTaskDueDate(task) === dateString;
             });
 
             const completedCount = tasksForDay.filter(function (task) {
@@ -414,7 +521,7 @@
 
         function renderSelectedDatePanel() {
             const tasks = filteredTasks.filter(function (task) {
-                return task.due_date === selectedDate;
+                return getTaskDueDate(task) === selectedDate;
             });
 
             const completed = tasks.filter(function (task) {
@@ -472,10 +579,12 @@
 
             const upcoming = filteredTasks
                 .filter(function (task) {
-                    return task.due_date && task.due_date >= today;
+                    const dueDate = getTaskDueDate(task);
+
+                    return dueDate && dueDate >= today;
                 })
                 .sort(function (a, b) {
-                    return a.due_date.localeCompare(b.due_date);
+                    return getTaskDueDate(a).localeCompare(getTaskDueDate(b));
                 })
                 .slice(0, 5);
 
@@ -497,7 +606,7 @@
                             ${getPriorityLabel(task.priority)}
                         </span>
                     </div>
-                    <p class="text-sm text-slate-500">${formatDateLabel(task.due_date)}</p>
+                    <p class="text-sm text-slate-500">${formatDateLabel(getTaskDueDate(task))}</p>
                 `;
 
                 upcomingTasksList.appendChild(item);
@@ -562,6 +671,14 @@
             const m = String(date.getMonth() + 1).padStart(2, '0');
             const d = String(date.getDate()).padStart(2, '0');
             return y + '-' + m + '-' + d;
+        }
+
+        function getTaskDueDate(task) {
+            if (!task || !task.due_date) {
+                return '';
+            }
+
+            return String(task.due_date).substring(0, 10);
         }
 
         function formatDisplayDate(date) {
