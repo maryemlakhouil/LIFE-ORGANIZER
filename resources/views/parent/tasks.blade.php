@@ -5,81 +5,133 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mes tâches - Parent</title>
     @vite(['resources/css/app.css'])
+    <style>
+        .parent-theme .bg-white { background-color: #fffaf3 !important; }
+        .parent-theme .bg-blue-600,
+        .parent-theme .bg-blue-500 { background-color: #8f6b43 !important; }
+        .parent-theme .hover\:bg-blue-700:hover { background-color: #795936 !important; }
+        .parent-theme .bg-blue-100,
+        .parent-theme .bg-blue-50,
+        .parent-theme .hover\:bg-blue-50:hover { background-color: #efe2cf !important; }
+        .parent-theme .bg-slate-100,
+        .parent-theme .bg-slate-200,
+        .parent-theme .hover\:bg-slate-100:hover,
+        .parent-theme .hover\:bg-slate-200:hover,
+        .parent-theme .bg-\[\#f7f8fb\],
+        .parent-theme .bg-\[\#f7f9fc\],
+        .parent-theme .bg-\[\#f4f7fb\] { background-color: #f3e8d9 !important; }
+        .parent-theme .text-blue-600,
+        .parent-theme .text-blue-700,
+        .parent-theme .hover\:text-blue-600:hover { color: #8f6b43 !important; }
+        .parent-theme .text-blue-300,
+        .parent-theme .text-blue-100 { color: #b08a5f !important; }
+        .parent-theme .text-slate-900 { color: #2f281f !important; }
+        .parent-theme .text-slate-800,
+        .parent-theme .text-slate-700 { color: #5d4c39 !important; }
+        .parent-theme .text-slate-600,
+        .parent-theme .text-slate-500 { color: #6d5c49 !important; }
+        .parent-theme .text-slate-400,
+        .parent-theme .text-slate-300 { color: #9a8469 !important; }
+        .parent-theme .border-slate-100,
+        .parent-theme .border-slate-200,
+        .parent-theme .border-slate-300,
+        .parent-theme .border-blue-100 { border-color: #eadfce !important; }
+        .parent-theme .focus\:border-blue-500:focus { border-color: #8f6b43 !important; }
+        .parent-theme .shadow-blue-600\/20 { box-shadow: 0 12px 24px rgba(143, 107, 67, 0.18) !important; }
+    </style>
 </head>
-<body class="bg-[#f3f7fc] text-slate-900 min-h-screen">
+
+<body class="parent-theme bg-[#f7f0e7] text-[#2f281f] min-h-screen">
 
     <div class="flex min-h-screen">
 
         <!-- SIDEBAR -->
-        <aside class="w-[290px] bg-white border-r border-slate-300 hidden lg:flex flex-col">
-            <div class="px-8 pt-8 pb-8">
+        <aside class="w-[270px] bg-[#fffaf3] border-r border-[#eadfce] hidden lg:flex flex-col">
+            <div class="px-7 pt-7 pb-7">
                 <div class="flex items-center gap-4">
-                    <div class="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center">
-                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <div class="w-9 h-9 rounded-2xl bg-[#8f6b43] flex items-center justify-center shadow-sm">
+                        <svg class="w-5 h-5 text-[#fffaf3]" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M16 11c1.66 0 3-1.57 3-3.5S17.66 4 16 4s-3 1.57-3 3.5S14.34 11 16 11zm-8 0c1.66 0 3-1.57 3-3.5S9.66 4 8 4 5 5.57 5 7.5 6.34 11 8 11zm0 2c-2.33 0-7 1.17-7 3.5V20h14v-3.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.95 1.97 3.45V20h6v-3.5c0-2.33-4.67-3.5-7-3.5z"/>
                         </svg>
                     </div>
 
                     <div>
-                        <h1 class="text-lg font-bold leading-tight">Organisateur<br>Familial</h1>
+                        <h1 class="text-lg font-black leading-tight tracking-tight">Family Organiser</h1>
                     </div>
                 </div>
             </div>
 
-            <div class="px-5 pt-16">
-                <div class="flex items-center gap-4 mb-12">
-                    <div id="familyAvatar" class="w-14 h-14 rounded-full bg-pink-100 flex items-center justify-center text-lg font-bold text-pink-600">
+            <div class="px-5 pt-12">
+                <div class="flex items-center gap-4 mb-10">
+                    <div id="familyAvatar" class="w-12 h-12 rounded-2xl bg-[#efe2cf] flex items-center justify-center text-base font-black text-[#8f6b43]">
                         F
                     </div>
 
                     <div>
-                        <p id="familyName" class="text-2xl font-semibold leading-none mb-1">Ma famille</p>
-                        <p class="text-slate-500 text-lg">Premium plan</p>
+                        <p id="familyName" class="text-xl font-black leading-none mb-1">Ma famille</p>
+                        <p class="text-[#9a8469] text-sm font-semibold">Premium plan</p>
                     </div>
                 </div>
 
-                <nav class="space-y-8">
-                    <a href="{{ route('parent.dashboard') }}" class="flex items-center gap-4 px-7 py-2 text-xl text-slate-800 hover:text-blue-600">
-                        <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <nav class="space-y-5">
+                    <a href="{{ route('parent.dashboard') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <svg class="w-5 h-5 text-[#b08a5f]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/>
                         </svg>
-                        <span>Tableau de bord</span>
+                        <span>Dashboard</span>
                     </a>
 
-                    <a href="{{ route('parent.tasks') }}" class="flex items-center gap-4 bg-blue-100 text-blue-600 px-7 py-4 rounded-[32px] text-xl font-semibold">
+                    <a href="{{ route('parent.tasks') }}" class="flex items-center gap-4 bg-[#efe2cf] text-[#8f6b43] px-6 py-3.5 rounded-[26px] text-lg font-black shadow-sm">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2Z"/>
                         </svg>
                         <span>Planning</span>
                     </a>
 
-                    <a href="{{ route('parent.calendar') }}" class="flex items-center gap-4 px-7 py-2 text-xl text-slate-800 hover:text-blue-600">
-                        <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <a href="{{ route('parent.calendar') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <svg class="w-5 h-5 text-[#b08a5f]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2Z"/>
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8 14h3M8 18h8M14 14h2"/>
                         </svg>
                         <span>Calendrier</span>
                     </a>
 
-                    <a href="{{ route('parent.messages') }}" class="flex items-center gap-4 px-7 py-2 text-xl text-slate-800 hover:text-blue-600">
-                        <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <a href="{{ route('parent.messages') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <svg class="w-5 h-5 text-[#b08a5f]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
                         </svg>
                         <span>Messagerie</span>
                     </a>
 
-                    <a href="#" class="flex items-center gap-4 px-7 py-2 text-xl text-slate-800 hover:text-blue-600">
-                        <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 19V5M8 17l4-4 3 3 5-7"/>
+                    <a href="{{ route('parent.family') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <svg class="w-5 h-5 text-[#b08a5f]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 11l9-8 9 8"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 10v10h14V10"/>
                         </svg>
-                        <span>Rapports</span>
+                        <span>Profile Famille</span>
+                    </a>
+
+                    <a href="{{ route('parent.nannies') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <svg class="w-5 h-5 text-[#b08a5f]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <circle cx="12" cy="7" r="4"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 21a7 7 0 0 1 14 0"/>
+                        </svg>
+                        <span>Nounous</span>
+                    </a>
+
+                    <a href="{{ route('parent.nanny-profile') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <svg class="w-5 h-5 text-[#b08a5f]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 14c3.5 0 6 1.7 6 4v1H6v-1c0-2.3 2.5-4 6-4Z"/>
+                            <circle cx="12" cy="8" r="3"/>
+                        </svg>
+                        <span>Profil nounou</span>
                     </a>
                 </nav>
             </div>
 
-            <div class="mt-auto px-8 pb-12">
-                <div class="space-y-5 text-sm">
-                    <button class="flex items-center gap-3 text-slate-700 hover:text-blue-600">
+            <div class="mt-auto px-7 pb-10">
+                <div class="space-y-4 text-sm">
+                    <button class="flex items-center gap-3 text-[#5d4c39] hover:text-[#8f6b43]">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <circle cx="12" cy="12" r="3"/>
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06A2 2 0 1 1 7.03 3.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3a2 2 0 1 1 4 0v.09A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.22.35.57.58 1 .6h.6a2 2 0 1 1 0 4h-.09A1.7 1.7 0 0 0 19.4 15Z"/>
@@ -92,7 +144,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
                             <path stroke-linecap="round" stroke-linejoin="round" d="m16 17 5-5-5-5M21 12H9"/>
                         </svg>
-                        <span>Déconnexions</span>
+                        <span>Déconnexion</span>
                     </button>
                 </div>
             </div>
@@ -100,35 +152,36 @@
 
         <!-- MAIN -->
         <div class="flex-1 min-w-0">
-            <header class="bg-white px-6 md:px-8 py-6 flex items-center justify-between">
+            <header class="bg-[#fffaf3]/90 backdrop-blur px-6 md:px-8 py-5 flex items-center justify-between border-b border-[#eadfce]">
                 <div>
-                    <h2 class="text-2xl font-bold mb-1">Mes tâches</h2>
-                    <p class="text-slate-400 text-lg">Planifiez et suivez les tâches familiales</p>
+                    <h2 class="text-2xl font-black mb-1">Mes tâches</h2>
+                    <p class="text-[#9a8469] text-base font-semibold">Planifiez et suivez les tâches familiales</p>
                 </div>
 
-                <button id="openCreateModalBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-7 py-3 rounded-full text-base font-semibold shadow-lg">
-                    + Ajouter une tâche
+                <button id="openCreateModalBtn" class="bg-[#8f6b43] hover:bg-[#795936] text-white px-6 py-2.5 rounded-full text-base font-bold shadow-lg shadow-[#8f6b43]/20">
+                    + Ajouter une tache
                 </button>
             </header>
 
-            <main class="p-6 md:p-8">
+            <main class="p-5 md:p-8">
+
                 <div id="messageBox" class="hidden mb-6 rounded-2xl p-4 text-sm"></div>
 
                 <!-- STATS -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                     <div class="bg-white rounded-[24px] border border-slate-100 shadow-sm p-5">
                         <p class="text-slate-500 text-sm mb-2">Total des tâches</p>
-                        <p id="totalTasksCount" class="text-3xl font-bold">0</p>
+                        <p id="totalTasksCount" class="text-3xl font-black">0</p>
                     </div>
 
                     <div class="bg-white rounded-[24px] border border-slate-100 shadow-sm p-5">
                         <p class="text-slate-500 text-sm mb-2">En cours / en attente</p>
-                        <p id="activeTasksCount" class="text-3xl font-bold text-blue-600">0</p>
+                        <p id="activeTasksCount" class="text-3xl font-black text-blue-600">0</p>
                     </div>
 
                     <div class="bg-white rounded-[24px] border border-slate-100 shadow-sm p-5">
                         <p class="text-slate-500 text-sm mb-2">Terminées</p>
-                        <p id="completedTasksCount" class="text-3xl font-bold text-green-600">0</p>
+                        <p id="completedTasksCount" class="text-3xl font-black text-green-600">0</p>
                     </div>
                 </div>
 
@@ -176,7 +229,7 @@
                 <!-- TASKS LIST -->
                 <section class="bg-white rounded-[24px] border border-slate-100 shadow-sm overflow-hidden">
                     <div class="px-6 py-5 border-b border-slate-200 flex items-center justify-between">
-                        <h3 class="text-xl font-bold">Liste des tâches</h3>
+                        <h3 class="text-xl font-black">Liste des tâches</h3>
                         <span id="tasksCountLabel" class="text-slate-500">0 tâche(s)</span>
                     </div>
 
@@ -194,7 +247,7 @@
     <div id="taskModal" class="hidden fixed inset-0 bg-black/40 z-50 items-center justify-center px-4">
         <div class="bg-white rounded-[24px] w-full max-w-2xl p-6">
             <div class="flex items-center justify-between mb-6">
-                <h3 id="modalTitle" class="text-2xl font-bold">Créer une tâche</h3>
+                <h3 id="modalTitle" class="text-2xl font-black">Créer une tâche</h3>
                 <button id="closeModalBtn" class="text-2xl text-slate-400 hover:text-slate-700">×</button>
             </div>
 
@@ -249,13 +302,17 @@
                     </button>
                 </div>
             </form>
+
         </div>
     </div>
+
+    <!--La Partie js de cette page des taches -->
 
     <script>
         const familyName = document.getElementById('familyName');
         const familyAvatar = document.getElementById('familyAvatar');
         const logoutBtn = document.getElementById('logoutBtn');
+        
 
         const totalTasksCount = document.getElementById('totalTasksCount');
         const activeTasksCount = document.getElementById('activeTasksCount');
@@ -336,6 +393,14 @@
             return localStorage.getItem('access_token');
         }
 
+        function getStoredUser() {
+            try {
+                return JSON.parse(localStorage.getItem('user'));
+            } catch (error) {
+                return null;
+            }
+        }
+
         function getAuthHeaders() {
             return {
                 'Accept': 'application/json',
@@ -345,7 +410,7 @@
 
         function guardParentAccess() {
             const token = getToken();
-            const user = JSON.parse(localStorage.getItem('user'));
+            const user = getStoredUser();
 
             if (!token || !user) {
                 window.location.href = '/login';
@@ -363,7 +428,7 @@
         }
 
         function loadParentInfo() {
-            const user = JSON.parse(localStorage.getItem('user'));
+            const user = getStoredUser();
 
             if (user) {
                 familyName.textContent = user.name || 'Ma famille';
@@ -406,13 +471,15 @@
                 `;
             }
         }
+        // Filtrer les tâches selon : texte recherché && statut && priorité
 
         function applyFilters() {
             const search = searchInput.value.trim().toLowerCase();
             const status = statusFilter.value;
             const priority = priorityFilter.value;
-
+        
             filteredTasks = allTasks.filter(function (task) {
+                // vrai si la tâche respecte recherche && vrai status
                 let matchesSearch = true;
                 let matchesStatus = true;
                 let matchesPriority = true;
@@ -437,7 +504,7 @@
             renderStats();
             renderTasks();
         }
-
+        // mettre à jour les statistiques affichées
         function renderStats() {
             const total = allTasks.length;
             const active = allTasks.filter(function (task) {
@@ -452,7 +519,7 @@
             completedTasksCount.textContent = completed;
             tasksCountLabel.textContent = filteredTasks.length + ' tâche(s)';
         }
-
+        // afficher les tâches dans la page HTML 
         function renderTasks() {
             tasksList.innerHTML = '';
 
@@ -473,7 +540,7 @@
                     <div class="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-5">
                         <div class="flex-1">
                             <div class="flex flex-wrap items-center gap-3 mb-3">
-                                <h4 class="text-lg font-bold">${task.title}</h4>
+                                <h4 class="text-lg font-black">${escapeHtml(task.title || '')}</h4>
                                 <span class="px-3 py-1 rounded-full text-xs font-bold ${getStatusClass(task.status)}">
                                     ${getStatusLabel(task.status)}
                                 </span>
@@ -483,11 +550,11 @@
                             </div>
 
                             <p class="text-sm text-slate-600 mb-3">
-                                ${task.description ? task.description : 'Aucune description'}
+                                ${task.description ? escapeHtml(task.description) : 'Aucune description'}
                             </p>
 
                             <div class="flex flex-wrap gap-6 text-sm text-slate-400">
-                                <span>Échéance : ${task.due_date ? formatDate(task.due_date) : '-'}</span>
+                                <span>Échéance : ${task.due_date ? formatDate(getTaskDueDate(task)) : '-'}</span>
                                 <span>Créée le : ${task.created_at ? formatDateTime(task.created_at) : '-'}</span>
                             </div>
                         </div>
@@ -521,8 +588,10 @@
             });
         }
 
+        // Nouvelle tache model
         function openCreateModal() {
             modalTitle.textContent = 'Créer une tâche';
+            // vider les champs
             taskId.value = '';
             taskTitle.value = '';
             taskDescription.value = '';
@@ -533,6 +602,7 @@
             taskModal.classList.add('flex');
         }
 
+        // Model Pour MOdifier les taches 
         function openEditModal(id) {
             const task = allTasks.find(function (item) {
                 return item.id === id;
@@ -546,7 +616,7 @@
             taskDescription.value = task.description || '';
             taskPriority.value = task.priority || 'medium';
             taskStatus.value = task.status || 'pending';
-            taskDueDate.value = task.due_date || '';
+            taskDueDate.value = getTaskDueDate(task);
 
             taskModal.classList.remove('hidden');
             taskModal.classList.add('flex');
@@ -556,7 +626,7 @@
             taskModal.classList.add('hidden');
             taskModal.classList.remove('flex');
         }
-
+        // creer tache
         async function createTask() {
             try {
                 const response = await fetch('/api/tasks', {
@@ -587,6 +657,7 @@
                 showMessage('Erreur serveur.', 'error');
             }
         }
+        // modifier une tache
 
         async function updateTask() {
             try {
@@ -618,6 +689,7 @@
                 showMessage('Erreur serveur.', 'error');
             }
         }
+        // comme complete 
 
         async function markAsCompleted(id) {
             try {
@@ -644,7 +716,7 @@
                 showMessage('Erreur serveur.', 'error');
             }
         }
-
+        // 
         async function deleteTask(id) {
             const confirmed = confirm('Voulez-vous vraiment supprimer cette tâche ?');
 
@@ -668,7 +740,7 @@
                 showMessage('Erreur serveur.', 'error');
             }
         }
-
+        // couleur de status
         function getStatusClass(status) {
             if (status === 'pending') return 'bg-yellow-100 text-yellow-700';
             if (status === 'in_progress') return 'bg-blue-100 text-blue-700';
@@ -707,7 +779,15 @@
                 year: 'numeric'
             });
         }
+        // date fin d'une tache
+        function getTaskDueDate(task) {
+            if (!task || !task.due_date) {
+                return '';
+            }
 
+            return String(task.due_date).substring(0, 10);
+        }
+        // format de date
         function formatDateTime(dateString) {
             const date = new Date(dateString);
             return date.toLocaleDateString('fr-FR', {
@@ -731,7 +811,17 @@
 
             return initials.substring(0, 2).toUpperCase();
         }
-
+        // sécuriser un texte avant de l’afficher remplace 
+        function escapeHtml(text) {
+            return String(text)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+        // lire les erreurs envoyées par le backend/AP 
+        
         function readErrors(result) {
             if (result.errors) {
                 let text = '';
