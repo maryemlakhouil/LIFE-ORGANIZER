@@ -408,6 +408,7 @@
             renderSelectedDatePanel();
             renderUpcomingTasks();
         }
+        // dessiner le calendrier 
 
         function renderCalendar() {
             renderMonthLabel();
@@ -415,18 +416,20 @@
 
             const year = currentMonthDate.getFullYear();
             const month = currentMonthDate.getMonth();
-
+            // mois suivant :jour 0 = lastday
             const firstDay = new Date(year, month, 1);
             const lastDay = new Date(year, month + 1, 0);
-
+            // Jour de début du mois
             let firstDayIndex = firstDay.getDay();
             if (firstDayIndex === 0) firstDayIndex = 7;
 
             const daysBefore = firstDayIndex - 1;
             const totalDays = lastDay.getDate();
 
+            // Dernier jour du mois précédent
             const prevMonthLastDay = new Date(year, month, 0).getDate();
 
+            // Ajouter jours du mois précédent
             for (let i = daysBefore; i > 0; i--) {
                 const dayNumber = prevMonthLastDay - i + 1;
                 const cellDate = new Date(year, month - 1, dayNumber);
@@ -439,6 +442,7 @@
             }
 
             const totalCellsNow = calendarGrid.children.length;
+            // 6 semaines × 7 jours = 42 cases 
             const remaining = 42 - totalCellsNow;
 
             for (let day = 1; day <= remaining; day++) {
@@ -446,6 +450,8 @@
                 calendarGrid.appendChild(createDayCell(cellDate, true));
             }
         }
+
+        // créer une case d’un jour dans le calendrier
 
         function createDayCell(date, isOutsideMonth) {
             const dateString = formatDate(date);
@@ -518,8 +524,10 @@
                 year: 'numeric'
             }).replace(/^./, function (c) { return c.toUpperCase(); });
         }
+        // affiche les tâches du jour sélectionné dans reghit
 
         function renderSelectedDatePanel() {
+
             const tasks = filteredTasks.filter(function (task) {
                 return getTaskDueDate(task) === selectedDate;
             });
@@ -573,8 +581,10 @@
                 selectedDateTasksList.appendChild(item);
             });
         }
+        // Affiche les 5 prochaines tâches à venir 
 
         function renderUpcomingTasks() {
+            
             const today = formatDate(new Date());
 
             const upcoming = filteredTasks
