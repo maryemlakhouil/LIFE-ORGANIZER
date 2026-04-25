@@ -4,41 +4,142 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Famille - Organisateur Familial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,0,0" rel="stylesheet">
     @vite(['resources/css/app.css'])
+    <style>
+        .material-symbols-rounded {
+            font-family: 'Material Symbols Rounded';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 20px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        .parent-family-theme .bg-white { background-color: #fffaf3 !important; }
+        .parent-family-theme .bg-blue-600,
+        .parent-family-theme .bg-blue-500 { background-color: #8f6b43 !important; }
+        .parent-family-theme .hover\:bg-blue-700:hover { background-color: #795936 !important; }
+        .parent-family-theme .bg-blue-100,
+        .parent-family-theme .bg-blue-50,
+        .parent-family-theme .hover\:bg-blue-50:hover { background-color: #efe2cf !important; }
+        .parent-family-theme .bg-slate-100,
+        .parent-family-theme .bg-slate-200 { background-color: #f3e8d9 !important; }
+        .parent-family-theme .text-blue-600,
+        .parent-family-theme .hover\:text-blue-600:hover { color: #8f6b43 !important; }
+        .parent-family-theme .text-slate-900 { color: #2f281f !important; }
+        .parent-family-theme .text-slate-700 { color: #5d4c39 !important; }
+        .parent-family-theme .text-slate-600,
+        .parent-family-theme .text-slate-500,
+        .parent-family-theme .text-slate-400 { color: #9a8469 !important; }
+        .parent-family-theme .border-slate-100,
+        .parent-family-theme .border-slate-200 { border-color: #eadfce !important; }
+    </style>
 </head>
-<body class="bg-[#f7f0e7] text-[#2f281f] min-h-screen flex flex-col">
 
-    <!-- TOPBAR -->
-    <header class="bg-[#fffaf3]/90 backdrop-blur border-b border-[#eadfce]">
-        <div class="max-w-[1120px] mx-auto px-5 py-3 flex items-center justify-between">
-            <a href="{{ route('parent.dashboard') }}" class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-2xl bg-[#8f6b43] flex items-center justify-center shadow-sm">
-                    <svg class="w-5 h-5 text-[#fffaf3]" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M16 11c1.66 0 3-1.57 3-3.5S17.66 4 16 4s-3 1.57-3 3.5S14.34 11 16 11zm-8 0c1.66 0 3-1.57 3-3.5S9.66 4 8 4 5 5.57 5 7.5 6.34 11 8 11zm0 2c-2.33 0-7 1.17-7 3.5V20h14v-3.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.95 1.97 3.45V20h6v-3.5c0-2.33-4.67-3.5-7-3.5z"/>
-                    </svg>
+<body class="parent-family-theme bg-[#f7f0e7] text-[#2f281f] min-h-screen">
+
+    <div class="flex min-h-screen">
+        <aside class="w-[270px] bg-[#fffaf3] border-r border-[#eadfce] hidden lg:flex flex-col">
+            <div class="px-7 pt-7 pb-7">
+                <div class="flex items-center gap-4">
+                    <div class="w-9 h-9 rounded-2xl bg-[#8f6b43] flex items-center justify-center shadow-sm">
+                        <span class="material-symbols-rounded text-[#fffaf3]">groups</span>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-black leading-tight tracking-tight">Family Organiser</h1>
+                    </div>
                 </div>
-                <span class="text-lg font-black tracking-tight">Organisateur Familial</span>
-            </a>
-
-            <div class="hidden md:flex items-center gap-2 text-xs font-bold">
-                <a href="{{ route('parent.dashboard') }}" class="rounded-full bg-white px-4 py-2 text-[#6d5c49] hover:bg-[#efe2cf] hover:text-[#8f6b43]">Dashboard</a>
-                <a href="{{ route('parent.tasks') }}" class="rounded-full bg-white px-4 py-2 text-[#6d5c49] hover:bg-[#efe2cf] hover:text-[#8f6b43]">Tâches</a>
-                <a href="{{ route('parent.calendar') }}" class="rounded-full bg-white px-4 py-2 text-[#6d5c49] hover:bg-[#efe2cf] hover:text-[#8f6b43]">Calendrier</a>
-                <a href="{{ route('parent.messages') }}" class="rounded-full bg-white px-4 py-2 text-[#6d5c49] hover:bg-[#efe2cf] hover:text-[#8f6b43]">Messages</a>
-                <a href="{{ route('parent.nanny-profile') }}" class="rounded-full bg-white px-4 py-2 text-[#6d5c49] hover:bg-[#efe2cf] hover:text-[#8f6b43]">Nounou</a>
             </div>
-        </div>
-    </header>
 
-    <!-- CONTENT -->
-    <main class="flex-1 max-w-[1120px] mx-auto w-full px-5 py-7">
+            <div class="px-5 pt-12">
+                <div class="flex items-center gap-4 mb-10">
+                    <div id="sidebarAvatar" class="w-12 h-12 rounded-2xl bg-[#efe2cf] flex items-center justify-center text-base font-black text-[#8f6b43]">
+                        F
+                    </div>
+                    <div>
+                        <p id="sidebarFamilyName" class="text-xl font-black leading-none mb-1">Chargement...</p>
+                        <p class="text-[#9a8469] text-sm font-semibold">Espace parent</p>
+                    </div>
+                </div>
+
+                <nav class="space-y-5">
+                    <a href="{{ route('parent.dashboard') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">dashboard</span>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="{{ route('parent.tasks') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">event_note</span>
+                        <span>Planning</span>
+                    </a>
+                    <a href="{{ route('parent.calendar') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">calendar_month</span>
+                        <span>Calendrier</span>
+                    </a>
+                    <a href="{{ route('parent.messages') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">chat_bubble</span>
+                        <span>Messagerie</span>
+                    </a>
+                    <a href="{{ route('parent.family') }}" class="flex items-center gap-4 bg-[#efe2cf] text-[#8f6b43] px-6 py-3.5 rounded-[26px] text-lg font-black shadow-sm">
+                        <span class="material-symbols-rounded">home</span>
+                        <span>Profil famille</span>
+                    </a>
+                    <a href="{{ route('parent.nannies') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">person_search</span>
+                        <span>Nounous</span>
+                    </a>
+                    <a href="{{ route('parent.nanny-profile') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">badge</span>
+                        <span>Profil nounou</span>
+                    </a>
+                </nav>
+            </div>
+
+            <div class="mt-auto px-7 pb-10">
+                <div class="space-y-4 text-sm">
+                    <button class="flex items-center gap-3 text-[#5d4c39] hover:text-[#8f6b43]">
+                        <span class="material-symbols-rounded !text-base">settings</span>
+                        <span>Paramètres</span>
+                    </button>
+                    <button id="logoutBtn" class="flex items-center gap-3 text-red-500 hover:text-red-600">
+                        <span class="material-symbols-rounded !text-base">logout</span>
+                        <span>Déconnexion</span>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <div class="flex-1 min-w-0">
+            <header class="bg-[#fffaf3]/90 backdrop-blur px-6 md:px-8 py-5 flex items-center justify-between border-b border-[#eadfce]">
+                <div>
+                    <h2 class="text-2xl font-black mb-1">Profil famille</h2>
+                    <p class="text-[#9a8469] text-base font-semibold">Gérez les informations importantes de votre foyer.</p>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button class="w-10 h-10 rounded-2xl flex items-center justify-center text-[#6d5c49] hover:bg-[#efe2cf]">
+                        <span class="material-symbols-rounded">notifications</span>
+                    </button>
+                    <a href="{{ route('parent.nannies') }}" class="px-5 py-2.5 rounded-full bg-[#8f6b43] text-white font-bold hover:bg-[#795936]">
+                        Voir les nounous
+                    </a>
+                </div>
+            </header>
+
+            <main class="p-5 md:p-8">
         <div id="messageBox" class="hidden mb-6 rounded-2xl p-4 text-sm"></div>
 
         <div class="mb-7 rounded-[32px] bg-gradient-to-br from-[#fffaf3] via-[#f2e3cf] to-[#d9b98c] border border-[#eadfce] p-6 md:p-8 shadow-sm overflow-hidden relative">
             <div class="absolute -right-16 -top-16 w-48 h-48 rounded-full bg-white/25"></div>
             <div class="relative max-w-2xl">
                 <p class="text-xs uppercase tracking-[0.22em] text-[#8f6b43] font-black mb-3">Espace famille</p>
-                <h1 class="text-3xl md:text-4xl font-black leading-tight mb-3">Votre cocon familial, simple et bien organisé.</h1>
+                <h1 class="text-3xl md:text-4xl font-black leading-tight mb-3">Votre cocon familial, bien organisé.</h1>
                 <p class="text-[#6d5c49] text-sm md:text-base leading-7">
                     Retrouvez les informations importantes de la famille, les enfants, les routines et les besoins à partager avec la nounou.
                 </p>
@@ -56,38 +157,36 @@
 
                     <div class="relative w-fit mx-auto mb-5">
                         <img
-                            id="familyPhoto"
-                            src="{{ asset('images/image1.jpeg') }}"
-                            alt="Photo du parent"
+                            id="familyPhoto" src="{{ asset('images/image1.jpeg') }}" alt="Photo du parent"
                             class="w-36 h-36 rounded-[34px] object-cover border-4 border-white shadow-md"
                         >
 
                         <button id="editPhotoBtn"
-                            class="absolute -bottom-2 -right-2 w-10 h-10 rounded-2xl bg-[#8f6b43] text-white shadow-lg hover:bg-[#795936]">
-                            ✎
+                            class="absolute -bottom-2 -right-2 w-10 h-10 rounded-2xl bg-[#8f6b43] text-white shadow-lg hover:bg-[#795936] flex items-center justify-center">
+                            <span class="material-symbols-rounded !text-[18px]">edit</span>
                         </button>
                     </div>
 
                     <p class="text-xs uppercase tracking-[0.18em] text-[#b08a5f] font-black mb-2">Photo parent</p>
-                    <h1 id="familyName" class="text-2xl font-black mb-2">Lakhouil Family</h1>
+                    <h1 id="familyName" class="text-2xl font-black mb-2">Chargement...</h1>
 
                     <p id="familyLocation" class="text-[#7b6b58] text-sm flex items-center justify-center gap-2">
-                        <span>📍</span>
-                        <span>Safi, Maroc</span>
+                        <span class="material-symbols-rounded !text-[18px] text-[#b08a5f]">location_on</span>
+                        <span>Localisation indisponible</span>
                     </p>
                 </section>
 
                 <!-- ACCOUNT SETTINGS -->
                 <section class="bg-[#fffaf3] rounded-[30px] border border-[#eadfce] shadow-sm p-5">
                     <div class="flex items-start gap-3 mb-5">
-                        <span class="text-[#8f6b43] text-xl">⚙</span>
+                        <span class="material-symbols-rounded text-[#8f6b43]">settings</span>
                         <h2 class="text-xl font-black leading-tight">Paramètres du compte</h2>
                     </div>
 
                     <div class="space-y-4">
                         <div>
                             <p class="text-xs uppercase tracking-wide text-[#b08a5f] font-black mb-2">Email</p>
-                            <p id="parentEmail" class="text-sm font-semibold break-all text-[#4a3c2d]">sophie.lefebvre@email.com</p>
+                            <p id="parentEmail" class="text-sm font-semibold break-all text-[#4a3c2d]">Chargement...</p>
                         </div>
 
                         <div class="flex items-center justify-between">
@@ -123,7 +222,7 @@
                 <section class="bg-[#fffaf3] rounded-[30px] border border-[#eadfce] shadow-sm p-6">
                     <div class="flex items-start justify-between gap-4 mb-5">
                         <div class="flex items-start gap-3">
-                            <span class="text-[#8f6b43] text-xl">👨‍👩‍👧‍👦</span>
+                            <span class="material-symbols-rounded text-[#8f6b43]">family_restroom</span>
                             <h2 class="text-2xl font-black">À propos de notre famille</h2>
                         </div>
 
@@ -133,7 +232,7 @@
                     </div>
 
                     <p id="familyAbout" class="text-[#6d5c49] text-base leading-7">
-                        Une famille dynamique qui adore les sorties en plein air, les randonnées le week-end et les soirées jeux de société le vendredi soir. Nous privilégions une alimentation saine et essayons de réduire notre temps d’écran collectif.
+                        Chargement de la description...
                     </p>
                 </section>
 
@@ -141,7 +240,7 @@
                 <section>
                     <div class="flex items-center justify-between gap-4 mb-5">
                         <div class="flex items-center gap-3">
-                            <span class="text-[#8f6b43] text-xl">☺</span>
+                            <span class="material-symbols-rounded text-[#8f6b43]">child_care</span>
                             <h2 class="text-2xl font-black">Mes Enfants</h2>
                         </div>
 
@@ -159,9 +258,9 @@
                 </section>
 
                 <!-- NEEDS + ROUTINES -->
-                <section class="bg-[#fffaf3] rounded-[30px] border border-[#eadfce] shadow-sm p-6">
+                <section id="needsSection" class="hidden bg-[#fffaf3] rounded-[30px] border border-[#eadfce] shadow-sm p-6">
                     <div class="flex items-center gap-3 mb-5">
-                        <span class="text-[#8f6b43] text-xl">📋</span>
+                        <span class="material-symbols-rounded text-[#8f6b43]">checklist</span>
                         <h2 class="text-2xl font-black">Besoins spécifiques & Routines</h2>
                     </div>
 
@@ -169,39 +268,34 @@
                         <!-- Allergies -->
                         <div>
                             <div class="flex items-center gap-2 mb-4">
-                                <span class="text-[#c46b5f] text-lg">⦿</span>
+                                <span class="material-symbols-rounded text-[#c46b5f]">health_and_safety</span>
                                 <h3 class="text-lg font-black text-[#c46b5f]">Allergies</h3>
                             </div>
 
                             <div id="allergiesList" class="space-y-3">
-                                <div class="rounded-2xl bg-[#f8efe4] border border-[#eadfce] p-4 text-[#9a8469] text-sm">
-                                    Aucune donnée
-                                </div>
                             </div>
                         </div>
 
                         <!-- Routines -->
                         <div>
                             <div class="flex items-center gap-2 mb-4">
-                                <span class="text-[#8f6b43] text-lg">◔</span>
+                                <span class="material-symbols-rounded text-[#8f6b43]">routine</span>
                                 <h3 class="text-lg font-black text-[#8f6b43]">Routines</h3>
                             </div>
 
                             <div id="routinesList" class="space-y-3">
-                                <div class="rounded-2xl bg-[#f8efe4] border border-[#eadfce] p-4 text-[#9a8469] text-sm">
-                                    Aucune donnée
-                                </div>
                             </div>
                         </div>
                     </div>
                 </section>
             </div>
         </div>
-    </main>
-
-    <footer class="py-6 text-center text-[#9a8469] text-sm">
-        © 2024 Organisateur Familial. Conçu avec soin pour votre famille.
-    </footer>
+                <footer class="py-6 text-center text-[#9a8469] text-sm">
+                    © 2024 Organisateur Familial. Conçu avec soin pour votre famille.
+                </footer>
+            </main>
+        </div>
+    </div>
 
     <!-- MODAL ABOUT -->
     <div id="aboutModal" class="hidden fixed inset-0 bg-black/40 z-50 items-center justify-center px-4">
@@ -229,7 +323,7 @@
     <div id="childModal" class="hidden fixed inset-0 bg-black/40 z-50 items-center justify-center px-4">
         <div class="bg-[#fffaf3] rounded-[28px] w-full max-w-xl p-6 border border-[#eadfce]">
             <div class="flex items-center justify-between mb-5">
-                <h3 class="text-2xl font-black">Ajouter un enfant</h3>
+                <h3 id="childModalTitle" class="text-2xl font-black">Ajouter un enfant</h3>
                 <button id="closeChildModalBtn" class="text-3xl text-[#9a8469] hover:text-[#4a3c2d]">×</button>
             </div>
 
@@ -280,6 +374,7 @@
         const childrenList = document.getElementById('childrenList');
         const allergiesList = document.getElementById('allergiesList');
         const routinesList = document.getElementById('routinesList');
+        const needsSection = document.getElementById('needsSection');
         const notificationsToggle = document.getElementById('notificationsToggle');
         const notificationsDot = document.getElementById('notificationsDot');
         const weeklySummaryToggle = document.getElementById('weeklySummaryToggle');
@@ -298,6 +393,7 @@
         const aboutTextarea = document.getElementById('aboutTextarea');
 
         const childModal = document.getElementById('childModal');
+        const childModalTitle = document.getElementById('childModalTitle');
         const closeChildModalBtn = document.getElementById('closeChildModalBtn');
         const cancelChildBtn = document.getElementById('cancelChildBtn');
         const saveChildBtn = document.getElementById('saveChildBtn');
@@ -305,6 +401,9 @@
         const childAgeInput = document.getElementById('childAgeInput');
         const childAllergiesInput = document.getElementById('childAllergiesInput');
         const childRoutineInput = document.getElementById('childRoutineInput');
+        const sidebarAvatar = document.getElementById('sidebarAvatar');
+        const sidebarFamilyName = document.getElementById('sidebarFamilyName');
+        const logoutBtn = document.getElementById('logoutBtn');
 
         const messageBox = document.getElementById('messageBox');
         const defaultParentPhoto = '{{ asset('images/image1.jpeg') }}';
@@ -312,6 +411,7 @@
         let currentUser = null;
         let currentFamily = null;
         let allChildren = [];
+        let editingChildId = null;
 
         document.addEventListener('DOMContentLoaded', function () {
             checkAuth();
@@ -363,19 +463,29 @@
         });
 
         addChildBtn.addEventListener('click', function () {
+            resetChildForm();
             openModal(childModal);
         });
 
         closeChildModalBtn.addEventListener('click', function () {
+            resetChildForm();
             closeModal(childModal);
         });
 
         cancelChildBtn.addEventListener('click', function () {
+            resetChildForm();
             closeModal(childModal);
         });
 
         saveChildBtn.addEventListener('click', function () {
-            createChild();
+            saveChild();
+        });
+
+        logoutBtn.addEventListener('click', function () {
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '/login';
         });
 
         function checkAuth() {
@@ -398,7 +508,7 @@
         }
 
         function getToken() {
-            return localStorage.getItem('access_token');
+            return localStorage.getItem('access_token') || localStorage.getItem('token');
         }
 
         function getAuthHeaders() {
@@ -421,6 +531,8 @@
 
             if (currentUser) {
                 parentEmail.textContent = currentUser.email || '';
+                sidebarAvatar.textContent = getInitials(currentUser.name || 'F');
+                sidebarFamilyName.textContent = currentUser.name || 'Ma famille';
             }
 
             loadSavedParentPhoto();
@@ -480,13 +592,18 @@
 
         function renderFamily() {
             familyName.textContent = currentFamily.name || 'Ma famille';
+            sidebarFamilyName.textContent = currentFamily.name || (currentUser?.name || 'Ma famille');
 
             if (currentFamily.location) {
-                familyLocation.innerHTML = '<span>📍</span><span>' + escapeHtml(currentFamily.location) + '</span>';
+                familyLocation.innerHTML = '<span class="material-symbols-rounded !text-[18px] text-[#b08a5f]">location_on</span><span>' + escapeHtml(currentFamily.location) + '</span>';
+            } else {
+                familyLocation.innerHTML = '<span class="material-symbols-rounded !text-[18px] text-[#b08a5f]">location_on</span><span>Localisation indisponible</span>';
             }
 
             if (currentFamily.description) {
                 familyAbout.textContent = currentFamily.description;
+            } else {
+                familyAbout.textContent = 'Aucune description disponible pour le moment.';
             }
 
             loadSavedParentPhoto();
@@ -506,24 +623,65 @@
 
             allChildren.forEach(function (child) {
                 const card = document.createElement('div');
-                card.className = 'bg-[#fffaf3] rounded-[26px] border border-[#eadfce] shadow-sm p-5 flex items-center justify-between hover:-translate-y-0.5 hover:shadow-md transition';
+                card.className = 'bg-[#fffaf3] rounded-[26px] border border-[#eadfce] shadow-sm p-5 hover:-translate-y-0.5 hover:shadow-md transition';
+
+                const childDetails = getChildDetails(child);
+                const ageLabel = childDetails.age ? childDetails.age + ' ans' : 'Age non renseigné';
+                const allergiesLabel = childDetails.allergies ? escapeHtml(childDetails.allergies) : 'Aucune allergie';
+                const routineLabel = childDetails.routine ? escapeHtml(childDetails.routine) : 'Aucune routine';
 
                 card.innerHTML = `
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-2xl bg-[#efe2cf] text-[#8f6b43] flex items-center justify-center text-xl">
-                            ☺
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-[20px] bg-[#efe2cf] text-[#8f6b43] flex items-center justify-center">
+                                <span class="material-symbols-rounded">child_care</span>
+                            </div>
+
+                            <div>
+                                <p class="text-xl font-black">${escapeHtml(child.name || '')}</p>
+                                <p class="text-[#7b6b58] text-sm mt-1">${ageLabel}</p>
+                            </div>
                         </div>
 
-                        <div>
-                            <p class="text-xl font-black">${escapeHtml(child.name || '')}</p>
-                            <p class="text-[#7b6b58] text-sm mt-1">${child.age ? child.age + ' ans' : '-'}</p>
+                        <div class="flex items-center gap-2">
+                            <button class="child-edit-btn inline-flex items-center justify-center w-9 h-9 rounded-xl bg-[#efe2cf] text-[#8f6b43] hover:bg-[#e3d1b8]" data-child-id="${child.id}">
+                                <span class="material-symbols-rounded !text-[18px]">edit</span>
+                            </button>
+                            <button class="child-delete-btn inline-flex items-center justify-center w-9 h-9 rounded-xl bg-[#fff1ed] text-[#b55348] hover:bg-[#fde3dd]" data-child-id="${child.id}">
+                                <span class="material-symbols-rounded !text-[18px]">delete</span>
+                            </button>
                         </div>
                     </div>
 
-                    <button class="text-[#b08a5f] text-2xl hover:text-[#8f6b43]">›</button>
+                    <div class="mt-5 grid gap-3">
+                        <div class="rounded-2xl bg-[#f8efe4] border border-[#eadfce] px-4 py-3">
+                            <p class="text-[11px] uppercase tracking-[0.18em] text-[#b08a5f] font-black mb-1">Âge</p>
+                            <p class="text-sm font-semibold text-[#5d4c39]">${ageLabel}</p>
+                        </div>
+                        <div class="rounded-2xl bg-[#fff1ed] border border-[#f1c7bd] px-4 py-3">
+                            <p class="text-[11px] uppercase tracking-[0.18em] text-[#c46b5f] font-black mb-1">Besoins</p>
+                            <p class="text-sm font-semibold text-[#7b4b42]">${allergiesLabel}</p>
+                        </div>
+                        <div class="rounded-2xl bg-[#f8efe4] border border-[#eadfce] px-4 py-3">
+                            <p class="text-[11px] uppercase tracking-[0.18em] text-[#8f6b43] font-black mb-1">Routine</p>
+                            <p class="text-sm font-semibold text-[#5d4c39]">${routineLabel}</p>
+                        </div>
+                    </div>
                 `;
 
                 childrenList.appendChild(card);
+            });
+
+            childrenList.querySelectorAll('.child-edit-btn').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    openEditChild(button.dataset.childId);
+                });
+            });
+
+            childrenList.querySelectorAll('.child-delete-btn').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    deleteChild(button.dataset.childId);
+                });
             });
         }
 
@@ -535,7 +693,9 @@
             let hasRoutines = false;
 
             allChildren.forEach(function (child) {
-                if (child.allergies && child.allergies.trim() !== '') {
+                const childDetails = getChildDetails(child);
+
+                if (childDetails.allergies) {
                     hasAllergies = true;
 
                     const allergy = document.createElement('div');
@@ -543,39 +703,29 @@
 
                     allergy.innerHTML = `
                         <p class="text-[#b55348] text-sm font-bold">
-                            ${escapeHtml(child.name)}: ${escapeHtml(child.allergies)}
+                            ${escapeHtml(child.name)}: ${escapeHtml(childDetails.allergies)}
                         </p>
                     `;
 
                     allergiesList.appendChild(allergy);
                 }
 
-                if (child.routine && child.routine.trim() !== '') {
+                if (childDetails.routine) {
                     hasRoutines = true;
 
                     const routine = document.createElement('div');
                     routine.className = 'rounded-2xl bg-[#f8efe4] border border-[#eadfce] p-4 text-[#5d4c39] text-sm';
 
-                    routine.innerHTML = escapeHtml(child.routine);
+                    routine.innerHTML = escapeHtml(childDetails.routine);
 
                     routinesList.appendChild(routine);
                 }
             });
 
-            if (!hasAllergies) {
-                allergiesList.innerHTML = `
-                    <div class="rounded-2xl bg-[#f8efe4] border border-[#eadfce] p-4 text-[#9a8469] text-sm">
-                        Aucune allergie renseignée.
-                    </div>
-                `;
-            }
-
-            if (!hasRoutines) {
-                routinesList.innerHTML = `
-                    <div class="rounded-2xl bg-[#f8efe4] border border-[#eadfce] p-4 text-[#9a8469] text-sm">
-                        Aucune routine renseignée.
-                    </div>
-                `;
+            if (hasAllergies || hasRoutines) {
+                needsSection.classList.remove('hidden');
+            } else {
+                needsSection.classList.add('hidden');
             }
         }
 
@@ -657,6 +807,15 @@
             }
         }
 
+        async function saveChild() {
+            if (editingChildId) {
+                await updateChild(editingChildId);
+                return;
+            }
+
+            await createChild();
+        }
+
         async function createChild() {
             if (!currentFamily) {
                 showMessage('Aucune famille trouvée.', 'error');
@@ -664,6 +823,15 @@
             }
 
             try {
+                const ageValue = childAgeInput.value ? parseInt(childAgeInput.value, 10) : null;
+                const birthDate = ageValue !== null && !Number.isNaN(ageValue)
+                    ? convertAgeToBirthDate(ageValue)
+                    : null;
+                const notes = JSON.stringify({
+                    allergies: childAllergiesInput.value.trim(),
+                    routine: childRoutineInput.value.trim()
+                });
+
                 const response = await fetch('/api/children', {
                     method: 'POST',
                     headers: {
@@ -673,9 +841,8 @@
                     body: JSON.stringify({
                         family_id: currentFamily.id,
                         name: childNameInput.value.trim(),
-                        age: childAgeInput.value ? parseInt(childAgeInput.value) : null,
-                        allergies: childAllergiesInput.value.trim(),
-                        routine: childRoutineInput.value.trim()
+                        birth_date: birthDate,
+                        notes: notes
                     })
                 });
 
@@ -684,12 +851,90 @@
                 if (response.ok) {
                     showMessage('Enfant ajouté avec succès.', 'success');
                     closeModal(childModal);
+                    resetChildForm();
+                    loadChildren();
+                } else {
+                    showMessage(readErrors(result), 'error');
+                }
+            } catch (error) {
+                showMessage('Erreur serveur.', 'error');
+            }
+        }
 
-                    childNameInput.value = '';
-                    childAgeInput.value = '';
-                    childAllergiesInput.value = '';
-                    childRoutineInput.value = '';
+        async function updateChild(childId) {
+            const child = allChildren.find(function (item) {
+                return String(item.id) === String(childId);
+            });
 
+            if (!child) {
+                showMessage('Enfant introuvable.', 'error');
+                return;
+            }
+
+            try {
+                const ageValue = childAgeInput.value ? parseInt(childAgeInput.value, 10) : null;
+                const birthDate = ageValue !== null && !Number.isNaN(ageValue)
+                    ? convertAgeToBirthDate(ageValue)
+                    : null;
+                const notes = JSON.stringify({
+                    allergies: childAllergiesInput.value.trim(),
+                    routine: childRoutineInput.value.trim()
+                });
+
+                const response = await fetch('/api/children/' + childId, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...getAuthHeaders()
+                    },
+                    body: JSON.stringify({
+                        name: childNameInput.value.trim(),
+                        birth_date: birthDate,
+                        notes: notes
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showMessage('Enfant modifié avec succès.', 'success');
+                    closeModal(childModal);
+                    resetChildForm();
+                    loadChildren();
+                } else {
+                    showMessage(readErrors(result), 'error');
+                }
+            } catch (error) {
+                showMessage('Erreur serveur.', 'error');
+            }
+        }
+
+        async function deleteChild(childId) {
+            const child = allChildren.find(function (item) {
+                return String(item.id) === String(childId);
+            });
+
+            if (!child) {
+                showMessage('Enfant introuvable.', 'error');
+                return;
+            }
+
+            const confirmed = window.confirm('Supprimer ' + (child.name || 'cet enfant') + ' ?');
+
+            if (!confirmed) {
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/children/' + childId, {
+                    method: 'DELETE',
+                    headers: getAuthHeaders()
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showMessage('Enfant supprimé avec succès.', 'success');
                     loadChildren();
                 } else {
                     showMessage(readErrors(result), 'error');
@@ -723,6 +968,101 @@
         function closeModal(modal) {
             modal.classList.add('hidden');
             modal.classList.remove('flex');
+        }
+
+        function openEditChild(childId) {
+            const child = allChildren.find(function (item) {
+                return String(item.id) === String(childId);
+            });
+
+            if (!child) {
+                showMessage('Enfant introuvable.', 'error');
+                return;
+            }
+
+            const childDetails = getChildDetails(child);
+
+            editingChildId = child.id;
+            childModalTitle.textContent = 'Modifier un enfant';
+            saveChildBtn.textContent = 'Enregistrer';
+            childNameInput.value = child.name || '';
+            childAgeInput.value = childDetails.age || '';
+            childAllergiesInput.value = childDetails.allergies || '';
+            childRoutineInput.value = childDetails.routine || '';
+
+            openModal(childModal);
+        }
+
+        function resetChildForm() {
+            editingChildId = null;
+            childModalTitle.textContent = 'Ajouter un enfant';
+            saveChildBtn.textContent = 'Ajouter';
+            childNameInput.value = '';
+            childAgeInput.value = '';
+            childAllergiesInput.value = '';
+            childRoutineInput.value = '';
+        }
+
+        function getChildDetails(child) {
+            const parsedNotes = parseChildNotes(child.notes);
+
+            return {
+                age: calculateAge(child.birth_date),
+                allergies: parsedNotes.allergies,
+                routine: parsedNotes.routine
+            };
+        }
+
+        function parseChildNotes(notes) {
+            if (!notes || typeof notes !== 'string') {
+                return {
+                    allergies: '',
+                    routine: ''
+                };
+            }
+
+            try {
+                const parsed = JSON.parse(notes);
+
+                return {
+                    allergies: typeof parsed.allergies === 'string' ? parsed.allergies.trim() : '',
+                    routine: typeof parsed.routine === 'string' ? parsed.routine.trim() : ''
+                };
+            } catch (error) {
+                return {
+                    allergies: '',
+                    routine: notes.trim()
+                };
+            }
+        }
+
+        function calculateAge(birthDate) {
+            if (!birthDate) {
+                return null;
+            }
+
+            const date = new Date(birthDate);
+
+            if (Number.isNaN(date.getTime())) {
+                return null;
+            }
+
+            const today = new Date();
+            let age = today.getFullYear() - date.getFullYear();
+            const monthDiff = today.getMonth() - date.getMonth();
+
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < date.getDate())) {
+                age--;
+            }
+
+            return age >= 0 ? age : null;
+        }
+
+        function convertAgeToBirthDate(age) {
+            const today = new Date();
+            const birthDate = new Date(today.getFullYear() - age, today.getMonth(), today.getDate());
+
+            return birthDate.toISOString().split('T')[0];
         }
 
         function getInitials(name) {
