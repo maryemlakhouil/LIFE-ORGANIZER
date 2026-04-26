@@ -608,7 +608,7 @@
 
             loadSavedParentPhoto();
         }
-
+        // afficher les infos de enfant dans les cartes 
         function renderChildren() {
             childrenList.innerHTML = '';
 
@@ -684,7 +684,7 @@
                 });
             });
         }
-
+        // afficher les routines 
         function renderNeedsAndRoutines() {
             allergiesList.innerHTML = '';
             routinesList.innerHTML = '';
@@ -728,12 +728,12 @@
                 needsSection.classList.add('hidden');
             }
         }
-
+        // enregister le photo du parent 
         function loadSavedParentPhoto() {
             const savedPhoto = localStorage.getItem(getParentPhotoStorageKey());
             familyPhoto.src = savedPhoto || defaultParentPhoto;
         }
-
+        // prévisualiser la photo choisie par le parent (controler la taille d'image , type ,souvgarder sans local storage )
         function previewParentPhoto() {
             const file = parentPhotoInput.files[0];
 
@@ -765,7 +765,7 @@
 
             reader.readAsDataURL(file);
         }
-
+        // générer une clé unique pour localStorage
         function getParentPhotoStorageKey() {
             const userId = currentUser && currentUser.id ? currentUser.id : 'guest';
             const familyId = currentFamily && currentFamily.id ? currentFamily.id : 'default';
@@ -943,7 +943,7 @@
                 showMessage('Erreur serveur.', 'error');
             }
         }
-
+        // la couleur du fond gris et marron 
         function toggleSwitch(wrapper, dot) {
             const isActive = wrapper.classList.contains('bg-[#8f6b43]');
 
@@ -969,7 +969,7 @@
             modal.classList.add('hidden');
             modal.classList.remove('flex');
         }
-
+        // modifier un enfant
         function openEditChild(childId) {
             const child = allChildren.find(function (item) {
                 return String(item.id) === String(childId);
@@ -992,7 +992,7 @@
 
             openModal(childModal);
         }
-
+        // Préparer le formulaire pour ajouter un nouvel enfant
         function resetChildForm() {
             editingChildId = null;
             childModalTitle.textContent = 'Ajouter un enfant';
@@ -1002,7 +1002,7 @@
             childAllergiesInput.value = '';
             childRoutineInput.value = '';
         }
-
+        // Transformer les données brutes de l’enfant en données prêtes pour formulaire
         function getChildDetails(child) {
             const parsedNotes = parseChildNotes(child.notes);
 
@@ -1012,7 +1012,7 @@
                 routine: parsedNotes.routine
             };
         }
-
+        // Lire le champ notes allergies 
         function parseChildNotes(notes) {
             if (!notes || typeof notes !== 'string') {
                 return {
@@ -1035,7 +1035,7 @@
                 };
             }
         }
-
+        // Calculer l’âge réel à partir de date naissance 
         function calculateAge(birthDate) {
             if (!birthDate) {
                 return null;

@@ -92,6 +92,7 @@ class ConversationCallClient {
     async start({ type = 'audio', targetUserId = null } = {}) {
         this.currentCallType = type;
         this.currentTargetUserId = targetUserId;
+        await this.prepareLocalPeer(type);
 
         const response = await postToApi(
             `/conversations/${this.conversationId}/calls/start`,
@@ -102,8 +103,6 @@ class ConversationCallClient {
         );
 
         this.currentCallId = response.data.call_id;
-
-        await this.prepareLocalPeer(type);
         await this.sendOffer();
 
         this.options.onCallStarted?.(response.data);
@@ -218,10 +217,26 @@ class ConversationCallClient {
 
         const wantsVideo = type === 'video';
 
-        this.localStream = await navigator.mediaDevices.getUserMedia({
-            audio: true,
-            video: wantsVideo,
-        });
+        try {
+            this.localStream = await navigator.mediaDevices.getUserMedia({
+                audio: true,
+                video: wantsVideo,
+            });
+        } catch (error) {
+            if (error?.name === 'NotAllowedError') {
+                throw new Error('Autorisez le micro' + (wantsVideo ? ' et la caméra' : '') + ' pour lancer l’appel.');
+            }
+
+            if (error?.name === 'NotFoundError') {
+                throw new Error('Aucun micro ou caméra compatible n’a été trouvé sur cet appareil.');
+            }
+
+            if (error?.name === 'NotReadableError') {
+                throw new Error('Le micro ou la caméra est déjà utilisé par une autre application.');
+            }
+
+            throw new Error('Impossible d’accéder au micro' + (wantsVideo ? ' ou à la caméra' : '') + '.');
+        }
 
         this.options.onLocalStream?.(this.localStream);
 
