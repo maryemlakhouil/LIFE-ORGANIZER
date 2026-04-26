@@ -3,285 +3,427 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trouver une nounou - Family Organizer</title>
+    <title>Nounous - Family Organizer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,0,0" rel="stylesheet">
     @vite(['resources/css/app.css'])
+    <style>
+        .material-symbols-rounded {
+            font-family: 'Material Symbols Rounded';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 20px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        .parent-nannies-theme .bg-white { background-color: #fffaf3 !important; }
+        .parent-nannies-theme .bg-blue-600,
+        .parent-nannies-theme .bg-blue-500 { background-color: #8f6b43 !important; }
+        .parent-nannies-theme .hover\:bg-blue-700:hover { background-color: #795936 !important; }
+        .parent-nannies-theme .bg-blue-100,
+        .parent-nannies-theme .bg-blue-50,
+        .parent-nannies-theme .hover\:bg-blue-50:hover { background-color: #efe2cf !important; }
+        .parent-nannies-theme .bg-slate-100,
+        .parent-nannies-theme .bg-slate-200,
+        .parent-nannies-theme .hover\:bg-slate-100:hover { background-color: #f3e8d9 !important; }
+        .parent-nannies-theme .text-blue-600,
+        .parent-nannies-theme .hover\:text-blue-600:hover { color: #8f6b43 !important; }
+        .parent-nannies-theme .text-slate-900 { color: #2f281f !important; }
+        .parent-nannies-theme .text-slate-700,
+        .parent-nannies-theme .text-slate-600,
+        .parent-nannies-theme .text-slate-500 { color: #6d5c49 !important; }
+        .parent-nannies-theme .text-slate-400 { color: #9a8469 !important; }
+        .parent-nannies-theme .border-slate-100,
+        .parent-nannies-theme .border-slate-200,
+        .parent-nannies-theme .border-slate-300,
+        .parent-nannies-theme .border-blue-200 { border-color: #eadfce !important; }
+        .parent-nannies-theme .focus\:border-blue-500:focus { border-color: #8f6b43 !important; }
+    </style>
 </head>
-<body class="bg-[#f5f7fb] text-slate-900 min-h-screen flex flex-col">
 
-    <!-- TOPBAR -->
-    <header class="bg-white border-b border-slate-200">
-        <div class="max-w-[1320px] mx-auto px-6 py-4 flex items-center justify-between gap-6">
-            <div class="flex items-center gap-10">
-                <a href="{{ route('home') }}" class="flex items-center gap-3">
-                    <div class="w-11 h-11 rounded-full bg-blue-600 flex items-center justify-center">
-                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M16 11c1.66 0 3-1.57 3-3.5S17.66 4 16 4s-3 1.57-3 3.5S14.34 11 16 11zm-8 0c1.66 0 3-1.57 3-3.5S9.66 4 8 4 5 5.57 5 7.5 6.34 11 8 11zm0 2c-2.33 0-7 1.17-7 3.5V20h14v-3.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.95 1.97 3.45V20h6v-3.5c0-2.33-4.67-3.5-7-3.5z"/>
-                        </svg>
+<body class="parent-nannies-theme bg-[#f7f0e7] text-[#2f281f] min-h-screen">
+    <div class="flex min-h-screen">
+        <aside class="w-[270px] bg-[#fffaf3] border-r border-[#eadfce] hidden lg:flex flex-col">
+            <div class="px-7 pt-7 pb-7">
+                <div class="flex items-center gap-4">
+                    <div class="w-9 h-9 rounded-2xl bg-[#8f6b43] flex items-center justify-center shadow-sm">
+                        <span class="material-symbols-rounded text-[#fffaf3]">groups</span>
                     </div>
-                    <span class="text-2xl font-bold">Family Organizer</span>
-                </a>
+                    <div>
+                        <h1 class="text-lg font-black leading-tight tracking-tight">Family Organiser</h1>
+                    </div>
+                </div>
+            </div>
 
-                <nav class="hidden lg:flex items-center gap-8 text-lg">
-                    <a href="{{ route('parent.dashboard') }}" class="text-slate-600 hover:text-blue-600">Accueil</a>
-                    <a href="{{ route('parent.nannies') }}" class="text-blue-600 font-semibold">Nounous</a>
-                    <a href="{{ route('parent.calendar') }}" class="text-slate-600 hover:text-blue-600">Calendrier</a>
-                    <a href="{{ route('parent.messages') }}" class="text-slate-600 hover:text-blue-600">Messages</a>
+            <div class="px-5 pt-12">
+                <div class="flex items-center gap-4 mb-10">
+                    <div id="sidebarAvatar" class="w-12 h-12 rounded-2xl bg-[#efe2cf] flex items-center justify-center text-base font-black text-[#8f6b43]">
+                        P
+                    </div>
+                    <div>
+                        <p id="sidebarName" class="text-xl font-black leading-none mb-1">Chargement...</p>
+                        <p class="text-[#9a8469] text-sm font-semibold">Espace parent</p>
+                    </div>
+                </div>
+
+                <nav class="space-y-5">
+                    <a href="{{ route('parent.dashboard') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">dashboard</span>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="{{ route('parent.tasks') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">event_note</span>
+                        <span>Planning</span>
+                    </a>
+                    <a href="{{ route('parent.calendar') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">calendar_month</span>
+                        <span>Calendrier</span>
+                    </a>
+                    <a href="{{ route('parent.messages') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">chat_bubble</span>
+                        <span>Messagerie</span>
+                    </a>
+                    <a href="{{ route('parent.family') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">home</span>
+                        <span>Profil famille</span>
+                    </a>
+                    <a href="{{ route('parent.nannies') }}" class="flex items-center gap-4 bg-[#efe2cf] text-[#8f6b43] px-6 py-3.5 rounded-[26px] text-lg font-black shadow-sm">
+                        <span class="material-symbols-rounded">person_search</span>
+                        <span>Nounous</span>
+                    </a>
+                    <a href="{{ route('parent.nanny-profile') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">badge</span>
+                        <span>Profil nounou</span>
+                    </a>
                 </nav>
             </div>
 
-            <div class="flex items-center gap-4">
-                <button class="w-11 h-11 rounded-full bg-[#f3f6fb] text-slate-500 hover:bg-slate-200">🔔</button>
-                <div id="profileAvatarTop" class="w-11 h-11 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
-                    P
+            <div class="mt-auto px-7 pb-10">
+                <div class="space-y-4 text-sm">
+                    <button class="flex items-center gap-3 text-[#5d4c39] hover:text-[#8f6b43]">
+                        <span class="material-symbols-rounded !text-base">settings</span>
+                        <span>Paramètres</span>
+                    </button>
+                    <button id="logoutBtn" class="flex items-center gap-3 text-red-500 hover:text-red-600">
+                        <span class="material-symbols-rounded !text-base">logout</span>
+                        <span>Déconnexion</span>
+                    </button>
                 </div>
             </div>
+        </aside>
+
+        <div class="flex-1 min-w-0">
+            <header class="bg-[#fffaf3]/90 backdrop-blur px-6 md:px-8 py-5 flex items-center justify-between border-b border-[#eadfce]">
+                <div>
+                    <h2 class="text-2xl font-black mb-1">Trouver une nounou</h2>
+                    <p class="text-[#9a8469] text-base font-semibold">Parcourez toutes les nounous disponibles sur la plateforme.</p>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button class="w-10 h-10 rounded-2xl flex items-center justify-center text-[#6d5c49] hover:bg-[#efe2cf]">
+                        <span class="material-symbols-rounded">notifications</span>
+                    </button>
+                    <a href="{{ route('parent.nanny-profile') }}" class="px-5 py-2.5 rounded-full bg-[#8f6b43] text-white font-bold hover:bg-[#795936]">
+                        Voir le profil
+                    </a>
+                </div>
+            </header>
+
+            <main class="p-5 md:p-8">
+                <div id="messageBox" class="hidden mb-6 rounded-2xl p-4 text-sm"></div>
+
+                <section class="rounded-[32px] bg-gradient-to-br from-[#fffaf3] via-[#f2e3cf] to-[#d9b98c] border border-[#eadfce] p-6 md:p-8 shadow-sm overflow-hidden relative flex flex-col lg:flex-row lg:items-start lg:justify-between gap-5 mb-7">
+                    <div class="relative z-10 max-w-2xl">
+                        <p class="text-xs uppercase tracking-[0.22em] text-[#8f6b43] font-black mb-3">Réseau de confiance</p>
+                        <h1 class="text-3xl md:text-4xl font-black mb-3">Choisissez la bonne nounou pour votre foyer.</h1>
+                        <p class="text-[#6d5c49] text-sm md:text-base leading-7">
+                            Cette page affiche toutes les nounous de la plateforme. Le parent peut consulter librement les profils avant de faire son choix.
+                        </p>
+                    </div>
+
+                    <div class="self-start rounded-full border border-[#eadfce] bg-white px-5 py-3 text-sm text-[#6d5c49] font-bold">
+                        <span id="availableCount" class="text-[#8f6b43] font-black">0</span> nounou(s)
+                    </div>
+                </section>
+
+                <section class="flex flex-col xl:flex-row gap-4 mb-8">
+                    <div class="flex-1">
+                        <div class="relative">
+                            <span class="material-symbols-rounded absolute left-5 top-1/2 -translate-y-1/2 text-[#9a8469]">search</span>
+                            <input
+                                id="searchInput"
+                                type="text"
+                                placeholder="Rechercher par nom ou email..."
+                                class="w-full rounded-[24px] border border-slate-200 bg-white pl-14 pr-5 py-3.5 text-base outline-none focus:border-blue-500"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-3">
+                        <select id="experienceFilter" class="rounded-full border border-slate-200 bg-white px-5 py-3.5 text-sm outline-none focus:border-blue-500">
+                            <option value="">Expérience</option>
+                            <option value="3">3 ans et +</option>
+                            <option value="5">5 ans et +</option>
+                            <option value="8">8 ans et +</option>
+                        </select>
+
+                        <select id="priceFilter" class="rounded-full border border-slate-200 bg-white px-5 py-3.5 text-sm outline-none focus:border-blue-500">
+                            <option value="">Tarif max</option>
+                            <option value="12">12€</option>
+                            <option value="14">14€</option>
+                            <option value="16">16€</option>
+                            <option value="18">18€</option>
+                        </select>
+
+                        <select id="familyFilter" class="rounded-full border border-slate-200 bg-white px-5 py-3.5 text-sm outline-none focus:border-blue-500">
+                            <option value="">Toutes les liaisons</option>
+                            <option value="linked">Liées à une famille</option>
+                            <option value="unlinked">Non liées</option>
+                        </select>
+
+                        <select id="statusFilter" class="rounded-full border border-slate-200 bg-white px-5 py-3.5 text-sm outline-none focus:border-blue-500">
+                            <option value="">Tous les statuts</option>
+                            <option value="active">Comptes actifs</option>
+                            <option value="inactive">Comptes inactifs</option>
+                        </select>
+                    </div>
+                </section>
+
+                <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-10" id="nanniesGrid">
+                    <div class="bg-white rounded-[28px] border border-slate-200 shadow-sm p-6 text-slate-400">
+                        Chargement...
+                    </div>
+                </section>
+            </main>
         </div>
-    </header>
-
-    <main class="flex-1 max-w-[1320px] mx-auto w-full px-6 py-8">
-        <div id="messageBox" class="hidden mb-6 rounded-2xl p-4 text-sm"></div>
-
-        <!-- HEADER -->
-        <section class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-5 mb-8">
-            <div>
-                <h1 class="text-6xl font-black mb-3">Trouver une Nounou</h1>
-                <p class="text-slate-500 text-2xl">
-                    Découvrez les meilleures nounous vérifiées à proximité.
-                </p>
-            </div>
-
-            <div class="self-start rounded-full border border-slate-200 bg-white px-6 py-3 text-xl text-slate-500">
-                <span id="availableCount" class="text-blue-600 font-semibold">0</span> Nounous disponibles
-            </div>
-        </section>
-
-        <!-- SEARCH + FILTERS -->
-        <section class="flex flex-col xl:flex-row gap-4 mb-8">
-            <div class="flex-1">
-                <div class="relative">
-                    <span class="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 text-xl">🔎</span>
-                    <input
-                        id="searchInput"
-                        type="text"
-                        placeholder="Rechercher par nom, ville ou code postal..."
-                        class="w-full rounded-[26px] border border-slate-200 bg-white pl-14 pr-5 py-4 text-xl outline-none focus:border-blue-500"
-                    >
-                </div>
-            </div>
-
-            <div class="flex flex-wrap gap-3">
-                <select id="experienceFilter" class="rounded-full border border-slate-200 bg-white px-5 py-4 text-lg outline-none focus:border-blue-500">
-                    <option value="">Expérience</option>
-                    <option value="3">3 ans et +</option>
-                    <option value="5">5 ans et +</option>
-                    <option value="8">8 ans et +</option>
-                </select>
-
-                <select id="priceFilter" class="rounded-full border border-slate-200 bg-white px-5 py-4 text-lg outline-none focus:border-blue-500">
-                    <option value="">Tarif max</option>
-                    <option value="12">12€</option>
-                    <option value="14">14€</option>
-                    <option value="16">16€</option>
-                    <option value="18">18€</option>
-                </select>
-
-                <select id="distanceFilter" class="rounded-full border border-slate-200 bg-white px-5 py-4 text-lg outline-none focus:border-blue-500">
-                    <option value="">Distance</option>
-                    <option value="2">2 km</option>
-                    <option value="5">5 km</option>
-                    <option value="10">10 km</option>
-                </select>
-
-                <select id="ratingFilter" class="rounded-full border border-slate-200 bg-white px-5 py-4 text-lg outline-none focus:border-blue-500">
-                    <option value="">Notes</option>
-                    <option value="4.5">4.5 et +</option>
-                    <option value="4.8">4.8 et +</option>
-                    <option value="5">5.0</option>
-                </select>
-            </div>
-        </section>
-
-        <!-- GRID -->
-        <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-10" id="nanniesGrid">
-            <div class="bg-white rounded-[28px] border border-slate-200 shadow-sm p-6 text-slate-400">
-                Chargement...
-            </div>
-        </section>
-
-        <!-- PAGINATION -->
-        <section class="flex justify-center items-center gap-3 mb-8" id="paginationWrapper">
-        </section>
-    </main>
-
-    <footer class="py-8 text-center text-slate-400 text-lg">
-        © 2024 Family Organizer. Tous droits réservés.
-    </footer>
+    </div>
 
     <script>
         const searchInput = document.getElementById('searchInput');
         const experienceFilter = document.getElementById('experienceFilter');
         const priceFilter = document.getElementById('priceFilter');
-        const distanceFilter = document.getElementById('distanceFilter');
-        const ratingFilter = document.getElementById('ratingFilter');
-
+        const familyFilter = document.getElementById('familyFilter');
+        const statusFilter = document.getElementById('statusFilter');
         const nanniesGrid = document.getElementById('nanniesGrid');
-        const paginationWrapper = document.getElementById('paginationWrapper');
         const availableCount = document.getElementById('availableCount');
-        const profileAvatarTop = document.getElementById('profileAvatarTop');
+        const sidebarAvatar = document.getElementById('sidebarAvatar');
+        const sidebarName = document.getElementById('sidebarName');
+        const logoutBtn = document.getElementById('logoutBtn');
         const messageBox = document.getElementById('messageBox');
 
         let currentUser = null;
         let allNannies = [];
         let filteredNannies = [];
-        let currentPage = 1;
-        const perPage = 5;
 
         document.addEventListener('DOMContentLoaded', function () {
+            guardParentAccess();
             loadUserInfo();
-            seedNannies();
-            applyFilters();
+            loadNannies();
         });
 
         searchInput.addEventListener('input', applyFilters);
         experienceFilter.addEventListener('change', applyFilters);
         priceFilter.addEventListener('change', applyFilters);
-        distanceFilter.addEventListener('change', applyFilters);
-        ratingFilter.addEventListener('change', applyFilters);
+        familyFilter.addEventListener('change', applyFilters);
+        statusFilter.addEventListener('change', applyFilters);
 
-        function loadUserInfo() {
-            const user = localStorage.getItem('user');
+        logoutBtn.addEventListener('click', function () {
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            localStorage.removeItem('selectedNannyProfile');
+            window.location.href = '/login';
+        });
 
-            if (user) {
-                currentUser = JSON.parse(user);
-                profileAvatarTop.textContent = getInitials(currentUser.name || 'P');
+        function getToken() {
+            return localStorage.getItem('access_token') || localStorage.getItem('token');
+        }
+
+        function getAuthHeaders() {
+            return {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + getToken()
+            };
+        }
+
+        function getStoredUser() {
+            try {
+                return JSON.parse(localStorage.getItem('user'));
+            } catch (error) {
+                return null;
             }
         }
 
-        function seedNannies() {
-            allNannies = [
-                {
-                    id: 1,
-                    name: 'Sophie Martin',
-                    city: 'Lyon, 3ème arrondissement',
-                    price: 15,
-                    experience: 8,
-                    rating: 4.9,
-                    distance: 3,
-                    description: "Ancienne auxiliaire de puériculture, j'ai l'habitude de m'occuper des nouveau-nés et des jeunes enfants.",
-                    tags: ['Vérifiée'],
-                    badge: '8 ans d’exp.',
-                    photo: '{{ asset('images/nannies/nanny-1.jpg') }}'
-                },
-                {
-                    id: 2,
-                    name: 'Léa Dubois',
-                    city: 'Villeurbanne',
-                    price: 12,
-                    experience: 3,
-                    rating: 4.8,
-                    distance: 4,
-                    description: "Dynamique et créative, je propose des activités d’éveil et de l’aide aux devoirs pour vos enfants.",
-                    tags: ['Étudiante'],
-                    badge: '3 ans d’exp.',
-                    photo: '{{ asset('images/nannies/nanny-2.jpg') }}'
-                },
-                {
-                    id: 3,
-                    name: 'Thomas Bernard',
-                    city: 'Lyon, 6ème arrondissement',
-                    price: 18,
-                    experience: 10,
-                    rating: 5.0,
-                    distance: 2,
-                    description: "Spécialisé dans l’encadrement périscolaire et les activités sportives. Premier secours certifié.",
-                    tags: ['Premium'],
-                    badge: '10 ans d’exp.',
-                    photo: '{{ asset('images/nannies/nanny-3.jpg') }}'
-                },
-                {
-                    id: 4,
-                    name: 'Clara Petit',
-                    city: 'Tassin-la-Demi-Lune',
-                    price: 14,
-                    experience: 5,
-                    rating: 4.7,
-                    distance: 8,
-                    description: "Disponible pour les sorties d’école et les mercredis après-midi. Jeux éducatifs et balades.",
-                    tags: [],
-                    badge: '5 ans d’exp.',
-                    photo: '{{ asset('images/nannies/nanny-4.jpg') }}'
-                },
-                {
-                    id: 5,
-                    name: 'Camille Lefebvre',
-                    city: 'Caluire-et-Cuire',
-                    price: 16,
-                    experience: 6,
-                    rating: 4.9,
-                    distance: 5,
-                    description: "Bilingue Anglais-Français, je peux initier vos enfants à la langue de Shakespeare par le jeu.",
-                    tags: ['Vérifiée'],
-                    badge: '6 ans d’exp.',
-                    photo: '{{ asset('images/nannies/nanny-5.jpg') }}'
-                },
-                {
-                    id: 6,
-                    name: 'Nina Moreau',
-                    city: 'Oullins',
-                    price: 13,
-                    experience: 4,
-                    rating: 4.6,
-                    distance: 9,
-                    description: "Patiente et organisée, je privilégie les routines rassurantes et les activités calmes.",
-                    tags: ['Flexible'],
-                    badge: '4 ans d’exp.',
-                    photo: '{{ asset('images/nannies/nanny-6.jpg') }}'
+        function guardParentAccess() {
+            const token = getToken();
+            const user = getStoredUser();
+
+            if (!token || !user) {
+                window.location.href = '/login';
+                return;
+            }
+
+            if (user.role === 'admin') {
+                window.location.href = '/admin/dashboard';
+                return;
+            }
+
+            if (user.role !== 'parent') {
+                window.location.href = '/';
+            }
+        }
+
+        function loadUserInfo() {
+            currentUser = getStoredUser();
+
+            if (!currentUser) {
+                return;
+            }
+
+            sidebarAvatar.textContent = getInitials(currentUser.name || 'P');
+            sidebarName.textContent = currentUser.name || 'Espace parent';
+        }
+
+        async function loadNannies() {
+            try {
+                const response = await fetch('/api/nannies', {
+                    method: 'GET',
+                    headers: getAuthHeaders()
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    showMessage(result.message || 'Impossible de charger les nounous.', 'error');
+                    return;
                 }
-            ];
+
+                allNannies = extractNannies(normalizeCollection(result.data));
+                populateFamilyFilter(allNannies);
+                applyFilters();
+            } catch (error) {
+                showMessage('Impossible de charger les nounous.', 'error');
+                nanniesGrid.innerHTML = `
+                    <div class="xl:col-span-3 rounded-[28px] border border-slate-200 bg-white p-8 text-center text-[#9a8469]">
+                        Une erreur est survenue pendant le chargement.
+                    </div>
+                `;
+            }
+        }
+
+        function normalizeCollection(data) {
+            if (Array.isArray(data)) {
+                return data;
+            }
+
+            if (data && Array.isArray(data.data)) {
+                return data.data;
+            }
+
+            return [];
+        }
+
+        function extractNannies(nannies) {
+            return nannies.map(function (nanny) {
+                const families = Array.isArray(nanny.families) ? nanny.families : [];
+                const familyNames = families.map(function (family) {
+                    return family.name;
+                }).filter(Boolean);
+
+                return {
+                    id: nanny.id,
+                    name: nanny.name || 'Nounou',
+                    email: nanny.email || '',
+                    photo: nanny.photo || '',
+                    is_active: nanny.is_active !== false,
+                    title: 'Nounou de confiance',
+                    location: familyNames.length > 0 ? familyNames.join(', ') : 'Disponible sur la plateforme',
+                    experience_years: nanny.experience_years,
+                    experience: nanny.experience_years ? nanny.experience_years + ' ans' : 'Non renseigné',
+                    rating: nanny.is_active ? '4.8' : '4.5',
+                    reviewsCount: familyNames.length > 0 ? 12 : 0,
+                    age: '-',
+                    hourly_rate: nanny.hourly_rate,
+                    rate: nanny.hourly_rate ? formatRate(nanny.hourly_rate) : '---',
+                    about: familyNames.length > 0
+                        ? 'Nounou visible sur la plateforme et déjà liée à une ou plusieurs familles.'
+                        : 'Nounou visible sur la plateforme. Aucune famille liée pour le moment.',
+                    skills: ['Garde d’enfants', 'Organisation', 'Suivi des routines'],
+                    languages: [
+                        { name: 'Français', level: 'Courant' }
+                    ],
+                    availability: {
+                        matin: [1, 1, 1, 1, 1, 0, 0],
+                        aprem: [1, 1, 1, 1, 1, 0, 0],
+                        soiree: [0, 1, 0, 1, 1, 0, 0]
+                    },
+                    availabilityNote: 'Disponibilités à confirmer directement avec cette nounou.',
+                    zone: familyNames.length > 0 ? familyNames.join(', ') : 'Zone à confirmer',
+                    reviews: [],
+                    family_names: familyNames,
+                    family_label: familyNames.length > 0 ? familyNames.join(', ') : 'Aucune famille liée'
+                };
+            });
+        }
+
+        function populateFamilyFilter(nannies) {
+            familyFilter.value = '';
         }
 
         function applyFilters() {
             const search = searchInput.value.trim().toLowerCase();
             const minExperience = experienceFilter.value;
             const maxPrice = priceFilter.value;
-            const maxDistance = distanceFilter.value;
-            const minRating = ratingFilter.value;
+            const selectedFamily = familyFilter.value;
+            const selectedStatus = statusFilter.value;
 
             filteredNannies = allNannies.filter(function (nanny) {
                 let okSearch = true;
                 let okExperience = true;
                 let okPrice = true;
-                let okDistance = true;
-                let okRating = true;
+                let okFamily = true;
+                let okStatus = true;
 
                 if (search !== '') {
-                    const haystack = (nanny.name + ' ' + nanny.city).toLowerCase();
+                    const haystack = [nanny.name, nanny.email, nanny.family_label].join(' ').toLowerCase();
                     okSearch = haystack.includes(search);
                 }
 
                 if (minExperience !== '') {
-                    okExperience = nanny.experience >= parseInt(minExperience);
+                    okExperience = (nanny.experience_years || 0) >= parseInt(minExperience, 10);
                 }
 
                 if (maxPrice !== '') {
-                    okPrice = nanny.price <= parseInt(maxPrice);
+                    okPrice = (nanny.hourly_rate || 0) <= parseFloat(maxPrice);
                 }
 
-                if (maxDistance !== '') {
-                    okDistance = nanny.distance <= parseInt(maxDistance);
+                if (selectedFamily === 'linked') {
+                    okFamily = nanny.family_names.length > 0;
                 }
 
-                if (minRating !== '') {
-                    okRating = nanny.rating >= parseFloat(minRating);
+                if (selectedFamily === 'unlinked') {
+                    okFamily = nanny.family_names.length === 0;
                 }
 
-                return okSearch && okExperience && okPrice && okDistance && okRating;
+                if (selectedStatus === 'active') {
+                    okStatus = nanny.is_active === true;
+                }
+
+                if (selectedStatus === 'inactive') {
+                    okStatus = nanny.is_active === false;
+                }
+
+                return okSearch && okExperience && okPrice && okFamily && okStatus;
             });
 
-            currentPage = 1;
             availableCount.textContent = filteredNannies.length;
             renderNannies();
-            renderPagination();
         }
 
         function renderNannies() {
@@ -289,75 +431,77 @@
 
             if (filteredNannies.length === 0) {
                 nanniesGrid.innerHTML = `
-                    <div class="xl:col-span-3 rounded-[28px] border-2 border-dashed border-slate-300 bg-white p-12 text-center">
-                        <div class="text-6xl mb-4">🔎</div>
-                        <h3 class="text-4xl font-bold mb-3">Aucun profil trouvé</h3>
-                        <p class="text-slate-500 text-xl mb-6">
-                            Élargissez vos critères de recherche pour voir plus de profils.
+                    <div class="xl:col-span-3 rounded-[28px] border-2 border-dashed border-slate-300 bg-white p-8 text-center">
+                        <div class="w-16 h-16 rounded-full bg-[#efe2cf] text-[#8f6b43] mx-auto mb-5 flex items-center justify-center">
+                            <span class="material-symbols-rounded !text-[28px]">person_search</span>
+                        </div>
+                        <h3 class="text-2xl font-black mb-3">Aucune nounou trouvée</h3>
+                        <p class="text-[#6d5c49] text-base leading-7">
+                            Les comptes nounou de la plateforme apparaissent ici automatiquement dès leur création.
                         </p>
-                        <button onclick="resetAllFilters()" class="px-6 py-3 rounded-full border border-blue-600 text-blue-600 font-semibold hover:bg-blue-50">
-                            Ajuster les filtres
-                        </button>
                     </div>
                 `;
                 return;
             }
 
-            const start = (currentPage - 1) * perPage;
-            const end = start + perPage;
-            const pageItems = filteredNannies.slice(start, end);
-
-            pageItems.forEach(function (nanny, index) {
+            filteredNannies.forEach(function (nanny) {
                 const card = document.createElement('div');
                 card.className = 'bg-white rounded-[28px] border border-slate-200 shadow-sm overflow-hidden flex flex-col';
 
-                const photoFallback = getInitials(nanny.name);
+                const photoMarkup = nanny.photo
+                    ? `<img src="${escapeHtml(nanny.photo)}" alt="${escapeHtml(nanny.name)}" class="w-full h-full object-cover" onerror="this.remove(); this.parentElement.querySelector('.fallback-avatar').classList.remove('hidden');">`
+                    : '';
 
                 card.innerHTML = `
-                    <div class="relative h-48 bg-[#eef3fb] overflow-hidden">
-                        <img
-                            src="${nanny.photo}"
-                            alt="${escapeHtml(nanny.name)}"
-                            class="w-full h-full object-cover"
-                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                        >
-                        <div class="hidden w-full h-full items-center justify-center text-6xl font-black text-blue-600">
-                            ${photoFallback}
+                    <div class="relative h-44 bg-[#f3e8d9] overflow-hidden">
+                        ${photoMarkup}
+                        <div class="fallback-avatar ${nanny.photo ? 'hidden' : ''} w-full h-full flex items-center justify-center text-4xl font-black text-[#8f6b43]">
+                            ${escapeHtml(getInitials(nanny.name))}
                         </div>
 
-                        <div class="absolute top-4 right-4 bg-white/95 rounded-full px-4 py-2 text-lg font-bold shadow-sm">
-                            ⭐ ${nanny.rating}
+                        <div class="absolute top-4 right-4 rounded-full bg-white/95 px-3 py-1.5 text-xs font-black shadow-sm text-[#8f6b43]">
+                            ${nanny.is_active ? 'Actif' : 'Inactif'}
                         </div>
                     </div>
 
-                    <div class="p-6 flex-1 flex flex-col">
+                    <div class="p-5 flex-1 flex flex-col">
                         <div class="flex items-start justify-between gap-4 mb-3">
                             <div>
-                                <h3 class="text-2xl font-black">${escapeHtml(nanny.name)}</h3>
-                                <p class="text-slate-500 text-lg">${escapeHtml(nanny.city)}</p>
+                                <h3 class="text-xl font-black">${escapeHtml(nanny.name)}</h3>
+                                <p class="text-sm text-[#9a8469] mt-1">${escapeHtml(nanny.email || 'Email indisponible')}</p>
                             </div>
-
-                            <div class="text-right shrink-0">
-                                <p class="text-3xl font-black text-blue-600">${nanny.price}€</p>
-                                <p class="text-slate-400">/heure</p>
+                            <div class="w-11 h-11 rounded-2xl bg-[#efe2cf] text-[#8f6b43] flex items-center justify-center shrink-0">
+                                <span class="material-symbols-rounded">badge</span>
                             </div>
                         </div>
 
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-bold uppercase">
-                                ${escapeHtml(nanny.badge)}
-                            </span>
-                            ${renderTags(nanny.tags)}
+                        <div class="space-y-3 mb-5">
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="rounded-2xl bg-[#f8efe4] border border-[#eadfce] px-4 py-3">
+                                    <p class="text-[11px] uppercase tracking-[0.18em] text-[#b08a5f] font-black mb-1">Expérience</p>
+                                    <p class="text-sm font-semibold text-[#5d4c39]">${escapeHtml(nanny.experience)}</p>
+                                </div>
+                                <div class="rounded-2xl bg-[#f8efe4] border border-[#eadfce] px-4 py-3">
+                                    <p class="text-[11px] uppercase tracking-[0.18em] text-[#b08a5f] font-black mb-1">Tarif</p>
+                                    <p class="text-sm font-semibold text-[#5d4c39]">${escapeHtml(nanny.rate)}</p>
+                                </div>
+                            </div>
+                            <div class="rounded-2xl bg-[#f8efe4] border border-[#eadfce] px-4 py-3">
+                                <p class="text-[11px] uppercase tracking-[0.18em] text-[#b08a5f] font-black mb-1">Liaison</p>
+                                <p class="text-sm font-semibold text-[#5d4c39]">${escapeHtml(nanny.family_label || 'Aucune famille liée')}</p>
+                            </div>
+                            <div class="rounded-2xl bg-[#fff1ed] border border-[#f1c7bd] px-4 py-3">
+                                <p class="text-[11px] uppercase tracking-[0.18em] text-[#c46b5f] font-black mb-1">Statut</p>
+                                <p class="text-sm font-semibold text-[#7b4b42]">${nanny.is_active ? 'Compte actif' : 'Compte inactif'}</p>
+                            </div>
                         </div>
 
-                        <p class="text-slate-600 text-lg leading-8 flex-1">
-                            ${escapeHtml(shortText(nanny.description, 95))}
-                        </p>
-
-                        <div class="mt-6">
-                            <button onclick="openNannyProfile(${nanny.id})"
-                                class="w-full rounded-full bg-blue-600 text-white py-4 text-xl font-semibold hover:bg-blue-700">
-                                Voir le profil →
+                        <div class="mt-auto flex gap-3">
+                            <button onclick="openNannyProfile(${nanny.id})" class="flex-1 rounded-full bg-[#8f6b43] text-white py-3 text-sm font-bold hover:bg-[#795936]">
+                                Voir le profil
+                            </button>
+                            <button onclick="openConversation(${nanny.id})" class="w-12 h-12 rounded-full border border-[#eadfce] text-[#8f6b43] hover:bg-[#efe2cf]">
+                                <span class="material-symbols-rounded">chat</span>
                             </button>
                         </div>
                     </div>
@@ -365,136 +509,48 @@
 
                 nanniesGrid.appendChild(card);
             });
-
-            if (pageItems.length < perPage) {
-                const moreCard = document.createElement('div');
-                moreCard.className = 'rounded-[28px] border-2 border-dashed border-slate-300 bg-white p-8 flex flex-col items-center justify-center text-center';
-
-                moreCard.innerHTML = `
-                    <div class="w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-3xl mb-6">
-                        ⌕
-                    </div>
-                    <h3 class="text-4xl font-black mb-4">Plus de résultats ?</h3>
-                    <p class="text-slate-500 text-xl leading-8 mb-8">
-                        Élargissez votre périmètre de recherche pour voir plus de profils.
-                    </p>
-                    <button onclick="resetAllFilters()"
-                        class="px-6 py-3 rounded-full border-2 border-blue-600 text-blue-600 font-semibold hover:bg-blue-50">
-                        Ajuster les filtres
-                    </button>
-                `;
-
-                nanniesGrid.appendChild(moreCard);
-            }
-        }
-
-        function renderTags(tags) {
-            if (!tags || tags.length === 0) {
-                return '';
-            }
-
-            let html = '';
-
-            tags.forEach(function (tag) {
-                html += `
-                    <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold uppercase">
-                        ${escapeHtml(tag)}
-                    </span>
-                `;
-            });
-
-            return html;
-        }
-
-        function renderPagination() {
-            paginationWrapper.innerHTML = '';
-
-            const totalPages = Math.ceil(filteredNannies.length / perPage);
-
-            if (totalPages <= 1) {
-                return;
-            }
-
-            const prevBtn = document.createElement('button');
-            prevBtn.className = 'w-12 h-12 rounded-full border border-slate-200 bg-white text-slate-500 hover:bg-slate-50';
-            prevBtn.innerHTML = '‹';
-            prevBtn.disabled = currentPage === 1;
-            if (currentPage === 1) {
-                prevBtn.classList.add('opacity-50', 'cursor-not-allowed');
-            } else {
-                prevBtn.addEventListener('click', function () {
-                    currentPage--;
-                    renderNannies();
-                    renderPagination();
-                });
-            }
-            paginationWrapper.appendChild(prevBtn);
-
-            for (let i = 1; i <= totalPages; i++) {
-                const btn = document.createElement('button');
-                btn.className = 'w-12 h-12 rounded-full border text-lg font-semibold';
-
-                if (i === currentPage) {
-                    btn.className += ' bg-blue-600 text-white border-blue-600';
-                } else {
-                    btn.className += ' bg-white text-slate-500 border-slate-200 hover:bg-slate-50';
-                }
-
-                btn.textContent = i;
-                btn.addEventListener('click', function () {
-                    currentPage = i;
-                    renderNannies();
-                    renderPagination();
-                });
-
-                paginationWrapper.appendChild(btn);
-            }
-
-            const nextBtn = document.createElement('button');
-            nextBtn.className = 'w-12 h-12 rounded-full border border-slate-200 bg-white text-slate-500 hover:bg-slate-50';
-            nextBtn.innerHTML = '›';
-            nextBtn.disabled = currentPage === totalPages;
-            if (currentPage === totalPages) {
-                nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
-            } else {
-                nextBtn.addEventListener('click', function () {
-                    currentPage++;
-                    renderNannies();
-                    renderPagination();
-                });
-            }
-            paginationWrapper.appendChild(nextBtn);
         }
 
         function openNannyProfile(nannyId) {
-            localStorage.setItem('selectedNannyId', String(nannyId));
+            const nanny = allNannies.find(function (item) {
+                return String(item.id) === String(nannyId);
+            });
+
+            if (!nanny) {
+                showMessage('Profil nounou introuvable.', 'error');
+                return;
+            }
+
+            localStorage.setItem('selectedNannyProfile', JSON.stringify(nanny));
             window.location.href = '{{ route('parent.nanny-profile') }}';
         }
 
-        function resetAllFilters() {
-            searchInput.value = '';
-            experienceFilter.value = '';
-            priceFilter.value = '';
-            distanceFilter.value = '';
-            ratingFilter.value = '';
-            applyFilters();
+        function openConversation(nannyId) {
+            openNannyProfile(nannyId);
         }
 
-        function shortText(text, maxLength) {
-            if (!text) return '';
-            if (text.length <= maxLength) return text;
-            return text.substring(0, maxLength).trim() + '...';
+        function formatRate(rate) {
+            const value = Number(rate);
+
+            if (Number.isNaN(value)) {
+                return '---';
+            }
+
+            return value % 1 === 0 ? value.toFixed(0) + '€/h' : value.toFixed(2) + '€/h';
         }
 
         function getInitials(name) {
             if (!name) return 'N';
+
             const parts = name.trim().split(' ');
             let initials = '';
+
             for (let i = 0; i < parts.length; i++) {
                 if (parts[i].length > 0) {
                     initials += parts[i][0];
                 }
             }
+
             return initials.substring(0, 2).toUpperCase();
         }
 
@@ -511,9 +567,9 @@
             messageBox.classList.remove('hidden');
 
             if (type === 'success') {
-                messageBox.className = 'mb-6 rounded-2xl p-4 text-sm bg-green-100 text-green-700';
+                messageBox.className = 'mb-6 rounded-2xl p-4 text-sm bg-[#e6f3df] text-[#456b35] border border-[#cfe5c2]';
             } else {
-                messageBox.className = 'mb-6 rounded-2xl p-4 text-sm bg-red-100 text-red-700';
+                messageBox.className = 'mb-6 rounded-2xl p-4 text-sm bg-[#fff1ed] text-[#b55348] border border-[#f1c7bd]';
             }
 
             messageBox.innerHTML = message;

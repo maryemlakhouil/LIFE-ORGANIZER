@@ -17,6 +17,8 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
             'role' => 'required|in:parent,nounou,admin',
+            'experience_years' => 'nullable|integer|min:0|max:60',
+            'hourly_rate' => 'nullable|numeric|min:0|max:9999.99',
         ]);
 
         $user = User::create([
@@ -25,6 +27,8 @@ class AuthController extends Controller
             'password' => Hash::make($validated['password']),
             'role' => $validated['role'],
             'is_active' => true,
+            'experience_years' => $validated['experience_years'] ?? null,
+            'hourly_rate' => $validated['hourly_rate'] ?? null,
         ]);
 
         $token = auth('api')->login($user);
