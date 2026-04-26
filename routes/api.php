@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Api\FamilyController;
 use App\Http\Controllers\Api\ChildController;
+use App\Http\Controllers\Api\NannyController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\SubTaskController;
 use App\Http\Controllers\Api\AttachmentController;
@@ -40,6 +41,7 @@ Route::middleware('auth:api')->group(function () {
     Route::patch('/tasks/{id}/status', [TaskController::class, 'changeStatus']);
 
     Route::get('/families', [FamilyController::class, 'index']);
+    Route::get('/nannies', [NannyController::class, 'index']);
     Route::post('/families', [FamilyController::class, 'store']);
     Route::get('/families/{id}', [FamilyController::class, 'show']);
     Route::put('/families/{id}', [FamilyController::class, 'update']);

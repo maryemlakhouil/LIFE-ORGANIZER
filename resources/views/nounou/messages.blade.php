@@ -4,21 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Messagerie Nounou - Family Organizer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,0,0" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        .material-symbols-rounded {
+            font-family: 'Material Symbols Rounded';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 20px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        .shadow-call { box-shadow: 0 18px 45px rgba(41, 72, 120, 0.18); }
+    </style>
 </head>
 <body class="bg-[#f3f6fb] text-slate-900 min-h-screen">
 
     <div class="flex min-h-screen">
-
-        <!-- SIDEBAR -->
         <aside class="w-[280px] bg-white border-r border-slate-200 hidden lg:flex flex-col">
-
             <div class="h-16 px-5 flex items-center border-b border-slate-200">
                 <a href="{{ route('nounou.dashboard') }}" class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center">
-                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M16 11c1.66 0 3-1.57 3-3.5S17.66 4 16 4s-3 1.57-3 3.5S14.34 11 16 11zm-8 0c1.66 0 3-1.57 3-3.5S9.66 4 8 4 5 5.57 5 7.5 6.34 11 8 11zm0 2c-2.33 0-7 1.17-7 3.5V20h14v-3.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.95 1.97 3.45V20h6v-3.5c0-2.33-4.67-3.5-7-3.5z"/>
-                        </svg>
+                        <span class="material-symbols-rounded text-white">groups</span>
                     </div>
                     <span class="text-xl font-bold">Family Organizer</span>
                 </a>
@@ -26,7 +40,7 @@
 
             <div class="px-5 py-4 border-b border-slate-200">
                 <div class="relative">
-                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">🔎</span>
+                    <span class="material-symbols-rounded absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 !text-[18px]">search</span>
                     <input
                         type="text"
                         id="searchConversationInput"
@@ -42,16 +56,58 @@
 
             <div class="p-4 border-t border-slate-200">
                 <button id="backDashboardBtn" class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#f4f7fb]">
-                    <span class="w-9 h-9 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-lg">←</span>
+                    <span class="w-9 h-9 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+                        <span class="material-symbols-rounded !text-[18px]">arrow_back</span>
+                    </span>
                     <span class="text-sm font-medium">Retour dashboard</span>
                 </button>
             </div>
         </aside>
 
-        <!-- MAIN -->
-        <div class="flex-1 flex flex-col min-w-0">
+        <div id="callPanel" class="hidden fixed inset-0 z-50 bg-slate-900/45 backdrop-blur-sm p-4 md:p-8">
+            <div class="max-w-5xl mx-auto h-full flex items-center justify-center">
+                <div class="w-full bg-white border border-slate-200 rounded-[32px] shadow-call overflow-hidden">
+                    <div class="px-6 py-5 border-b border-slate-200 flex items-center justify-between gap-4">
+                        <div>
+                            <p class="text-xs uppercase tracking-[0.22em] text-blue-600 font-black mb-2">Appel</p>
+                            <h3 id="callPanelTitle" class="text-2xl font-black">Conversation en appel</h3>
+                            <p id="callPanelStatus" class="text-sm text-slate-500 mt-1">Préparation de l'appel...</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button id="acceptCallBtn" class="hidden px-4 py-2.5 rounded-full bg-green-600 text-white font-bold hover:bg-green-700">Accepter</button>
+                            <button id="rejectCallBtn" class="hidden px-4 py-2.5 rounded-full bg-slate-100 text-slate-700 font-bold hover:bg-slate-200">Refuser</button>
+                            <button id="endCallBtn" class="hidden px-4 py-2.5 rounded-full bg-red-500 text-white font-bold hover:bg-red-600">Terminer</button>
+                        </div>
+                    </div>
 
-            <!-- HEADER -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 p-6">
+                        <div class="rounded-[28px] bg-slate-100 border border-slate-200 p-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <h4 class="font-black text-lg">Vous</h4>
+                                <span id="callTypeBadge" class="px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-black uppercase">Audio</span>
+                            </div>
+                            <video id="localVideo" autoplay muted playsinline class="w-full aspect-video rounded-[22px] bg-slate-200 object-cover hidden"></video>
+                            <div id="localFallback" class="aspect-video rounded-[22px] bg-slate-200 flex items-center justify-center text-blue-600">
+                                <span class="material-symbols-rounded !text-[56px]">mic</span>
+                            </div>
+                        </div>
+
+                        <div class="rounded-[28px] bg-[#f8fbff] border border-slate-200 p-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <h4 id="remoteVideoTitle" class="font-black text-lg">Participant</h4>
+                                <span id="callConnectionState" class="text-xs font-bold text-slate-400 uppercase">En attente</span>
+                            </div>
+                            <video id="remoteVideo" autoplay playsinline class="w-full aspect-video rounded-[22px] bg-slate-100 object-cover hidden"></video>
+                            <div id="remoteFallback" class="aspect-video rounded-[22px] bg-slate-100 flex items-center justify-center text-blue-600">
+                                <span class="material-symbols-rounded !text-[56px]">call</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-1 flex flex-col min-w-0">
             <header class="h-16 bg-white border-b border-slate-200 px-5 md:px-6 flex items-center justify-between">
                 <div class="flex items-center gap-4 min-w-0">
                     <div id="chatAvatar" class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold text-base">
@@ -68,13 +124,18 @@
                 </div>
 
                 <div class="flex items-center gap-3">
-                    <button id="videoCallBtn" class="w-10 h-10 rounded-full bg-[#f4f7fb] text-slate-600 hover:bg-slate-200">📹</button>
-                    <button id="audioCallBtn" class="w-10 h-10 rounded-full bg-[#f4f7fb] text-slate-600 hover:bg-slate-200">📞</button>
-                    <button id="chatInfoBtn" class="w-10 h-10 rounded-full bg-[#f4f7fb] text-slate-600 hover:bg-slate-200">ⓘ</button>
+                    <button id="videoCallBtn" class="w-10 h-10 rounded-full bg-[#f4f7fb] text-slate-600 hover:bg-slate-200 flex items-center justify-center">
+                        <span class="material-symbols-rounded">videocam</span>
+                    </button>
+                    <button id="audioCallBtn" class="w-10 h-10 rounded-full bg-[#f4f7fb] text-slate-600 hover:bg-slate-200 flex items-center justify-center">
+                        <span class="material-symbols-rounded">call</span>
+                    </button>
+                    <button id="chatInfoBtn" class="w-10 h-10 rounded-full bg-[#f4f7fb] text-slate-600 hover:bg-slate-200 flex items-center justify-center">
+                        <span class="material-symbols-rounded">info</span>
+                    </button>
                 </div>
             </header>
 
-            <!-- LABEL -->
             <div class="px-6 py-3 bg-[#f9fbff] border-b border-slate-100">
                 <div class="flex justify-center">
                     <span class="px-5 py-2 rounded-full bg-white text-slate-500 text-xs font-bold tracking-widest uppercase shadow-sm">
@@ -83,14 +144,12 @@
                 </div>
             </div>
 
-            <!-- MESSAGES -->
             <div id="messagesContainer" class="flex-1 overflow-y-auto px-5 md:px-6 py-6 space-y-5 bg-[#f8fbff]">
                 <div class="text-center text-slate-400">
                     Ouvrez une conversation pour voir les messages.
                 </div>
             </div>
 
-            <!-- TYPING -->
             <div id="typingIndicatorWrapper" class="hidden px-6 py-2 bg-[#f8fbff]">
                 <div class="inline-flex items-center gap-3 bg-white px-4 py-2 rounded-full border border-slate-200 shadow-sm">
                     <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-600">
@@ -100,13 +159,16 @@
                 </div>
             </div>
 
-            <!-- INPUT -->
             <div class="bg-white border-t border-slate-200 px-5 md:px-6 py-4">
                 <div id="messageBox" class="hidden mb-4 rounded-xl p-4 text-sm"></div>
 
                 <div class="flex items-center gap-3 bg-[#f7f9fc] border border-slate-200 rounded-[22px] px-4 py-2.5">
-                    <button id="imageBtn" class="text-xl text-slate-500 hover:text-blue-600">🖼</button>
-                    <button id="fileBtn" class="text-xl text-slate-500 hover:text-blue-600">📎</button>
+                    <button id="imageBtn" class="text-slate-500 hover:text-blue-600 flex items-center justify-center">
+                        <span class="material-symbols-rounded">image</span>
+                    </button>
+                    <button id="fileBtn" class="text-slate-500 hover:text-blue-600 flex items-center justify-center">
+                        <span class="material-symbols-rounded">attach_file</span>
+                    </button>
 
                     <input
                         type="text"
@@ -115,10 +177,12 @@
                         class="flex-1 bg-transparent outline-none text-slate-700 text-base"
                     >
 
-                    <button id="emojiBtn" class="text-xl text-slate-500 hover:text-blue-600">☺</button>
+                    <button id="emojiBtn" class="text-slate-500 hover:text-blue-600 flex items-center justify-center">
+                        <span class="material-symbols-rounded">mood</span>
+                    </button>
 
-                    <button id="sendMessageBtn" class="w-11 h-11 rounded-full bg-blue-600 text-white text-xl hover:bg-blue-700 flex items-center justify-center">
-                        ➤
+                    <button id="sendMessageBtn" class="w-11 h-11 rounded-full bg-blue-600 text-white hover:bg-blue-700 flex items-center justify-center">
+                        <span class="material-symbols-rounded">send</span>
                     </button>
                 </div>
 
@@ -126,8 +190,14 @@
                 <input id="fileInput" type="file" class="hidden">
 
                 <div class="mt-3 flex items-center gap-6 text-[11px] font-bold uppercase tracking-wider text-slate-400">
-                    <button id="quickPhotoBtn" class="hover:text-blue-600">📷 envoyer photo</button>
-                    <button id="quickReportBtn" class="hover:text-blue-600">📝 envoyer rapport</button>
+                    <button id="quickPhotoBtn" class="hover:text-blue-600 flex items-center gap-2">
+                        <span class="material-symbols-rounded !text-base">photo_camera</span>
+                        <span>envoyer photo</span>
+                    </button>
+                    <button id="quickReportBtn" class="hover:text-blue-600 flex items-center gap-2">
+                        <span class="material-symbols-rounded !text-base">description</span>
+                        <span>envoyer rapport</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -161,11 +231,26 @@
         const quickReportBtn = document.getElementById('quickReportBtn');
         const backDashboardBtn = document.getElementById('backDashboardBtn');
 
+        const callPanel = document.getElementById('callPanel');
+        const callPanelTitle = document.getElementById('callPanelTitle');
+        const callPanelStatus = document.getElementById('callPanelStatus');
+        const callTypeBadge = document.getElementById('callTypeBadge');
+        const callConnectionState = document.getElementById('callConnectionState');
+        const remoteVideoTitle = document.getElementById('remoteVideoTitle');
+        const acceptCallBtn = document.getElementById('acceptCallBtn');
+        const rejectCallBtn = document.getElementById('rejectCallBtn');
+        const endCallBtn = document.getElementById('endCallBtn');
+        const localVideo = document.getElementById('localVideo');
+        const remoteVideo = document.getElementById('remoteVideo');
+        const localFallback = document.getElementById('localFallback');
+        const remoteFallback = document.getElementById('remoteFallback');
+
         let allConversations = [];
         let currentConversationId = null;
         let realtimeConversationId = null;
         let currentMessages = [];
         let currentUser = null;
+        let callClient = null;
 
         document.addEventListener('DOMContentLoaded', function () {
             checkAuth();
@@ -219,11 +304,11 @@
         });
 
         audioCallBtn.addEventListener('click', function () {
-            showMessage('Appel audio sera branché après le chat temps réel.', 'success');
+            startConversationCall('audio');
         });
 
         videoCallBtn.addEventListener('click', function () {
-            showMessage('Appel vidéo sera branché après le chat temps réel.', 'success');
+            startConversationCall('video');
         });
 
         chatInfoBtn.addEventListener('click', function () {
@@ -236,6 +321,36 @@
 
         quickReportBtn.addEventListener('click', function () {
             showMessage('Envoi rapport rapide à brancher ensuite.', 'success');
+        });
+
+        acceptCallBtn.addEventListener('click', async function () {
+            if (!callClient) return;
+
+            try {
+                await callClient.accept();
+                setCallState('Appel accepté. Connexion en cours...');
+                acceptCallBtn.classList.add('hidden');
+                rejectCallBtn.classList.add('hidden');
+                endCallBtn.classList.remove('hidden');
+            } catch (error) {
+                showMessage(error.message || 'Impossible d’accepter l’appel.', 'error');
+            }
+        });
+
+        rejectCallBtn.addEventListener('click', async function () {
+            if (!callClient) return;
+
+            try {
+                await callClient.reject();
+            } catch (error) {
+                showMessage(error.message || 'Impossible de refuser l’appel.', 'error');
+            } finally {
+                hideCallPanel();
+            }
+        });
+
+        endCallBtn.addEventListener('click', async function () {
+            await endCurrentCall();
         });
 
         function checkAuth() {
@@ -300,8 +415,7 @@
 
             if (search !== '') {
                 conversations = allConversations.filter(function (conversation) {
-                    const name = getConversationName(conversation).toLowerCase();
-                    return name.includes(search);
+                    return getConversationName(conversation).toLowerCase().includes(search);
                 });
             }
 
@@ -350,13 +464,13 @@
         }
 
         function getToken() {
-            return localStorage.getItem('access_token');
+            return localStorage.getItem('access_token') || localStorage.getItem('token');
         }
 
         function getAuthHeaders() {
             return {
-                'Accept': 'application/json',
-                'Authorization': 'Bearer ' + getToken()
+                Accept: 'application/json',
+                Authorization: 'Bearer ' + getToken()
             };
         }
 
@@ -374,6 +488,7 @@
             updateChatHeader();
             await loadMessages(conversationId);
             subscribeToConversation(conversationId);
+            setupCallClient(conversationId);
         }
 
         function subscribeToConversation(conversationId) {
@@ -393,6 +508,64 @@
                 messageDeleted: handleRealtimeMessageDeleted,
                 error: function () {
                     showMessage('Connexion temps réel indisponible pour cette conversation.', 'error');
+                },
+            });
+        }
+
+        function setupCallClient(conversationId) {
+            if (!window.CallClient) {
+                return;
+            }
+
+            if (callClient && Number(callClient.conversationId) === Number(conversationId)) {
+                return;
+            }
+
+            if (callClient) {
+                callClient.leave();
+            }
+
+            callClient = window.CallClient.create(conversationId, {
+                localVideo: localVideo,
+                remoteVideo: remoteVideo,
+                onIncomingCall: function (payload) {
+                    showCallPanel(payload.initiator?.name || getCurrentConversationName(), payload.type, 'Appel entrant...');
+                    acceptCallBtn.classList.remove('hidden');
+                    rejectCallBtn.classList.remove('hidden');
+                    endCallBtn.classList.add('hidden');
+                },
+                onCallStarted: function (payload) {
+                    showCallPanel(getCurrentConversationName(), payload.type, 'Invitation envoyée...');
+                    endCallBtn.classList.remove('hidden');
+                },
+                onCallAccepted: function () {
+                    setCallState('Appel accepté. Connexion en cours...');
+                    acceptCallBtn.classList.add('hidden');
+                    rejectCallBtn.classList.add('hidden');
+                    endCallBtn.classList.remove('hidden');
+                },
+                onCallRejected: function () {
+                    hideCallPanel();
+                    showMessage('L’appel a été refusé.', 'error');
+                },
+                onCallEnded: function () {
+                    hideCallPanel();
+                    showMessage('L’appel est terminé.', 'success');
+                },
+                onConnectionStateChange: function (state) {
+                    callConnectionState.textContent = state || 'en attente';
+                    if (state === 'connected') {
+                        setCallState('Connexion établie.');
+                    }
+                },
+                onLocalStream: function (stream) {
+                    updateVideoDisplay(stream, localVideo, localFallback);
+                },
+                onRemoteStream: function (stream) {
+                    updateVideoDisplay(stream, remoteVideo, remoteFallback);
+                },
+                onError: function (error) {
+                    showMessage(error.message || 'Erreur pendant l’appel.', 'error');
                 },
             });
         }
@@ -456,7 +629,6 @@
             if (!conversation) return;
 
             const conversationName = getConversationName(conversation);
-
             chatTitle.textContent = conversationName;
             chatStatus.textContent = 'En ligne';
             chatAvatar.textContent = getInitials(conversationName);
@@ -494,8 +666,7 @@
             }
 
             currentMessages.forEach(function (message) {
-                const isMine = currentUser && message.user_id === currentUser.id;
-
+                const isMine = currentUser && Number(message.user_id) === Number(currentUser.id);
                 const wrapper = document.createElement('div');
                 wrapper.className = isMine ? 'flex justify-end' : 'flex justify-start';
 
@@ -618,6 +789,116 @@
             }
         }
 
+        async function startConversationCall(type) {
+            if (!currentConversationId) {
+                showMessage('Veuillez sélectionner une conversation.', 'error');
+                return;
+            }
+
+            setupCallClient(currentConversationId);
+
+            if (!callClient) {
+                showMessage('Module d’appel indisponible.', 'error');
+                return;
+            }
+
+            try {
+                showCallPanel(getCurrentConversationName(), type, 'Préparation de l’appel...');
+                acceptCallBtn.classList.add('hidden');
+                rejectCallBtn.classList.add('hidden');
+                endCallBtn.classList.remove('hidden');
+                await callClient.start({
+                    type: type,
+                    targetUserId: getConversationTargetUserId(currentConversationId),
+                });
+            } catch (error) {
+                setCallState(error.message || 'Impossible de démarrer l’appel.');
+                showMessage(error.message || 'Impossible de démarrer l’appel.', 'error');
+            }
+        }
+
+        async function endCurrentCall() {
+            if (!callClient || !callClient.currentCallId) {
+                hideCallPanel();
+                return;
+            }
+
+            try {
+                await callClient.end();
+                hideCallPanel();
+            } catch (error) {
+                showMessage(error.message || 'Impossible de terminer l’appel.', 'error');
+            }
+        }
+
+        function showCallPanel(name, type, status) {
+            callPanel.classList.remove('hidden');
+            callPanelTitle.textContent = name || 'Conversation';
+            remoteVideoTitle.textContent = name || 'Participant';
+            callTypeBadge.textContent = type === 'video' ? 'Vidéo' : 'Audio';
+            callConnectionState.textContent = 'En attente';
+            setCallState(status || 'Préparation de l’appel...');
+            updateCallMode(type);
+            updateVideoDisplay(null, localVideo, localFallback);
+            updateVideoDisplay(null, remoteVideo, remoteFallback);
+        }
+
+        function hideCallPanel() {
+            callPanel.classList.add('hidden');
+            acceptCallBtn.classList.add('hidden');
+            rejectCallBtn.classList.add('hidden');
+            endCallBtn.classList.add('hidden');
+            updateVideoDisplay(null, localVideo, localFallback);
+            updateVideoDisplay(null, remoteVideo, remoteFallback);
+        }
+
+        function setCallState(status) {
+            callPanelStatus.textContent = status;
+        }
+
+        function updateCallMode(type) {
+            const localIcon = type === 'video' ? 'videocam' : 'mic';
+            const remoteIcon = type === 'video' ? 'videocam' : 'call';
+            localFallback.innerHTML = '<span class="material-symbols-rounded !text-[56px]">' + localIcon + '</span>';
+            remoteFallback.innerHTML = '<span class="material-symbols-rounded !text-[56px]">' + remoteIcon + '</span>';
+        }
+
+        function updateVideoDisplay(stream, videoElement, fallbackElement) {
+            const hasTracks = stream && stream.getTracks && stream.getTracks().length > 0;
+
+            if (hasTracks) {
+                videoElement.classList.remove('hidden');
+                fallbackElement.classList.add('hidden');
+            } else {
+                videoElement.classList.add('hidden');
+                fallbackElement.classList.remove('hidden');
+            }
+        }
+
+        function getCurrentConversationName() {
+            const conversation = allConversations.find(function (item) {
+                return Number(item.id) === Number(currentConversationId);
+            });
+
+            return conversation ? getConversationName(conversation) : 'Conversation';
+        }
+
+        function getConversationTargetUserId(conversationId) {
+            const conversation = allConversations.find(function (item) {
+                return Number(item.id) === Number(conversationId);
+            });
+
+            if (!conversation || !conversation.users || !currentUser) {
+                return null;
+            }
+
+            const otherUser = conversation.users.find(function (user) {
+                return Number(user.id) !== Number(currentUser.id);
+            });
+
+            return otherUser ? otherUser.id : null;
+        }
+
         function upsertMessageWithAttachment(message, attachment) {
             const messageWithAttachment = {
                 ...message,
@@ -656,7 +937,7 @@
 
             if (conversation.users && currentUser) {
                 const otherUsers = conversation.users.filter(function (user) {
-                    return user.id !== currentUser.id;
+                    return Number(user.id) !== Number(currentUser.id);
                 });
 
                 if (otherUsers.length > 0) {
@@ -756,7 +1037,7 @@
 
             return `
                 <a href="${url}" target="_blank" class="flex items-center gap-2 rounded-2xl px-3 py-2 text-sm ${linkClass}">
-                    <span>📎</span>
+                    <span class="material-symbols-rounded !text-base">attach_file</span>
                     <span class="truncate">${name}</span>
                 </a>
             `;
@@ -792,14 +1073,13 @@
         }
 
         function showMessage(message, type) {
-            messageBox.classList.remove('hidden');
-
             if (type === 'success') {
                 messageBox.className = 'mb-4 rounded-xl p-4 text-sm bg-green-100 text-green-700';
             } else {
                 messageBox.className = 'mb-4 rounded-xl p-4 text-sm bg-red-100 text-red-700';
             }
 
+            messageBox.classList.remove('hidden');
             messageBox.innerHTML = message;
 
             setTimeout(function () {
