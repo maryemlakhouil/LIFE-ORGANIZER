@@ -4,10 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Créer un compte - Family Organizer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,0,0" rel="stylesheet">
     @vite(['resources/css/app.css'])
+    <style>
+        .material-symbols-rounded {
+            font-family: 'Material Symbols Rounded';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 20px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
 </head>
 
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-[#f7f0e7] min-h-screen text-[#2f281f]">
 
     <div class="min-h-screen grid grid-cols-1 lg:grid-cols-2">
 
@@ -19,13 +37,13 @@
                 class="w-full h-full object-cover"
             >
 
-            <div class="absolute inset-0 bg-black/25"></div>
+            <div class="absolute inset-0 bg-[#2f281f]/25"></div>
 
             <div class="absolute top-7 left-8 flex items-center gap-2 text-white">
-                <div class="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center text-sm text-white font-bold">
-                    FO
+                <div class="w-10 h-10 rounded-2xl bg-[#8f6b43] flex items-center justify-center text-white">
+                    <span class="material-symbols-rounded !text-[18px]">groups</span>
                 </div>
-                <span class="text-xl font-semibold">Family Organizer</span>
+                <span class="text-xl font-black tracking-tight">Family Organizer</span>
             </div>
 
             <div class="absolute left-12 bottom-20 text-white max-w-lg">
@@ -54,26 +72,26 @@
 
         <!-- SIDE droite de forme -->
 
-        <div class="flex items-center justify-center px-6 py-8 bg-[#f7f9fc]">
+        <div class="flex items-center justify-center px-6 py-8 bg-[#fffaf3]">
             <div class="w-full max-w-lg">
                 <div class="mb-6">
-                    <h2 class="text-4xl font-bold text-slate-900 mb-2">Créer un compte</h2>
-                    <p class="text-base text-slate-500">
+                    <h2 class="text-4xl font-black mb-2">Créer un compte</h2>
+                    <p class="text-base text-[#6d5c49]">
                         Commencez votre voyage vers une organisation parfaite.
                     </p>
                 </div>
 
                 <!-- role switch -->
 
-                <div class="bg-[#eaf0fb] rounded-full p-1 flex mb-6">
+                <div class="bg-[#efe2cf] rounded-full p-1 flex mb-6 border border-[#eadfce]">
 
                     <button id="parentBtn" type="button"
-                        class="w-1/2 py-2.5 rounded-full bg-white text-blue-600 font-semibold shadow-sm transition">
+                        class="w-1/2 py-2.5 rounded-full bg-white text-[#8f6b43] font-semibold shadow-sm transition">
                         Parent
                     </button>
 
                     <button id="nounouBtn" type="button"
-                        class="w-1/2 py-2.5 rounded-full text-slate-600 font-semibold transition">
+                        class="w-1/2 py-2.5 rounded-full text-[#6d5c49] font-semibold transition">
                         Nounou
                     </button>
                 </div>
@@ -83,40 +101,40 @@
                     <input type="hidden" id="role" name="role" value="parent">
 
                     <div>
-                        <label for="name" class="block text-sm text-slate-700 font-semibold mb-2">
+                        <label for="name" class="block text-sm text-[#5d4c39] font-semibold mb-2">
                             Nom complet
                         </label>
                         <input type="text" id="name"  name="name" placeholder="Jean Dupont"
-                            class="w-full rounded-2xl bg-[#eef2f7] border border-transparent px-5 py-3 outline-none focus:border-blue-500"
+                            class="w-full rounded-2xl bg-[#f8efe4] border border-[#eadfce] px-5 py-3 outline-none focus:border-[#8f6b43]"
                         >
                     </div>
 
                     <div>
-                        <label for="email" class="block text-sm text-slate-700 font-semibold mb-2">
+                        <label for="email" class="block text-sm text-[#5d4c39] font-semibold mb-2">
                             Adresse Email
                         </label>
                         <input type="email" id="email" name="email" placeholder="jean.dupont@email.com"
-                            class="w-full rounded-2xl bg-[#eef2f7] border border-transparent px-5 py-3 outline-none focus:border-blue-500"
+                            class="w-full rounded-2xl bg-[#f8efe4] border border-[#eadfce] px-5 py-3 outline-none focus:border-[#8f6b43]"
                         >
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
                         <div>
-                            <label for="password" class="block text-sm text-slate-700 font-semibold mb-2">
+                            <label for="password" class="block text-sm text-[#5d4c39] font-semibold mb-2">
                                 Mot de passe
                             </label>
                             <input type="password" id="password" name="password" placeholder="**********"
-                                class="w-full rounded-2xl bg-[#eef2f7] border border-transparent px-5 py-3 outline-none focus:border-blue-500"
+                                class="w-full rounded-2xl bg-[#f8efe4] border border-[#eadfce] px-5 py-3 outline-none focus:border-[#8f6b43]"
                             >
                         </div>
 
                         <div>
-                            <label for="password_confirmation" class="block text-sm text-slate-700 font-semibold mb-2">
+                            <label for="password_confirmation" class="block text-sm text-[#5d4c39] font-semibold mb-2">
                                 Confirmation
                             </label>
                             <input type="password" id="password_confirmation" name="password_confirmation" placeholder="********"
-                                class="w-full rounded-2xl bg-[#eef2f7] border border-transparent px-5 py-3 outline-none focus:border-blue-500"
+                                class="w-full rounded-2xl bg-[#f8efe4] border border-[#eadfce] px-5 py-3 outline-none focus:border-[#8f6b43]"
                             >
                         </div>
 
@@ -124,30 +142,30 @@
 
                     <button
                         type="submit"
-                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-lg py-3 rounded-2xl shadow-lg transition">
-                        Créer mon compte →
+                        class="w-full bg-[#8f6b43] hover:bg-[#795936] text-white font-semibold text-lg py-3 rounded-2xl shadow-lg transition">
+                        Créer mon compte
                     </button>
 
                 </form>
 
                 <div class="flex items-center gap-4 my-6">
-                    <div class="flex-1 h-px bg-slate-300"></div>
-                    <span class="text-slate-400 font-semibold text-sm">Ou continuer avec </span>
-                    <div class="flex-1 h-px bg-slate-300"></div>
+                    <div class="flex-1 h-px bg-[#eadfce]"></div>
+                    <span class="text-[#9a8469] font-semibold text-sm">Ou continuer avec</span>
+                    <div class="flex-1 h-px bg-[#eadfce]"></div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <button type="button" class="border rounded-2xl py-3 bg-white font-semibold text-slate-700">
+                    <button type="button" class="border border-[#eadfce] rounded-2xl py-3 bg-white font-semibold text-[#5d4c39] hover:bg-[#f8efe4]">
                         Google
                     </button>
-                    <button type="button" class="border rounded-2xl py-3 bg-white font-semibold text-slate-700">
+                    <button type="button" class="border border-[#eadfce] rounded-2xl py-3 bg-white font-semibold text-[#5d4c39] hover:bg-[#f8efe4]">
                         Apple
                     </button>
                 </div>
 
-                <p class="text-center text-sm text-slate-500 mt-6">
+                <p class="text-center text-sm text-[#7d6b57] mt-6">
                     Déjà inscrit ?
-                    <a href="{{ route('login') }}" class="text-blue-600 font-semibold">Se connecter</a>
+                    <a href="{{ route('login') }}" class="text-[#8f6b43] font-semibold">Se connecter</a>
                 </p>
 
                 <div id="messageBox" class="hidden mt-6 rounded-xl p-4 text-sm"></div>
@@ -169,21 +187,21 @@
 
             roleInput.value = 'parent';
 
-            parentBtn.classList.add('bg-white', 'text-blue-600', 'shadow-sm');
-            parentBtn.classList.remove('text-slate-600');
+            parentBtn.classList.add('bg-white', 'text-[#8f6b43]', 'shadow-sm');
+            parentBtn.classList.remove('text-[#6d5c49]');
 
-            nounouBtn.classList.remove('bg-white', 'text-blue-600', 'shadow-sm');
-            nounouBtn.classList.add('text-slate-600');
+            nounouBtn.classList.remove('bg-white', 'text-[#8f6b43]', 'shadow-sm');
+            nounouBtn.classList.add('text-[#6d5c49]');
         });
 
         nounouBtn.addEventListener('click', function () {
             roleInput.value = 'nounou';
 
-            nounouBtn.classList.add('bg-white', 'text-blue-600', 'shadow-sm');
-            nounouBtn.classList.remove('text-slate-600');
+            nounouBtn.classList.add('bg-white', 'text-[#8f6b43]', 'shadow-sm');
+            nounouBtn.classList.remove('text-[#6d5c49]');
 
-            parentBtn.classList.remove('bg-white', 'text-blue-600', 'shadow-sm');
-            parentBtn.classList.add('text-slate-600');
+            parentBtn.classList.remove('bg-white', 'text-[#8f6b43]', 'shadow-sm');
+            parentBtn.classList.add('text-[#6d5c49]');
         });
 
         
