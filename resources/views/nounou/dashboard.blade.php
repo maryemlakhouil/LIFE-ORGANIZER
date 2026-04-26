@@ -4,50 +4,136 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Nounou - Family Organizer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,0,0" rel="stylesheet">
     @vite(['resources/css/app.css'])
+    <style>
+        .material-symbols-rounded {
+            font-family: 'Material Symbols Rounded';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 20px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        .nanny-dashboard-theme .bg-white { background-color: #fffaf3 !important; }
+        .nanny-dashboard-theme .bg-blue-600,
+        .nanny-dashboard-theme .bg-blue-500 { background-color: #8f6b43 !important; }
+        .nanny-dashboard-theme .bg-blue-700,
+        .nanny-dashboard-theme .hover\:bg-blue-700:hover { background-color: #795936 !important; }
+        .nanny-dashboard-theme .bg-blue-100,
+        .nanny-dashboard-theme .bg-blue-50,
+        .nanny-dashboard-theme .hover\:bg-blue-50:hover { background-color: #efe2cf !important; }
+        .nanny-dashboard-theme .bg-green-100 { background-color: #e6f1ea !important; }
+        .nanny-dashboard-theme .bg-orange-100 { background-color: #fcebdd !important; }
+        .nanny-dashboard-theme .bg-purple-100 { background-color: #efe6f6 !important; }
+        .nanny-dashboard-theme .bg-\[\#eef3fb\] { background-color: #efe2cf !important; }
+        .nanny-dashboard-theme .bg-\[\#f3f6fb\] { background-color: #f3e8d9 !important; }
+        .nanny-dashboard-theme .text-blue-600,
+        .nanny-dashboard-theme .text-blue-700,
+        .nanny-dashboard-theme .hover\:text-blue-600:hover { color: #8f6b43 !important; }
+        .nanny-dashboard-theme .text-green-600 { color: #5b8b68 !important; }
+        .nanny-dashboard-theme .text-orange-500 { color: #c4814b !important; }
+        .nanny-dashboard-theme .text-purple-600 { color: #8d6ab0 !important; }
+        .nanny-dashboard-theme .text-slate-900 { color: #2f281f !important; }
+        .nanny-dashboard-theme .text-slate-700 { color: #5d4c39 !important; }
+        .nanny-dashboard-theme .text-slate-600 { color: #6d5c49 !important; }
+        .nanny-dashboard-theme .text-slate-500,
+        .nanny-dashboard-theme .text-slate-400 { color: #9a8469 !important; }
+        .nanny-dashboard-theme .border-slate-200,
+        .nanny-dashboard-theme .divide-slate-200 > :not([hidden]) ~ :not([hidden]) { border-color: #eadfce !important; }
+        .nanny-dashboard-theme .border-slate-300 { border-color: #eadfce !important; }
+        .nanny-dashboard-theme .shadow-blue-600\/20 { box-shadow: 0 12px 24px rgba(143, 107, 67, 0.18) !important; }
+    </style>
 </head>
-<body class="bg-[#f4f7fb] text-slate-900 min-h-screen">
 
-    <div class="min-h-screen">
+<body class="nanny-dashboard-theme bg-[#f7f0e7] text-slate-900 min-h-screen">
 
-        <!-- TOP NAV -->
-        <header class="bg-white border-b border-slate-200">
-            <div class="max-w-[1180px] mx-auto px-5 md:px-6 py-3 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center">
-                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M16 11c1.66 0 3-1.57 3-3.5S17.66 4 16 4s-3 1.57-3 3.5S14.34 11 16 11zm-8 0c1.66 0 3-1.57 3-3.5S9.66 4 8 4 5 5.57 5 7.5 6.34 11 8 11zm0 2c-2.33 0-7 1.17-7 3.5V20h14v-3.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.95 1.97 3.45V20h6v-3.5c0-2.33-4.67-3.5-7-3.5z"/>
-                        </svg>
-                    </div>
-                    <span class="text-lg font-bold">Family Organizer</span>
-                </div>
-
-                <nav class="hidden md:flex items-center gap-6 text-sm">
-                    <a href="{{ route('nounou.dashboard') }}" class="text-blue-600 font-semibold border-b-2 border-blue-600 pb-1">
-                        Tableau de bord
-                    </a>
-                    <a href="{{ route('nounou.planning') }}" class="text-slate-600 hover:text-blue-600">Planning</a>
-                    <a href="{{ route('nounou.messages') }}" class="text-slate-600 hover:text-blue-600">Messagerie</a>
-                    <a href="{{ route('nounou.profile') }}" class="text-slate-600 hover:text-blue-600">Mon profil</a>
-                    <a href="#" id="nannyNameTop" class="text-slate-700 font-medium">Marie (Nounou)</a>
-                </nav>
-
+    <div class="flex min-h-screen">
+        <aside class="w-[270px] bg-[#fffaf3] border-r border-[#eadfce] hidden lg:flex flex-col">
+            <div class="px-7 pt-7 pb-7">
                 <div class="flex items-center gap-4">
-                    <div id="nannyAvatarTop" class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold text-base">
-                        N
+                    <div class="w-9 h-9 rounded-2xl bg-[#8f6b43] flex items-center justify-center shadow-sm">
+                        <span class="material-symbols-rounded text-white">groups</span>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-black leading-tight tracking-tight">Family Organiser</h1>
                     </div>
                 </div>
             </div>
+
+            <div class="px-5 pt-12">
+                <div class="flex items-center gap-4 mb-10">
+                    <div id="nannyAvatarTop" class="w-12 h-12 rounded-2xl bg-[#efe2cf] flex items-center justify-center text-base font-black text-[#8f6b43]">
+                        N
+                    </div>
+                    <div>
+                        <p id="nannyNameTop" class="text-xl font-black leading-none mb-1">Marie</p>
+                        <p class="text-[#9a8469] text-sm font-semibold">Espace nounou</p>
+                    </div>
+                </div>
+
+                <nav class="space-y-5">
+                    <a href="{{ route('nounou.dashboard') }}" class="flex items-center gap-4 bg-[#efe2cf] text-[#8f6b43] px-6 py-3.5 rounded-[26px] text-lg font-black shadow-sm">
+                        <span class="material-symbols-rounded">dashboard</span>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="{{ route('nounou.planning') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">calendar_month</span>
+                        <span>Planning</span>
+                    </a>
+                    <a href="{{ route('nounou.messages') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">chat_bubble</span>
+                        <span>Messagerie</span>
+                    </a>
+                    <a href="{{ route('nounou.profile') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">badge</span>
+                        <span>Mon profil</span>
+                    </a>
+                </nav>
+            </div>
+
+            <div class="mt-auto px-7 pb-10">
+                <div class="space-y-4 text-sm">
+                    <button class="flex items-center gap-3 text-[#5d4c39] hover:text-[#8f6b43]">
+                        <span class="material-symbols-rounded !text-base">settings</span>
+                        <span>Paramètres</span>
+                    </button>
+                    <button id="logoutBtn" class="flex items-center gap-3 text-red-500 hover:text-red-600">
+                        <span class="material-symbols-rounded !text-base">logout</span>
+                        <span>Déconnexion</span>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <div class="flex-1 min-w-0">
+        <header class="bg-[#fffaf3]/90 backdrop-blur px-6 md:px-8 py-5 flex items-center justify-between border-b border-[#eadfce]">
+            <div>
+                <h2 class="text-2xl font-black mb-1">Dashboard nounou</h2>
+                <p class="text-[#9a8469] text-base font-semibold">Retrouvez vos tâches, messages et rappels de la journée.</p>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button class="w-10 h-10 rounded-2xl flex items-center justify-center text-[#6d5c49] hover:bg-[#efe2cf]">
+                    <span class="material-symbols-rounded">notifications</span>
+                </button>
+            </div>
         </header>
 
-        <!-- PAGE -->
-        <main class="max-w-[1180px] mx-auto px-5 md:px-6 py-6">
+        <main class="p-5 md:p-8">
             <div id="messageBox" class="hidden mb-6 rounded-2xl p-4 text-sm"></div>
 
             <!-- TITLE -->
             <section class="mb-6">
                 <h1 id="helloTitle" class="text-2xl md:text-3xl font-black mb-2">Bonjour, Marie !</h1>
-                <p class="text-sm text-slate-500">
+                <p class="text-sm text-slate-500 font-semibold">
                     C'est une belle journée pour s'occuper des enfants. Voici votre programme.
                 </p>
             </section>
@@ -55,25 +141,33 @@
             <!-- CARDS -->
             <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
                 <div class="bg-white rounded-[18px] border border-slate-200 p-4 shadow-sm">
-                    <div class="w-9 h-9 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-lg mb-3">◔</div>
+                    <div class="w-9 h-9 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mb-3">
+                        <span class="material-symbols-rounded !text-[18px]">pending_actions</span>
+                    </div>
                     <p class="text-xs font-bold uppercase tracking-wide mb-2 text-slate-500">En attente</p>
                     <p id="pendingCount" class="text-2xl font-black text-slate-700">0 tâche</p>
                 </div>
 
                 <div class="bg-white rounded-[18px] border border-slate-200 p-4 shadow-sm">
-                    <div class="w-9 h-9 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-lg mb-3">✓</div>
+                    <div class="w-9 h-9 rounded-full bg-green-100 text-green-600 flex items-center justify-center mb-3">
+                        <span class="material-symbols-rounded !text-[18px]">task_alt</span>
+                    </div>
                     <p class="text-xs font-bold uppercase tracking-wide mb-2 text-slate-500">Terminé</p>
                     <p id="completedCount" class="text-2xl font-black text-slate-700">0 tâche</p>
                 </div>
 
                 <div class="bg-white rounded-[18px] border border-slate-200 p-4 shadow-sm">
-                    <div class="w-9 h-9 rounded-full bg-orange-100 text-orange-500 flex items-center justify-center text-lg mb-3">!</div>
+                    <div class="w-9 h-9 rounded-full bg-orange-100 text-orange-500 flex items-center justify-center mb-3">
+                        <span class="material-symbols-rounded !text-[18px]">priority_high</span>
+                    </div>
                     <p class="text-xs font-bold uppercase tracking-wide mb-2 text-slate-500">Priorité haute</p>
                     <p id="highPriorityCount" class="text-2xl font-black text-slate-700">0 urgente</p>
                 </div>
 
                 <div class="bg-white rounded-[18px] border border-slate-200 p-4 shadow-sm">
-                    <div class="w-9 h-9 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-lg mb-3">💬</div>
+                    <div class="w-9 h-9 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mb-3">
+                        <span class="material-symbols-rounded !text-[18px]">chat</span>
+                    </div>
                     <p class="text-xs font-bold uppercase tracking-wide mb-2 text-slate-500">Messages</p>
                     <p id="messagesCount" class="text-2xl font-black text-slate-700">0 nouveau</p>
                 </div>
@@ -89,7 +183,7 @@
                     <div class="bg-white rounded-[20px] border border-slate-200 shadow-sm overflow-hidden">
                         <div class="px-5 py-4 border-b border-slate-200 flex items-center justify-between">
                             <div class="flex items-center gap-3">
-                                <span class="text-blue-600 text-lg">🗒</span>
+                                <span class="material-symbols-rounded text-blue-600">checklist</span>
                                 <h2 class="text-lg font-black">Mes tâches d'aujourd'hui</h2>
                             </div>
                             <a href="{{ route('nounou.planning') }}" class="text-blue-600 text-sm font-semibold">Voir tout</a>
@@ -103,7 +197,7 @@
                     <!-- RECENT MESSAGES -->
                     <div class="bg-white rounded-[20px] border border-slate-200 shadow-sm overflow-hidden">
                         <div class="px-5 py-4 border-b border-slate-200 flex items-center gap-3">
-                            <span class="text-blue-600 text-lg">💬</span>
+                            <span class="material-symbols-rounded text-blue-600">forum</span>
                             <h2 class="text-lg font-black">Messages récents</h2>
                         </div>
 
@@ -125,7 +219,7 @@
                     <!-- WEEK PREVIEW -->
                     <div class="bg-white rounded-[20px] border border-slate-200 shadow-sm overflow-hidden">
                         <div class="px-5 py-4 border-b border-slate-200 flex items-center gap-3">
-                            <span class="text-blue-600 text-lg">🗓</span>
+                            <span class="material-symbols-rounded text-blue-600">date_range</span>
                             <h2 class="text-lg font-black">Aperçu de la semaine</h2>
                         </div>
 
@@ -147,27 +241,27 @@
 
                         <div class="grid grid-cols-2 gap-3">
                             <a href="{{ route('nounou.profile') }}" class="bg-white/10 hover:bg-white/20 rounded-[16px] py-4 flex flex-col items-center justify-center gap-2">
-                                <span class="text-xl">👤</span>
+                                <span class="material-symbols-rounded">person</span>
                                 <span class="text-sm font-semibold">Profil</span>
                             </a>
 
                             <button id="quickPhotoBtn" class="bg-white/10 hover:bg-white/20 rounded-[16px] py-4 flex flex-col items-center justify-center gap-2">
-                                <span class="text-xl">📷</span>
+                                <span class="material-symbols-rounded">photo_camera</span>
                                 <span class="text-sm font-semibold">Photo</span>
                             </button>
 
                             <button id="quickUrgencyBtn" class="bg-white/10 hover:bg-white/20 rounded-[16px] py-4 flex flex-col items-center justify-center gap-2">
-                                <span class="text-xl">◇</span>
+                                <span class="material-symbols-rounded">warning</span>
                                 <span class="text-sm font-semibold">Urgence</span>
                             </button>
 
                             <button id="quickMealBtn" class="bg-white/10 hover:bg-white/20 rounded-[16px] py-4 flex flex-col items-center justify-center gap-2">
-                                <span class="text-xl">🍽</span>
+                                <span class="material-symbols-rounded">restaurant</span>
                                 <span class="text-sm font-semibold">Repas</span>
                             </button>
 
                             <button id="quickHistoryBtn" class="bg-white/10 hover:bg-white/20 rounded-[16px] py-4 flex flex-col items-center justify-center gap-2">
-                                <span class="text-xl">↺</span>
+                                <span class="material-symbols-rounded">history</span>
                                 <span class="text-sm font-semibold">Historique</span>
                             </button>
                         </div>
@@ -175,6 +269,7 @@
                 </div>
             </section>
         </main>
+    </div>
     </div>
 
     <script>
@@ -192,6 +287,7 @@
         const weekPreviewList = document.getElementById('weekPreviewList');
         const weekNoteText = document.getElementById('weekNoteText');
         const messageBox = document.getElementById('messageBox');
+        const logoutBtn = document.getElementById('logoutBtn');
 
         const quickPhotoBtn = document.getElementById('quickPhotoBtn');
         const quickUrgencyBtn = document.getElementById('quickUrgencyBtn');
@@ -223,6 +319,13 @@
 
         quickHistoryBtn.addEventListener('click', function () {
             showMessage('Historique détaillé sera branché ensuite.', 'success');
+        });
+
+        logoutBtn.addEventListener('click', function () {
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '/login';
         });
 
         function checkAuth() {
@@ -426,7 +529,7 @@
                 recentMessagesList.appendChild(item);
             });
         }
-
+        // garde les 4 prochaines 
         function renderWeekPreview() {
             weekPreviewList.innerHTML = '';
 
@@ -476,7 +579,7 @@
 
             weekNoteText.textContent = 'Pensez à consulter les détails des tâches de la semaine avant chaque déplacement.';
         }
-
+        // changer rapidement le statut d’une tâche 
         async function toggleTaskStatus(taskId, currentStatus) {
             const nextStatus = currentStatus === 'completed' ? 'in_progress' : 'completed';
 
@@ -510,7 +613,7 @@
         }
 
         function getToken() {
-            return localStorage.getItem('access_token');
+            return localStorage.getItem('access_token') || localStorage.getItem('token');
         }
 
         function getAuthHeaders() {
