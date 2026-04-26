@@ -22,23 +22,60 @@
             -webkit-font-feature-settings: 'liga';
             -webkit-font-smoothing: antialiased;
         }
-        .shadow-call { box-shadow: 0 18px 45px rgba(41, 72, 120, 0.18); }
+        .nounou-theme .bg-white { background-color: #fffaf3 !important; }
+        .nounou-theme .bg-blue-600,
+        .nounou-theme .bg-blue-500 { background-color: #8f6b43 !important; }
+        .nounou-theme .hover\:bg-blue-700:hover { background-color: #795936 !important; }
+        .nounou-theme .bg-blue-100,
+        .nounou-theme .bg-blue-50,
+        .nounou-theme .hover\:bg-blue-50:hover { background-color: #efe2cf !important; }
+        .nounou-theme .bg-slate-100,
+        .nounou-theme .bg-slate-200,
+        .nounou-theme .hover\:bg-slate-100:hover,
+        .nounou-theme .hover\:bg-slate-200:hover,
+        .nounou-theme .bg-\[\#f3f6fb\],
+        .nounou-theme .bg-\[\#f4f7fb\],
+        .nounou-theme .bg-\[\#f7f9fc\],
+        .nounou-theme .bg-\[\#f8fbff\],
+        .nounou-theme .bg-\[\#f9fbff\] { background-color: #f3e8d9 !important; }
+        .nounou-theme .text-blue-600,
+        .nounou-theme .text-blue-700,
+        .nounou-theme .hover\:text-blue-600:hover { color: #8f6b43 !important; }
+        .nounou-theme .text-slate-900 { color: #2f281f !important; }
+        .nounou-theme .text-slate-800,
+        .nounou-theme .text-slate-700,
+        .nounou-theme .text-slate-600 { color: #5d4c39 !important; }
+        .nounou-theme .text-slate-500 { color: #6d5c49 !important; }
+        .nounou-theme .text-slate-400,
+        .nounou-theme .text-slate-300 { color: #9a8469 !important; }
+        .nounou-theme .border-slate-100,
+        .nounou-theme .border-slate-200,
+        .nounou-theme .border-slate-300 { border-color: #eadfce !important; }
+        .nounou-theme .focus\:border-blue-500:focus { border-color: #8f6b43 !important; }
+        .shadow-call { box-shadow: 0 18px 45px rgba(92, 67, 38, 0.18); }
     </style>
 </head>
-<body class="bg-[#f3f6fb] text-slate-900 min-h-screen">
+<body class="nounou-theme bg-[#f7f0e7] text-[#2f281f] min-h-screen">
 
     <div class="flex min-h-screen">
-        <aside class="w-[280px] bg-white border-r border-slate-200 hidden lg:flex flex-col">
-            <div class="h-16 px-5 flex items-center border-b border-slate-200">
+        <aside class="w-[270px] bg-[#fffaf3] border-r border-[#eadfce] hidden lg:flex flex-col">
+            <div class="px-7 pt-7 pb-7">
                 <a href="{{ route('nounou.dashboard') }}" class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center">
-                        <span class="material-symbols-rounded text-white">groups</span>
+                    <div class="w-9 h-9 rounded-2xl bg-[#8f6b43] flex items-center justify-center shadow-sm">
+                        <span class="material-symbols-rounded text-[#fffaf3]">groups</span>
                     </div>
-                    <span class="text-xl font-bold">Family Organizer</span>
+                    <span class="text-lg font-black tracking-tight">Family Organiser</span>
                 </a>
             </div>
 
-            <div class="px-5 py-4 border-b border-slate-200">
+            <div class="px-5 mt-8 space-y-3">
+                <button id="backDashboardBtn" class="w-full flex items-center justify-center gap-2 rounded-2xl bg-[#efe2cf] px-4 py-3 text-sm font-bold text-[#8f6b43] hover:bg-[#e8d8c2]">
+                    <span class="material-symbols-rounded !text-[18px]">arrow_back</span>
+                    <span>Retour au dashboard</span>
+                </button>
+            </div>
+
+            <div class="p-5 border-b border-slate-200 mt-5">
                 <div class="relative">
                     <span class="material-symbols-rounded absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 !text-[18px]">search</span>
                     <input
@@ -54,51 +91,55 @@
                 <div class="p-6 text-slate-400">Chargement des conversations...</div>
             </div>
 
-            <div class="p-4 border-t border-slate-200">
-                <button id="backDashboardBtn" class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#f4f7fb]">
-                    <span class="w-9 h-9 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
-                        <span class="material-symbols-rounded !text-[18px]">arrow_back</span>
-                    </span>
-                    <span class="text-sm font-medium">Retour dashboard</span>
-                </button>
+            <div class="mt-auto px-7 pb-10 pt-6 border-t border-[#eadfce]">
+                <div class="space-y-4 text-sm">
+                    <button class="flex items-center gap-3 text-[#5d4c39] hover:text-[#8f6b43]">
+                        <span class="material-symbols-rounded !text-base">settings</span>
+                        <span>Paramètres</span>
+                    </button>
+                    <button id="logoutBtn" class="flex items-center gap-3 text-red-500 hover:text-red-600">
+                        <span class="material-symbols-rounded !text-base">logout</span>
+                        <span>Déconnexion</span>
+                    </button>
+                </div>
             </div>
         </aside>
 
-        <div id="callPanel" class="hidden fixed inset-0 z-50 bg-slate-900/45 backdrop-blur-sm p-4 md:p-8">
+        <div id="callPanel" class="hidden fixed inset-0 z-50 bg-[#2f281f]/45 backdrop-blur-sm p-4 md:p-8">
             <div class="max-w-5xl mx-auto h-full flex items-center justify-center">
-                <div class="w-full bg-white border border-slate-200 rounded-[32px] shadow-call overflow-hidden">
-                    <div class="px-6 py-5 border-b border-slate-200 flex items-center justify-between gap-4">
+                <div class="w-full bg-[#fffaf3] border border-[#eadfce] rounded-[32px] shadow-call overflow-hidden">
+                    <div class="px-6 py-5 border-b border-[#eadfce] flex items-center justify-between gap-4">
                         <div>
-                            <p class="text-xs uppercase tracking-[0.22em] text-blue-600 font-black mb-2">Appel</p>
+                            <p class="text-xs uppercase tracking-[0.22em] text-[#8f6b43] font-black mb-2">Appel</p>
                             <h3 id="callPanelTitle" class="text-2xl font-black">Conversation en appel</h3>
-                            <p id="callPanelStatus" class="text-sm text-slate-500 mt-1">Préparation de l'appel...</p>
+                            <p id="callPanelStatus" class="text-sm text-[#6d5c49] mt-1">Préparation de l'appel...</p>
                         </div>
                         <div class="flex items-center gap-3">
                             <button id="acceptCallBtn" class="hidden px-4 py-2.5 rounded-full bg-green-600 text-white font-bold hover:bg-green-700">Accepter</button>
-                            <button id="rejectCallBtn" class="hidden px-4 py-2.5 rounded-full bg-slate-100 text-slate-700 font-bold hover:bg-slate-200">Refuser</button>
+                            <button id="rejectCallBtn" class="hidden px-4 py-2.5 rounded-full bg-[#f3e8d9] text-[#5d4c39] font-bold hover:bg-[#efe2cf]">Refuser</button>
                             <button id="endCallBtn" class="hidden px-4 py-2.5 rounded-full bg-red-500 text-white font-bold hover:bg-red-600">Terminer</button>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 p-6">
-                        <div class="rounded-[28px] bg-slate-100 border border-slate-200 p-4">
+                        <div class="rounded-[28px] bg-[#f3e8d9] border border-[#eadfce] p-4">
                             <div class="flex items-center justify-between mb-3">
                                 <h4 class="font-black text-lg">Vous</h4>
-                                <span id="callTypeBadge" class="px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-black uppercase">Audio</span>
+                                <span id="callTypeBadge" class="px-3 py-1 rounded-full bg-[#efe2cf] text-[#8f6b43] text-xs font-black uppercase">Audio</span>
                             </div>
-                            <video id="localVideo" autoplay muted playsinline class="w-full aspect-video rounded-[22px] bg-slate-200 object-cover hidden"></video>
-                            <div id="localFallback" class="aspect-video rounded-[22px] bg-slate-200 flex items-center justify-center text-blue-600">
+                            <video id="localVideo" autoplay muted playsinline class="w-full aspect-video rounded-[22px] bg-[#d8c7ae] object-cover hidden"></video>
+                            <div id="localFallback" class="aspect-video rounded-[22px] bg-[#d8c7ae] flex items-center justify-center text-[#8f6b43]">
                                 <span class="material-symbols-rounded !text-[56px]">mic</span>
                             </div>
                         </div>
 
-                        <div class="rounded-[28px] bg-[#f8fbff] border border-slate-200 p-4">
+                        <div class="rounded-[28px] bg-[#f8efe4] border border-[#eadfce] p-4">
                             <div class="flex items-center justify-between mb-3">
                                 <h4 id="remoteVideoTitle" class="font-black text-lg">Participant</h4>
-                                <span id="callConnectionState" class="text-xs font-bold text-slate-400 uppercase">En attente</span>
+                                <span id="callConnectionState" class="text-xs font-bold text-[#9a8469] uppercase">En attente</span>
                             </div>
-                            <video id="remoteVideo" autoplay playsinline class="w-full aspect-video rounded-[22px] bg-slate-100 object-cover hidden"></video>
-                            <div id="remoteFallback" class="aspect-video rounded-[22px] bg-slate-100 flex items-center justify-center text-blue-600">
+                            <video id="remoteVideo" autoplay playsinline class="w-full aspect-video rounded-[22px] bg-[#efe2cf] object-cover hidden"></video>
+                            <div id="remoteFallback" class="aspect-video rounded-[22px] bg-[#efe2cf] flex items-center justify-center text-[#8f6b43]">
                                 <span class="material-symbols-rounded !text-[56px]">call</span>
                             </div>
                         </div>
@@ -110,7 +151,7 @@
         <div class="flex-1 flex flex-col min-w-0">
             <header class="h-16 bg-white border-b border-slate-200 px-5 md:px-6 flex items-center justify-between">
                 <div class="flex items-center gap-4 min-w-0">
-                    <div id="chatAvatar" class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold text-base">
+                    <div id="chatAvatar" class="w-10 h-10 rounded-full bg-[#efe2cf] flex items-center justify-center text-[#8f6b43] font-bold text-base">
                         C
                     </div>
 
@@ -171,9 +212,7 @@
                     </button>
 
                     <input
-                        type="text"
-                        id="messageInput"
-                        placeholder="Tapez un message..."
+                        type="text" id="messageInput" placeholder="Tapez un message..."
                         class="flex-1 bg-transparent outline-none text-slate-700 text-base"
                     >
 
@@ -230,6 +269,7 @@
         const quickPhotoBtn = document.getElementById('quickPhotoBtn');
         const quickReportBtn = document.getElementById('quickReportBtn');
         const backDashboardBtn = document.getElementById('backDashboardBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
 
         const callPanel = document.getElementById('callPanel');
         const callPanelTitle = document.getElementById('callPanelTitle');
@@ -275,6 +315,13 @@
 
         backDashboardBtn.addEventListener('click', function () {
             window.location.href = '/nounou/dashboard';
+        });
+
+        logoutBtn.addEventListener('click', function () {
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '/login';
         });
 
         imageBtn.addEventListener('click', function () {
@@ -490,6 +537,7 @@
             subscribeToConversation(conversationId);
             setupCallClient(conversationId);
         }
+        // connecter l’utilisateur à une conversation en temps réel 
 
         function subscribeToConversation(conversationId) {
             if (!window.Realtime || realtimeConversationId === conversationId) {
@@ -511,7 +559,7 @@
                 },
             });
         }
-
+        // gérer le système d’appel audio/vidéo d’une conversation
         function setupCallClient(conversationId) {
             if (!window.CallClient) {
                 return;
@@ -569,7 +617,7 @@
                 },
             });
         }
-
+        // traiter un nouveau message reçu en temps réel 
         function handleRealtimeMessageSent(message) {
             if (!currentConversationId || Number(message.conversation_id) !== Number(currentConversationId)) {
                 return;

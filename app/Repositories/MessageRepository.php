@@ -25,10 +25,14 @@ class MessageRepository implements MessageRepositoryInterface
 
     public function getByConversation(int $conversationId, int $perPage = 20): LengthAwarePaginator
     {
-        return Message::with(['user', 'attachments'])
+        $messages = Message::with(['user', 'attachments'])
             ->where('conversation_id', $conversationId)
-            ->orderBy('id', 'asc')
+            ->orderBy('id', 'desc')
             ->paginate($perPage);
+
+        $messages->setCollection($messages->getCollection()->reverse()->values());
+
+        return $messages;
     }
 
     public function update(Message $message, array $data): bool

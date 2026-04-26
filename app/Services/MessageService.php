@@ -54,7 +54,11 @@ class MessageService
             'deleted_at' => null,
         ]);
 
-        broadcast(new MessageSent($message))->toOthers();
+        try {
+            broadcast(new MessageSent($message))->toOthers();
+        } catch (\Throwable $e) {
+            report($e);
+        }
 
         $conversation->load('users');
 
@@ -109,7 +113,11 @@ class MessageService
 
         $updatedMessage = $this->messageRepository->findByIdWithRelations($message->id);
 
-        broadcast(new MessageUpdated($updatedMessage))->toOthers();
+        try {
+            broadcast(new MessageUpdated($updatedMessage))->toOthers();
+        } catch (\Throwable $e) {
+            report($e);
+        }
 
         return $updatedMessage;
     }
@@ -132,7 +140,11 @@ class MessageService
 
         $deletedMessage = $this->messageRepository->findByIdWithRelations($message->id);
 
-        broadcast(new MessageDeleted($deletedMessage))->toOthers();
+        try {
+            broadcast(new MessageDeleted($deletedMessage))->toOthers();
+        } catch (\Throwable $e) {
+            report($e);
+        }
 
         return $deletedMessage;
     }
