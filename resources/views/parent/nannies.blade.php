@@ -316,7 +316,7 @@
                 `;
             }
         }
-
+        // garantit que le résultat final sera toujours un tableau 
         function normalizeCollection(data) {
             if (Array.isArray(data)) {
                 return data;
@@ -328,8 +328,9 @@
 
             return [];
         }
-
+        // transforme les données des nounous reçues depuis l’API en objets propres et prêts à afficher dans l’interface
         function extractNannies(nannies) {
+
             return nannies.map(function (nanny) {
                 const families = Array.isArray(nanny.families) ? nanny.families : [];
                 const familyNames = families.map(function (family) {
@@ -375,7 +376,7 @@
         function populateFamilyFilter(nannies) {
             familyFilter.value = '';
         }
-
+        // filter des nounous 
         function applyFilters() {
             const search = searchInput.value.trim().toLowerCase();
             const minExperience = experienceFilter.value;
@@ -528,7 +529,7 @@
         function openConversation(nannyId) {
             openNannyProfile(nannyId);
         }
-
+        // formater un tarif horaire pour l’affichage 
         function formatRate(rate) {
             const value = Number(rate);
 
