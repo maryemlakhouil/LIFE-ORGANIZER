@@ -4,165 +4,254 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planning Nounou - Family Organizer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,0,0" rel="stylesheet">
     @vite(['resources/css/app.css'])
+    <style>
+        .material-symbols-rounded {
+            font-family: 'Material Symbols Rounded';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 20px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        .nounou-planning-theme .bg-white { background-color: #fffaf3 !important; }
+        .nounou-planning-theme .bg-blue-600,
+        .nounou-planning-theme .bg-blue-500 { background-color: #8f6b43 !important; }
+        .nounou-planning-theme .bg-blue-700,
+        .nounou-planning-theme .hover\:bg-blue-700:hover { background-color: #795936 !important; }
+        .nounou-planning-theme .bg-blue-100,
+        .nounou-planning-theme .bg-blue-50,
+        .nounou-planning-theme .hover\:bg-blue-50:hover { background-color: #efe2cf !important; }
+        .nounou-planning-theme .bg-slate-100,
+        .nounou-planning-theme .bg-slate-200,
+        .nounou-planning-theme .hover\:bg-slate-50:hover,
+        .nounou-planning-theme .bg-\[\#f7f8fb\],
+        .nounou-planning-theme .bg-\[\#f7f9fc\],
+        .nounou-planning-theme .bg-\[\#fbfcff\] { background-color: #f3e8d9 !important; }
+        .nounou-planning-theme .text-blue-600,
+        .nounou-planning-theme .text-blue-700,
+        .nounou-planning-theme .hover\:text-blue-600:hover { color: #8f6b43 !important; }
+        .nounou-planning-theme .text-slate-900 { color: #2f281f !important; }
+        .nounou-planning-theme .text-slate-700 { color: #5d4c39 !important; }
+        .nounou-planning-theme .text-slate-600 { color: #6d5c49 !important; }
+        .nounou-planning-theme .text-slate-500,
+        .nounou-planning-theme .text-slate-400 { color: #9a8469 !important; }
+        .nounou-planning-theme .border-slate-200,
+        .nounou-planning-theme .border-slate-300 { border-color: #eadfce !important; }
+        .nounou-planning-theme .text-yellow-600 { color: #b08835 !important; }
+        .nounou-planning-theme .text-green-600,
+        .nounou-planning-theme .text-green-700 { color: #5b8b68 !important; }
+        .nounou-planning-theme .text-red-700 { color: #b55348 !important; }
+        .nounou-planning-theme .bg-yellow-100 { background-color: #f8edd5 !important; }
+        .nounou-planning-theme .bg-green-100 { background-color: #e7f1e7 !important; }
+        .nounou-planning-theme .bg-red-100 { background-color: #fff1ed !important; }
+    </style>
 </head>
-<body class="bg-[#f4f7fb] text-slate-900 min-h-screen">
 
-    <div class="min-h-screen">
+<body class="nounou-planning-theme bg-[#f7f0e7] text-slate-900 min-h-screen">
 
-        <!-- TOP NAV -->
-        <header class="bg-white border-b border-slate-200">
-            <div class="max-w-[1280px] mx-auto px-5 md:px-6 py-3.5 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center">
-                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M16 11c1.66 0 3-1.57 3-3.5S17.66 4 16 4s-3 1.57-3 3.5S14.34 11 16 11zm-8 0c1.66 0 3-1.57 3-3.5S9.66 4 8 4 5 5.57 5 7.5 6.34 11 8 11zm0 2c-2.33 0-7 1.17-7 3.5V20h14v-3.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.95 1.97 3.45V20h6v-3.5c0-2.33-4.67-3.5-7-3.5z"/>
-                        </svg>
+    <div class="flex min-h-screen">
+        <aside class="w-[270px] bg-[#fffaf3] border-r border-[#eadfce] hidden lg:flex flex-col">
+            <div class="px-7 pt-7 pb-7">
+                <div class="flex items-center gap-4">
+                    <div class="w-9 h-9 rounded-2xl bg-[#8f6b43] flex items-center justify-center shadow-sm">
+                        <span class="material-symbols-rounded text-[#fffaf3]">groups</span>
                     </div>
-                    <span class="text-xl font-bold">Family Organizer</span>
-                </div>
-
-                <nav class="hidden md:flex items-center gap-7 text-base">
-                    <a href="{{ route('nounou.dashboard') }}" class="text-slate-600 hover:text-blue-600">
-                        Tableau de bord
-                    </a>
-                    <a href="{{ route('nounou.planning') }}" class="text-blue-600 font-semibold border-b-2 border-blue-600 pb-1">
-                        Planning
-                    </a>
-                    <a href="{{ route('nounou.messages') }}" class="text-slate-600 hover:text-blue-600">
-                        Messagerie
-                    </a>
-                    <a href="#" id="nannyNameTop" class="text-slate-700 font-medium">Marie (Nounou)</a>
-                </nav>
-
-                <div id="nannyAvatarTop" class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold text-base">
-                    N
+                    <div>
+                        <h1 class="text-lg font-black leading-tight tracking-tight">Family Organiser</h1>
+                    </div>
                 </div>
             </div>
-        </header>
 
-        <!-- PAGE -->
-        <main class="max-w-[1280px] mx-auto px-5 md:px-6 py-7">
-            <div id="messageBox" class="hidden mb-6 rounded-2xl p-4 text-sm"></div>
+            <div class="px-5 pt-12">
+                <div class="flex items-center gap-4 mb-10">
+                    <div id="nannyAvatarTop" class="w-12 h-12 rounded-2xl bg-[#efe2cf] flex items-center justify-center text-base font-black text-[#8f6b43]">
+                        N
+                    </div>
+                    <div>
+                        <p id="nannyNameTop" class="text-xl font-black leading-none mb-1">Marie </p>
+                        <p class="text-[#9a8469] text-sm font-semibold">Espace nounou</p>
+                    </div>
+                </div>
 
-            <!-- HEADER -->
-            <section class="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-5 mb-7">
+                <nav class="space-y-5">
+                    <a href="{{ route('nounou.dashboard') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">dashboard</span>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="{{ route('nounou.planning') }}" class="flex items-center gap-4 bg-[#efe2cf] text-[#8f6b43] px-6 py-3.5 rounded-[26px] text-lg font-black shadow-sm">
+                        <span class="material-symbols-rounded">calendar_month</span>
+                        <span>Planning</span>
+                    </a>
+                    <a href="{{ route('nounou.messages') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">chat_bubble</span>
+                        <span>Messagerie</span>
+                    </a>
+                    <a href="{{ route('nounou.profile') }}" class="flex items-center gap-4 px-6 py-2.5 text-lg text-[#5d4c39] hover:text-[#8f6b43] hover:bg-[#efe2cf] rounded-[24px]">
+                        <span class="material-symbols-rounded text-[#b08a5f]">badge</span>
+                        <span>Mon profil</span>
+                    </a>
+                </nav>
+            </div>
+
+            <div class="mt-auto px-7 pb-10">
+                <div class="space-y-4 text-sm">
+                    <button class="flex items-center gap-3 text-[#5d4c39] hover:text-[#8f6b43]">
+                        <span class="material-symbols-rounded !text-base">settings</span>
+                        <span>Paramètres</span>
+                    </button>
+                    <button id="logoutBtn" class="flex items-center gap-3 text-red-500 hover:text-red-600">
+                        <span class="material-symbols-rounded !text-base">logout</span>
+                        <span>Déconnexion</span>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <div class="flex-1 min-w-0">
+            <header class="bg-[#fffaf3]/90 backdrop-blur px-6 md:px-8 py-5 flex items-center justify-between border-b border-[#eadfce]">
                 <div>
-                    <h1 class="text-3xl md:text-[34px] font-black mb-2">Mon planning</h1>
-                    <p class="text-sm md:text-base text-slate-500">
-                        Retrouvez toutes les tâches prévues et organisez votre semaine.
-                    </p>
+                    <h2 class="text-2xl font-black mb-1">Planning nounou</h2>
+                    <p class="text-[#9a8469] text-base font-semibold">Retrouvez toutes les tâches prévues et organisez votre semaine.</p>
                 </div>
 
                 <div class="flex flex-wrap gap-4">
-                    <button id="refreshBtn" class="px-5 py-2.5 rounded-2xl bg-white border border-slate-200 text-sm font-semibold hover:bg-slate-50">
+                    <button id="refreshBtn" class="px-5 py-2.5 rounded-full bg-white border border-slate-200 text-sm font-semibold hover:bg-blue-50">
                         Actualiser
                     </button>
-                    <button id="todayBtn" class="px-5 py-2.5 rounded-2xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700">
+                    <button id="todayBtn" class="px-5 py-2.5 rounded-full bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700">
                         Aujourd'hui
                     </button>
                 </div>
-            </section>
+            </header>
 
-            <!-- SUMMARY CARDS -->
-            <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-7">
-                <div class="bg-white rounded-[22px] border border-slate-200 shadow-sm p-5">
-                    <p class="text-sm font-semibold text-slate-500 mb-2">Tâches totales</p>
-                    <p id="totalTasksCount" class="text-2xl font-black">0</p>
-                </div>
+            <main class="p-5 md:p-8">
+                <div id="messageBox" class="hidden mb-6 rounded-2xl p-4 text-sm"></div>
 
-                <div class="bg-white rounded-[22px] border border-slate-200 shadow-sm p-5">
-                    <p class="text-sm font-semibold text-slate-500 mb-2">En attente</p>
-                    <p id="pendingTasksCount" class="text-2xl font-black text-yellow-600">0</p>
-                </div>
+                <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-7">
+                    <div class="bg-white rounded-[22px] border border-slate-200 shadow-sm p-5">
+                        <div class="w-10 h-10 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center mb-4">
+                            <span class="material-symbols-rounded">task</span>
+                        </div>
+                        <p class="text-sm font-semibold text-slate-500 mb-2">Tâches totales</p>
+                        <p id="totalTasksCount" class="text-2xl font-black">0</p>
+                    </div>
 
-                <div class="bg-white rounded-[22px] border border-slate-200 shadow-sm p-5">
-                    <p class="text-sm font-semibold text-slate-500 mb-2">En cours</p>
-                    <p id="inProgressTasksCount" class="text-2xl font-black text-blue-600">0</p>
-                </div>
+                    <div class="bg-white rounded-[22px] border border-slate-200 shadow-sm p-5">
+                        <div class="w-10 h-10 rounded-2xl bg-yellow-100 text-yellow-600 flex items-center justify-center mb-4">
+                            <span class="material-symbols-rounded">schedule</span>
+                        </div>
+                        <p class="text-sm font-semibold text-slate-500 mb-2">En attente</p>
+                        <p id="pendingTasksCount" class="text-2xl font-black text-yellow-600">0</p>
+                    </div>
 
-                <div class="bg-white rounded-[22px] border border-slate-200 shadow-sm p-5">
-                    <p class="text-sm font-semibold text-slate-500 mb-2">Terminées</p>
-                    <p id="completedTasksCount" class="text-2xl font-black text-green-600">0</p>
-                </div>
-            </section>
+                    <div class="bg-white rounded-[22px] border border-slate-200 shadow-sm p-5">
+                        <div class="w-10 h-10 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center mb-4">
+                            <span class="material-symbols-rounded">autorenew</span>
+                        </div>
+                        <p class="text-sm font-semibold text-slate-500 mb-2">En cours</p>
+                        <p id="inProgressTasksCount" class="text-2xl font-black text-blue-600">0</p>
+                    </div>
 
-            <!-- FILTERS + MINI CALENDAR -->
-            <section class="grid grid-cols-1 xl:grid-cols-4 gap-6 mb-7">
+                    <div class="bg-white rounded-[22px] border border-slate-200 shadow-sm p-5">
+                        <div class="w-10 h-10 rounded-2xl bg-green-100 text-green-600 flex items-center justify-center mb-4">
+                            <span class="material-symbols-rounded">task_alt</span>
+                        </div>
+                        <p class="text-sm font-semibold text-slate-500 mb-2">Terminées</p>
+                        <p id="completedTasksCount" class="text-2xl font-black text-green-600">0</p>
+                    </div>
+                </section>
 
-                <!-- FILTERS -->
-                <div class="xl:col-span-3 bg-white rounded-[24px] border border-slate-200 shadow-sm p-5">
-                    <h2 class="text-xl font-black mb-5">Filtres</h2>
-
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                        <div>
-                            <label class="block text-sm text-slate-500 mb-2">Recherche</label>
-                            <input id="searchInput" type="text" placeholder="Titre ou description"
-                                   class="w-full rounded-2xl border border-slate-200 bg-[#f7f8fb] px-4 py-2.5 text-sm outline-none focus:border-blue-500">
+                <section class="grid grid-cols-1 xl:grid-cols-4 gap-6 mb-7">
+                    <div class="xl:col-span-3 bg-white rounded-[24px] border border-slate-200 shadow-sm p-5">
+                        <div class="flex items-center gap-3 mb-5">
+                            <span class="material-symbols-rounded text-blue-600">filter_alt</span>
+                            <h2 class="text-xl font-black">Filtres</h2>
                         </div>
 
-                        <div>
-                            <label class="block text-sm text-slate-500 mb-2">Statut</label>
-                            <select id="statusFilter" class="w-full rounded-2xl border border-slate-200 bg-[#f7f8fb] px-4 py-2.5 text-sm outline-none focus:border-blue-500">
-                                <option value="">Tous</option>
-                                <option value="pending">En attente</option>
-                                <option value="in_progress">En cours</option>
-                                <option value="completed">Terminée</option>
-                                <option value="cancelled">Annulée</option>
-                            </select>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <div>
+                                <label class="block text-sm text-slate-500 mb-2">Recherche</label>
+                                <input id="searchInput" type="text" placeholder="Titre ou description"
+                                       class="w-full rounded-2xl border border-slate-200 bg-[#f7f8fb] px-4 py-2.5 text-sm outline-none focus:border-blue-500">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm text-slate-500 mb-2">Statut</label>
+                                <select id="statusFilter" class="w-full rounded-2xl border border-slate-200 bg-[#f7f8fb] px-4 py-2.5 text-sm outline-none focus:border-blue-500">
+                                    <option value="">Tous</option>
+                                    <option value="pending">En attente</option>
+                                    <option value="in_progress">En cours</option>
+                                    <option value="completed">Terminée</option>
+                                    <option value="cancelled">Annulée</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm text-slate-500 mb-2">Priorité</label>
+                                <select id="priorityFilter" class="w-full rounded-2xl border border-slate-200 bg-[#f7f8fb] px-4 py-2.5 text-sm outline-none focus:border-blue-500">
+                                    <option value="">Toutes</option>
+                                    <option value="low">Faible</option>
+                                    <option value="medium">Moyenne</option>
+                                    <option value="high">Haute</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm text-slate-500 mb-2">Date</label>
+                                <input id="dateFilter" type="date"
+                                       class="w-full rounded-2xl border border-slate-200 bg-[#f7f8fb] px-4 py-2.5 text-sm outline-none focus:border-blue-500">
+                            </div>
                         </div>
 
-                        <div>
-                            <label class="block text-sm text-slate-500 mb-2">Priorité</label>
-                            <select id="priorityFilter" class="w-full rounded-2xl border border-slate-200 bg-[#f7f8fb] px-4 py-2.5 text-sm outline-none focus:border-blue-500">
-                                <option value="">Toutes</option>
-                                <option value="low">Faible</option>
-                                <option value="medium">Moyenne</option>
-                                <option value="high">Haute</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="block text-sm text-slate-500 mb-2">Date</label>
-                            <input id="dateFilter" type="date"
-                                   class="w-full rounded-2xl border border-slate-200 bg-[#f7f8fb] px-4 py-2.5 text-sm outline-none focus:border-blue-500">
+                        <div class="flex flex-wrap gap-3 mt-5">
+                            <button id="applyFiltersBtn" class="px-5 py-2.5 rounded-full bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700">
+                                Filtrer
+                            </button>
+                            <button id="resetFiltersBtn" class="px-5 py-2.5 rounded-full border border-slate-300 bg-white text-sm font-semibold hover:bg-blue-50">
+                                Réinitialiser
+                            </button>
                         </div>
                     </div>
 
-                    <div class="flex flex-wrap gap-3 mt-5">
-                        <button id="applyFiltersBtn" class="px-5 py-2.5 rounded-2xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700">
-                            Filtrer
-                        </button>
-                        <button id="resetFiltersBtn" class="px-5 py-2.5 rounded-2xl border border-slate-300 bg-white text-sm font-semibold hover:bg-slate-50">
-                            Réinitialiser
-                        </button>
+                    <div class="bg-white rounded-[24px] border border-slate-200 shadow-sm p-5">
+                        <div class="flex items-center gap-3 mb-5">
+                            <span class="material-symbols-rounded text-blue-600">date_range</span>
+                            <h2 class="text-xl font-black">Cette semaine</h2>
+                        </div>
+                        <div id="weekMiniCalendar" class="space-y-3"></div>
                     </div>
-                </div>
+                </section>
 
-                <!-- WEEK MINI -->
-                <div class="bg-white rounded-[24px] border border-slate-200 shadow-sm p-5">
-                    <h2 class="text-xl font-black mb-5">Cette semaine</h2>
-                    <div id="weekMiniCalendar" class="space-y-3"></div>
-                </div>
-            </section>
+                <section class="bg-white rounded-[24px] border border-slate-200 shadow-sm overflow-hidden">
+                    <div class="px-6 py-5 border-b border-slate-200 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-rounded text-blue-600">event_note</span>
+                            <h2 class="text-xl font-black">Tâches planifiées</h2>
+                        </div>
+                        <span id="tasksCountLabel" class="text-sm text-slate-500">0 tâche(s)</span>
+                    </div>
 
-            <!-- TASKS BY DAY -->
-            <section class="bg-white rounded-[24px] border border-slate-200 shadow-sm overflow-hidden">
-                <div class="px-6 py-5 border-b border-slate-200 flex items-center justify-between">
-                    <h2 class="text-xl font-black">Tâches planifiées</h2>
-                    <span id="tasksCountLabel" class="text-sm text-slate-500">0 tâche(s)</span>
-                </div>
-
-                <div id="planningList" class="p-5 space-y-6">
-                    <div class="text-slate-400 text-sm">Chargement...</div>
-                </div>
-            </section>
-        </main>
+                    <div id="planningList" class="p-5 space-y-6">
+                        <div class="text-slate-400 text-sm">Chargement...</div>
+                    </div>
+                </section>
+            </main>
+        </div>
     </div>
 
     <script>
         const nannyNameTop = document.getElementById('nannyNameTop');
         const nannyAvatarTop = document.getElementById('nannyAvatarTop');
+        const logoutBtn = document.getElementById('logoutBtn');
 
         const totalTasksCount = document.getElementById('totalTasksCount');
         const pendingTasksCount = document.getElementById('pendingTasksCount');
@@ -213,6 +302,13 @@
         todayBtn.addEventListener('click', function () {
             dateFilter.value = formatDate(new Date());
             applyFilters();
+        });
+
+        logoutBtn.addEventListener('click', function () {
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '/login';
         });
 
         function checkAuth() {
@@ -327,7 +423,8 @@
             completedTasksCount.textContent = completed;
             tasksCountLabel.textContent = filteredTasks.length + ' tâche(s)';
         }
-
+        // afficher le planning des tâches, organisé par date 
+        
         function renderPlanning() {
             planningList.innerHTML = '';
 
@@ -389,7 +486,7 @@
                                 </button>
 
                                 <button
-                                    class="px-4 py-2 rounded-full bg-green-50 text-green-600 text-sm font-semibold"
+                                    class="px-4 py-2 rounded-full bg-green-100 text-green-700 text-sm font-semibold"
                                     onclick="changeTaskStatus(${task.id}, 'completed')"
                                 >
                                     Terminer
@@ -440,7 +537,7 @@
         }
 
         function getToken() {
-            return localStorage.getItem('access_token');
+            return localStorage.getItem('access_token') || localStorage.getItem('token');
         }
 
         function getAuthHeaders() {
