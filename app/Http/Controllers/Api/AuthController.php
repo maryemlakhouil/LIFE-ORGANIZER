@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 
@@ -77,7 +78,41 @@ class AuthController extends Controller
     public function me()
     {
         return response()->json([
-            'user' => auth('api')->user(),
+            'user' => auth('api')->user()->fresh(),
+        ]);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = auth('api')->user();
+
+        $validated = $request->validate([
+            'name' => 'sometimes|string|max:255',
+            'experience_years' => 'nullable|integer|min:0|max:60',
+            'hourly_rate' => 'nullable|numeric|min:0|max:9999.99',
+            'bio' => 'nullable|string|max:5000',
+            'skills' => 'nullable|array',
+            'skills.*' => 'string|max:255',
+            'languages' => 'nullable|array',
+            'languages.*.name' => 'required_with:languages|string|max:100',
+            'languages.*.level' => 'nullable|string|max:100',
+            'photo' => 'nullable|image|max:2048',
+        ]);
+
+        if ($request->hasFile('photo')) {
+            if ($user->photo && str_starts_with($user->photo, '/storage/')) {
+                Storage::disk('public')->delete(str_replace('/storage/', '', $user->photo));
+            }
+
+            $path = $request->file('photo')->store('profiles', 'public');
+            $validated['photo'] = '/storage/' . $path;
+        }
+
+        $user->update($validated);
+
+        return response()->json([
+            'message' => 'Profil mis à jour avec succès.',
+            'user' => $user->fresh(),
         ]);
     }
 

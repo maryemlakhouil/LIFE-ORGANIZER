@@ -352,13 +352,15 @@
                     age: '-',
                     hourly_rate: nanny.hourly_rate,
                     rate: nanny.hourly_rate ? formatRate(nanny.hourly_rate) : '---',
-                    about: familyNames.length > 0
+                    about: nanny.bio || (familyNames.length > 0
                         ? 'Nounou visible sur la plateforme et déjà liée à une ou plusieurs familles.'
-                        : 'Nounou visible sur la plateforme. Aucune famille liée pour le moment.',
-                    skills: ['Garde d’enfants', 'Organisation', 'Suivi des routines'],
-                    languages: [
-                        { name: 'Français', level: 'Courant' }
-                    ],
+                        : 'Nounou visible sur la plateforme. Aucune famille liée pour le moment.'),
+                    skills: Array.isArray(nanny.skills) && nanny.skills.length > 0
+                        ? nanny.skills
+                        : ['Garde d’enfants', 'Organisation', 'Suivi des routines'],
+                    languages: Array.isArray(nanny.languages) && nanny.languages.length > 0
+                        ? nanny.languages
+                        : [{ name: 'Français', level: 'Courant' }],
                     availability: {
                         matin: [1, 1, 1, 1, 1, 0, 0],
                         aprem: [1, 1, 1, 1, 1, 0, 0],

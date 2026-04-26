@@ -21,6 +21,9 @@ class User extends Authenticatable implements JWTSubject
         'is_active',
         'experience_years',
         'hourly_rate',
+        'bio',
+        'skills',
+        'languages',
         'password',
     ];
 
@@ -36,6 +39,8 @@ class User extends Authenticatable implements JWTSubject
             'is_active' => 'boolean',
             'experience_years' => 'integer',
             'hourly_rate' => 'decimal:2',
+            'skills' => 'array',
+            'languages' => 'array',
             'password' => 'hashed',
         ];
     }
