@@ -4,8 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin - Family Organizer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,0,0" rel="stylesheet">
     @vite(['resources/css/app.css'])
     <style>
+        .material-symbols-rounded {
+            font-family: 'Material Symbols Rounded';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 20px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
         .admin-theme .bg-white { background-color: #fffaf3 !important; }
         .admin-theme .bg-blue-600,
         .admin-theme .bg-blue-500 { background-color: #8f6b43 !important; }
@@ -50,12 +66,10 @@
         <aside class="w-[240px] bg-white border-r border-slate-200 hidden lg:flex flex-col">
             <div class="h-16 flex items-center px-8 border-b border-slate-200">
                 <!-- logo -->
-                <div class="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                    <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M16 11c1.66 0 3-1.57 3-3.5S17.66 4 16 4s-3 1.57-3 3.5S14.34 11 16 11zm-8 0c1.66 0 3-1.57 3-3.5S9.66 4 8 4 5 5.57 5 7.5 6.34 11 8 11zm0 2c-2.33 0-7 1.17-7 3.5V20h14v-3.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.95 1.97 3.45V20h6v-3.5c0-2.33-4.67-3.5-7-3.5z"/>
-                    </svg>
+                <div class="w-9 h-9 rounded-2xl bg-blue-100 flex items-center justify-center mr-3">
+                    <span class="material-symbols-rounded text-blue-600 !text-[18px]">groups</span>
                 </div>
-                <h1 class="text-xl font-bold">Family Organizer</h1>
+                <h1 class="text-xl font-black tracking-tight">Family Organizer</h1>
             </div>
 
             <!-- Menu -->
@@ -64,26 +78,17 @@
 
                 <nav class="space-y-2">
                     <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-full bg-blue-600 text-white font-medium shadow">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/>
-                        </svg>
+                        <span class="material-symbols-rounded !text-[18px]">dashboard</span>
                         <span>Tableau de bord</span>
                     </a>
 
                     <a href="users" class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 hover:bg-slate-100">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/>
-                            <circle cx="10" cy="7" r="4"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
-                        </svg>
+                        <span class="material-symbols-rounded !text-[18px]">group</span>
                         <span>Utilisateurs</span>
                     </a>
 
                     <a href="reports" class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 hover:bg-slate-100">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 19.5V4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5Z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 6h8M8 10h8M8 14h5"/>
-                        </svg>
+                        <span class="material-symbols-rounded !text-[18px]">assessment</span>
                         <span>Rapports</span>
                     </a>
                 </nav>
@@ -93,17 +98,12 @@
                 <nav class="space-y-2">
                     <!-- Parametres-->
                     <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 hover:bg-slate-100">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="3"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06A2 2 0 1 1 7.03 3.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3a2 2 0 1 1 4 0v.09A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.22.35.57.58 1 .6h.6a2 2 0 1 1 0 4h-.09A1.7 1.7 0 0 0 19.4 15Z"/>
-                        </svg>
+                        <span class="material-symbols-rounded !text-[18px]">settings</span>
                         <span>Paramètres</span>
                     </a>
                     <!-- Sécurite-->
                     <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 hover:bg-slate-100">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/>
-                        </svg>
+                        <span class="material-symbols-rounded !text-[18px]">shield</span>
                         <span>Sécurité</span>
                     </a>
                 </nav>
@@ -130,10 +130,7 @@
                 <!--Recherche-->
                 <div class="flex items-center gap-4 w-full max-w-xl">
                     <div class="hidden md:flex items-center bg-[#f4f7fb] rounded-full px-5 py-2.5 w-full max-w-[300px]">
-                        <svg class="w-4 h-4 text-slate-400 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <circle cx="11" cy="11" r="8"/>
-                            <path stroke-linecap="round" d="m21 21-4.35-4.35"/>
-                        </svg>
+                        <span class="material-symbols-rounded text-slate-400 mr-3 !text-[18px]">search</span>
                         <input
                             type="text" id="searchInput" placeholder="Rechercher..."
                             class="bg-transparent w-full outline-none text-sm text-slate-600"
@@ -143,17 +140,11 @@
 
                 <div class="flex items-center gap-4 md:gap-6 ml-4">
                     <button class="w-10 h-10 rounded-full bg-[#f4f7fb] flex items-center justify-center text-slate-500">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.4-1.4A2 2 0 0 1 18 14.2V11a6 6 0 1 0-12 0v3.2a2 2 0 0 1-.6 1.4L4 17h5"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 21h4"/>
-                        </svg>
+                        <span class="material-symbols-rounded !text-[20px]">notifications</span>
                     </button>
 
                     <button class="w-10 h-10 rounded-full bg-[#f4f7fb] flex items-center justify-center text-slate-500">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="3"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06A2 2 0 1 1 7.03 3.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3a2 2 0 1 1 4 0v.09A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.22.35.57.58 1 .6h.6a2 2 0 1 1 0 4h-.09A1.7 1.7 0 0 0 19.4 15Z"/>
-                        </svg>
+                        <span class="material-symbols-rounded !text-[20px]">settings</span>
                     </button>
 
                     <div class="hidden md:flex items-center gap-4 border-l border-slate-200 pl-6">
@@ -182,9 +173,7 @@
 
                     <div class="flex gap-3">
                         <button id="exportBtn" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-300 bg-white text-sm font-semibold">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16"/>
-                            </svg>
+                            <span class="material-symbols-rounded !text-[18px]">download</span>
                             Exporter
                         </button>
                         <button id="newUserBtn" class="px-5 py-2.5 rounded-full bg-blue-600 text-white text-sm font-semibold shadow">
@@ -205,10 +194,7 @@
                                 <p class="text-sm text-slate-400 mt-3" id="newUsersInfo">0 nouveaux cette semaine</p>
                             </div>
                             <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-100 flex items-center justify-center">
-                                <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/>
-                                    <circle cx="10" cy="7" r="4"/>
-                                </svg>
+                                <span class="material-symbols-rounded !text-[30px]">group</span>
                             </div>
                         </div>
                     </div>
@@ -221,10 +207,7 @@
                                 <p class="text-sm text-slate-400 mt-3" id="completionInfo">Taux de complétion 0%</p>
                             </div>
                             <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-100 flex items-center justify-center">
-                                <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-5"/>
-                                    <circle cx="12" cy="12" r="9"/>
-                                </svg>
+                                <span class="material-symbols-rounded !text-[30px]">task_alt</span>
                             </div>
                         </div>
                     </div>
@@ -237,10 +220,7 @@
                                 <p class="text-sm text-slate-400 mt-3">Projection : fin du trimestre</p>
                             </div>
                             <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-100 flex items-center justify-center">
-                                <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 17l6-6 4 4 6-8"/>
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 7h6v6"/>
-                                </svg>
+                                <span class="material-symbols-rounded !text-[30px]">trending_up</span>
                             </div>
                         </div>
                     </div>
@@ -254,10 +234,7 @@
                         <!-- Tableau de gestion des Users-->
                         <div class="px-6 py-5 border-b border-slate-200 flex items-center justify-between">
                             <h3 class="flex items-center gap-2 text-lg font-bold text-slate-900">
-                                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/>
-                                    <circle cx="10" cy="7" r="4"/>
-                                </svg>
+                                <span class="material-symbols-rounded text-blue-600 !text-[18px]">group</span>
                                 Gestion des Utilisateurs
                             </h3>
                             <div class="text-slate-400">

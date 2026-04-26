@@ -211,6 +211,17 @@
                             </a>
                         </div>
                     </div>
+
+                    <div class="bg-white rounded-[20px] border border-slate-200 shadow-sm overflow-hidden">
+                        <div class="px-5 py-4 border-b border-slate-200 flex items-center gap-3">
+                            <span class="material-symbols-rounded text-blue-600">event_available</span>
+                            <h2 class="text-lg font-black">Demandes de réservation</h2>
+                        </div>
+
+                        <div id="reservationRequestsList" class="divide-y divide-slate-200">
+                            <div class="px-5 py-6 text-slate-400 text-sm">Chargement...</div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- RIGHT -->
@@ -284,6 +295,7 @@
 
         const todayTasksList = document.getElementById('todayTasksList');
         const recentMessagesList = document.getElementById('recentMessagesList');
+        const reservationRequestsList = document.getElementById('reservationRequestsList');
         const weekPreviewList = document.getElementById('weekPreviewList');
         const weekNoteText = document.getElementById('weekNoteText');
         const messageBox = document.getElementById('messageBox');
@@ -398,12 +410,15 @@
                 if (response.ok) {
                     allNotifications = result.data.data || [];
                     renderRecentMessages();
+                    renderReservationRequests();
                     renderTaskStats();
                 } else {
                     renderRecentMessages();
+                    renderReservationRequests();
                 }
             } catch (error) {
                 renderRecentMessages();
+                renderReservationRequests();
             }
         }
 
@@ -529,6 +544,74 @@
                 recentMessagesList.appendChild(item);
             });
         }
+
+        function renderReservationRequests() {
+            reservationRequestsList.innerHTML = '';
+
+            const reservationNotifications = allNotifications.filter(function (notification) {
+                return notification.data
+                    && notification.data.type === 'nanny_reservation_request'
+                    && (notification.data.status || 'pending') === 'pending';
+            }).slice(0, 4);
+
+            if (reservationNotifications.length === 0) {
+                reservationRequestsList.innerHTML = `
+                    <div class="px-5 py-6 text-slate-400 text-sm">
+                        Aucune demande de réservation en attente.
+                    </div>
+                `;
+                return;
+            }
+
+            reservationNotifications.forEach(function (notification) {
+                const item = document.createElement('div');
+                item.className = 'px-5 py-4';
+
+                const parentName = notification.data.parent_name || 'Parent';
+                const familyLabel = notification.data.family_label || 'Famille non précisée';
+                const createdAt = formatNotificationTime(notification.created_at);
+
+                item.innerHTML = `
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700 text-sm">
+                            ${getInitials(parentName)}
+                        </div>
+
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between gap-3">
+                                <p class="text-sm font-bold">${escapeHtml(parentName)}</p>
+                                <span class="text-xs text-slate-400">${createdAt}</span>
+                            </div>
+
+                            <p class="text-sm text-slate-600 mt-1.5">
+                                ${escapeHtml(parentName)} souhaite réserver votre profil.
+                            </p>
+
+                            <p class="text-xs text-slate-400 mt-1">
+                                ${escapeHtml(familyLabel)}
+                            </p>
+
+                            <div class="flex gap-2 mt-3">
+                                <button
+                                    onclick="respondToReservation('${notification.id}', 'accepted')"
+                                    class="px-3 py-2 rounded-full bg-blue-600 text-white text-xs font-bold hover:bg-blue-700"
+                                >
+                                    Accepter
+                                </button>
+                                <button
+                                    onclick="respondToReservation('${notification.id}', 'rejected')"
+                                    class="px-3 py-2 rounded-full bg-[#f3e8d9] text-[#5d4c39] text-xs font-bold hover:bg-[#eadcc8]"
+                                >
+                                    Refuser
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                reservationRequestsList.appendChild(item);
+            });
+        }
         // garde les 4 prochaines 
         function renderWeekPreview() {
             weekPreviewList.innerHTML = '';
@@ -601,6 +684,30 @@
                     loadTasks();
                 } else {
                     showMessage(result.message || 'Impossible de modifier le statut.', 'error');
+                }
+            } catch (error) {
+                showMessage('Erreur serveur.', 'error');
+            }
+        }
+
+        async function respondToReservation(notificationId, status) {
+            try {
+                const response = await fetch('/api/notifications/' + notificationId + '/reservation-response', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...getAuthHeaders()
+                    },
+                    body: JSON.stringify({ status: status })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showMessage(result.message || 'Demande traitée.', 'success');
+                    loadNotifications();
+                } else {
+                    showMessage(result.message || 'Impossible de traiter la demande.', 'error');
                 }
             } catch (error) {
                 showMessage('Erreur serveur.', 'error');

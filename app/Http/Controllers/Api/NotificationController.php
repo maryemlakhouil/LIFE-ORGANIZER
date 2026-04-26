@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\NotificationService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Throwable;
 
 class NotificationController extends Controller
@@ -71,6 +72,27 @@ class NotificationController extends Controller
 
             return response()->json([
                 'message' => 'Notification supprimée avec succès.',
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['message' => $e->getMessage()], 404);
+        }
+    }
+
+    public function respondToReservation(Request $request, string $id): JsonResponse
+    {
+        $validated = $request->validate([
+            'status' => 'required|in:accepted,rejected',
+        ]);
+
+        try {
+            $notification = $this->notificationService
+                ->respondToReservation(auth('api')->user(), $id, $validated['status']);
+
+            return response()->json([
+                'message' => $validated['status'] === 'accepted'
+                    ? 'Demande de reservation acceptee.'
+                    : 'Demande de reservation refusee.',
+                'data' => $notification,
             ]);
         } catch (ModelNotFoundException $e) {
             return response()->json(['message' => $e->getMessage()], 404);

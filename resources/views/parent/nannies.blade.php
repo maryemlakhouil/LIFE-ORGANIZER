@@ -220,6 +220,7 @@
         let currentUser = null;
         let allNannies = [];
         let filteredNannies = [];
+        let reservedNannyIds = [];
 
         document.addEventListener('DOMContentLoaded', function () {
             guardParentAccess();
@@ -288,6 +289,7 @@
 
             sidebarAvatar.textContent = getInitials(currentUser.name || 'P');
             sidebarName.textContent = currentUser.name || 'Espace parent';
+            reservedNannyIds = getReservedNannyIds();
         }
 
         async function loadNannies() {
@@ -503,6 +505,13 @@
                             <button onclick="openNannyProfile(${nanny.id})" class="flex-1 rounded-full bg-[#8f6b43] text-white py-3 text-sm font-bold hover:bg-[#795936]">
                                 Voir le profil
                             </button>
+                            <button
+                                onclick="reserveNanny(${nanny.id})"
+                                class="flex-1 rounded-full border border-[#eadfce] ${nanny.is_active ? 'bg-white text-[#8f6b43] hover:bg-[#efe2cf]' : 'bg-[#f4eee7] text-[#b7a18a] cursor-not-allowed'} py-3 text-sm font-bold"
+                                ${!nanny.is_active || isReserved(nanny.id) ? 'disabled' : ''}
+                            >
+                                ${isReserved(nanny.id) ? 'Demande envoyée' : 'Réserver'}
+                            </button>
                             <button onclick="openConversation(${nanny.id})" class="w-12 h-12 rounded-full border border-[#eadfce] text-[#8f6b43] hover:bg-[#efe2cf]">
                                 <span class="material-symbols-rounded">chat</span>
                             </button>
@@ -530,6 +539,73 @@
 
         function openConversation(nannyId) {
             openNannyProfile(nannyId);
+        }
+
+        function getReservedNannyIds() {
+            if (!currentUser) {
+                return [];
+            }
+
+            try {
+                const stored = JSON.parse(localStorage.getItem('reserved_nannies_' + currentUser.id));
+                return Array.isArray(stored) ? stored.map(function (id) { return String(id); }) : [];
+            } catch (error) {
+                return [];
+            }
+        }
+
+        function persistReservedNannyIds() {
+            if (!currentUser) {
+                return;
+            }
+
+            localStorage.setItem('reserved_nannies_' + currentUser.id, JSON.stringify(reservedNannyIds));
+        }
+
+        function isReserved(nannyId) {
+            return reservedNannyIds.includes(String(nannyId));
+        }
+
+        async function reserveNanny(nannyId) {
+            const nanny = allNannies.find(function (item) {
+                return String(item.id) === String(nannyId);
+            });
+
+            if (!nanny) {
+                showMessage('Nounou introuvable.', 'error');
+                return;
+            }
+
+            if (!nanny.is_active) {
+                showMessage('Cette nounou est actuellement inactive.', 'error');
+                return;
+            }
+
+            if (isReserved(nannyId)) {
+                showMessage('Une demande a déjà été envoyée à cette nounou.', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/nannies/' + nannyId + '/reserve', {
+                    method: 'POST',
+                    headers: getAuthHeaders()
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    showMessage(result.message || 'Impossible d’envoyer la demande.', 'error');
+                    return;
+                }
+
+                reservedNannyIds.push(String(nannyId));
+                persistReservedNannyIds();
+                renderNannies();
+                showMessage(result.message || 'Demande envoyée avec succès.', 'success');
+            } catch (error) {
+                showMessage('Impossible d’envoyer la demande.', 'error');
+            }
         }
         // formater un tarif horaire pour l’affichage 
         function formatRate(rate) {

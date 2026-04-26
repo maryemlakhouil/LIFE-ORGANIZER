@@ -4,8 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des Utilisateurs - Family Organizer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,0,0" rel="stylesheet">
     @vite(['resources/css/app.css'])
     <style>
+        .material-symbols-rounded {
+            font-family: 'Material Symbols Rounded';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 20px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
         .admin-theme .bg-white { background-color: #fffaf3 !important; }
         .admin-theme .bg-blue-600,
         .admin-theme .bg-blue-500 { background-color: #8f6b43 !important; }
@@ -49,12 +65,10 @@
         <!-- SIDEBAR -->
         <aside class="w-[240px] bg-white border-r border-slate-200 hidden lg:flex flex-col">
             <div class="h-16 flex items-center px-8 border-b border-slate-200">
-                <div class="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                    <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M16 11c1.66 0 3-1.57 3-3.5S17.66 4 16 4s-3 1.57-3 3.5S14.34 11 16 11zm-8 0c1.66 0 3-1.57 3-3.5S9.66 4 8 4 5 5.57 5 7.5 6.34 11 8 11zm0 2c-2.33 0-7 1.17-7 3.5V20h14v-3.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.95 1.97 3.45V20h6v-3.5c0-2.33-4.67-3.5-7-3.5z"/>
-                    </svg>
+                <div class="w-9 h-9 rounded-2xl bg-blue-100 flex items-center justify-center mr-3">
+                    <span class="material-symbols-rounded text-blue-600 !text-[18px]">groups</span>
                 </div>
-                <h1 class="text-xl font-bold">Family Organizer</h1>
+                <h1 class="text-xl font-black tracking-tight">Family Organizer</h1>
             </div>
 
             <div class="px-6 pt-7">
@@ -62,15 +76,17 @@
 
                 <nav class="space-y-2">
                     <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 hover:bg-slate-100">
+                        <span class="material-symbols-rounded !text-[18px]">dashboard</span>
                         <span>Tableau de bord</span>
                     </a>
 
                     <a href="{{ route('admin.users') }}" class="flex items-center gap-3 px-4 py-3 rounded-full bg-blue-600 text-white font-medium shadow">
-                        
+                        <span class="material-symbols-rounded !text-[18px]">group</span>
                         <span>Utilisateurs</span>
                     </a>
 
                     <a href="{{ route('admin.reports') }}" class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 hover:bg-slate-100">
+                        <span class="material-symbols-rounded !text-[18px]">assessment</span>
                         <span>Rapports</span>
                     </a>
                 </nav>
@@ -79,11 +95,12 @@
 
                 <nav class="space-y-2">
                     <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 hover:bg-slate-100">
-                        <span>⚙</span>
+                        <span class="material-symbols-rounded !text-[18px]">settings</span>
                         <span>Paramètres</span>
                     </a>
 
                     <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 hover:bg-slate-100">
+                        <span class="material-symbols-rounded !text-[18px]">shield</span>
                         <span>Sécurité</span>
                     </a>
                 </nav>
@@ -103,7 +120,7 @@
             <header class="h-16 bg-white border-b border-slate-200 px-5 md:px-8 flex items-center justify-between">
                 <div class="flex items-center gap-4 w-full max-w-xl">
                     <div class="hidden md:flex items-center bg-[#f4f7fb] rounded-full px-5 py-2.5 w-full max-w-[300px]">
-                        <span class="text-slate-400 mr-3">🔍</span>
+                        <span class="material-symbols-rounded text-slate-400 mr-3 !text-[18px]">search</span>
                         <input
                             type="text" id="searchInput" placeholder="Rechercher un utilisateur..."
                             class="bg-transparent w-full outline-none text-sm text-slate-600"

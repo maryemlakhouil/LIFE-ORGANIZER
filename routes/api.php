@@ -43,6 +43,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('/families', [FamilyController::class, 'index']);
     Route::get('/nannies', [NannyController::class, 'index']);
+    Route::post('/nannies/{id}/reserve', [NannyController::class, 'reserve']);
     Route::post('/families', [FamilyController::class, 'store']);
     Route::get('/families/{id}', [FamilyController::class, 'show']);
     Route::put('/families/{id}', [FamilyController::class, 'update']);
@@ -101,6 +102,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('/notifications', [NotificationController::class, 'index']);
     Route::get('/notifications/{id}', [NotificationController::class, 'show']);
+    Route::post('/notifications/{id}/reservation-response', [NotificationController::class, 'respondToReservation']);
     Route::patch('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
     Route::patch('/notifications/read-all', [NotificationController::class, 'markAllAsRead']);
     Route::delete('/notifications/{id}', [NotificationController::class, 'destroy']);
