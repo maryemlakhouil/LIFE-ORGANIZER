@@ -14,7 +14,7 @@ class StoreChildRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'family_id' => ['required', 'exists:families,id'],
+            'family_id' => ['nullable', 'exists:families,id'],
             'name' => ['required', 'string', 'max:255'],
             'birth_date' => ['nullable', 'date'],
             'notes' => ['nullable', 'string'],
