@@ -50,6 +50,12 @@ window.Echo = new Echo({
 });
 
 window.Realtime = {
+    listenUserNotifications(userId, handlers = {}) {
+        return window.Echo.private(`App.Models.User.${userId}`)
+            .notification((notification) => handlers.notification?.(notification))
+            .error((error) => handlers.error?.(error));
+    },
+
     listenPrivateConversation(conversationId, handlers = {}) {
         return window.Echo.private(`conversation.${conversationId}`)
             .listen('.message.sent', (event) => handlers.messageSent?.(event))
@@ -73,5 +79,9 @@ window.Realtime = {
 
     leaveConversation(conversationId) {
         window.Echo.leave(`conversation.${conversationId}`);
+    },
+
+    leaveUserNotifications(userId) {
+        window.Echo.leave(`App.Models.User.${userId}`);
     },
 };

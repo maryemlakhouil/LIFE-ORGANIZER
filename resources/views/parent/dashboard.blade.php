@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Parent - Family Organizer</title>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,0,0" rel="stylesheet">
-    @vite(['resources/css/app.css'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         .material-symbols-rounded {
             font-family: 'Material Symbols Rounded';
@@ -355,6 +355,7 @@
         let allTasks = [];
         let allNotifications = [];
         let currentNotificationFilter = 'all';
+        let realtimeNotificationsUserId = null;
 
         document.addEventListener('DOMContentLoaded', function () {
             guardParentAccess();
@@ -498,6 +499,7 @@
                 familyName.textContent = user.name || 'Ma famille';
                 familyPlan.textContent = 'Premium plan';
                 familyAvatar.textContent = getInitials(user.name || 'Famille');
+                subscribeToRealtimeNotifications(user);
             }
         }
 
@@ -550,6 +552,73 @@
                 renderRecentActivity();
                 renderNotificationsPanel();
             }
+        }
+
+        function subscribeToRealtimeNotifications(user) {
+            if (!user || !user.id || !window.Realtime) {
+                return;
+            }
+
+            if (realtimeNotificationsUserId && realtimeNotificationsUserId !== user.id) {
+                window.Realtime.leaveUserNotifications(realtimeNotificationsUserId);
+            }
+
+            if (realtimeNotificationsUserId === user.id) {
+                return;
+            }
+
+            realtimeNotificationsUserId = user.id;
+
+            window.Realtime.listenUserNotifications(user.id, {
+                notification(notification) {
+                    pushRealtimeNotification(notification);
+                },
+                error() {
+                    console.warn('Impossible d ecouter les notifications temps reel.');
+                }
+            });
+        }
+
+        function pushRealtimeNotification(notification) {
+            const normalized = normalizeIncomingNotification(notification);
+
+            if (!normalized) {
+                return;
+            }
+
+            allNotifications = [
+                normalized,
+                ...allNotifications.filter(function (item) {
+                    return String(item.id) !== String(normalized.id);
+                })
+            ];
+
+            renderNotificationsBadge();
+            renderRecentActivity();
+            renderNotificationsPanel();
+            showMessage((normalized.data && normalized.data.title) ? normalized.data.title : 'Nouvelle notification reçue.', 'success');
+        }
+
+        function normalizeIncomingNotification(notification) {
+            if (!notification) {
+                return null;
+            }
+
+            if (notification.data) {
+                return {
+                    id: notification.id || 'rt-' + Date.now(),
+                    data: notification.data,
+                    read_at: notification.read_at || null,
+                    created_at: notification.created_at || new Date().toISOString()
+                };
+            }
+
+            return {
+                id: notification.id || 'rt-' + Date.now(),
+                data: notification,
+                read_at: null,
+                created_at: new Date().toISOString()
+            };
         }
 
         // Progression du jour 

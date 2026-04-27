@@ -268,6 +268,13 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
+                        <label for="taskAssignedTo" class="block text-sm text-slate-500 mb-2">Nounou assignée</label>
+                        <select id="taskAssignedTo" class="w-full rounded-2xl border border-slate-200 bg-[#f7f8fb] px-4 py-3 outline-none focus:border-blue-500">
+                            <option value="">Choisir une nounou</option>
+                        </select>
+                    </div>
+
+                    <div>
                         <label for="taskPriority" class="block text-sm text-slate-500 mb-2">Priorité</label>
                         <select id="taskPriority" class="w-full rounded-2xl border border-slate-200 bg-[#f7f8fb] px-4 py-3 outline-none focus:border-blue-500">
                             <option value="low">Faible</option>
@@ -338,16 +345,19 @@
         const taskId = document.getElementById('taskId');
         const taskTitle = document.getElementById('taskTitle');
         const taskDescription = document.getElementById('taskDescription');
+        const taskAssignedTo = document.getElementById('taskAssignedTo');
         const taskPriority = document.getElementById('taskPriority');
         const taskStatus = document.getElementById('taskStatus');
         const taskDueDate = document.getElementById('taskDueDate');
 
         let allTasks = [];
         let filteredTasks = [];
+        let allNannies = [];
 
         document.addEventListener('DOMContentLoaded', function () {
             guardParentAccess();
             loadParentInfo();
+            loadNannies();
             loadTasks();
 
             if (new URLSearchParams(window.location.search).get('create') === '1') {
@@ -471,6 +481,27 @@
                 `;
             }
         }
+
+        async function loadNannies() {
+            try {
+                const response = await fetch('/api/nannies', {
+                    method: 'GET',
+                    headers: getAuthHeaders()
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    allNannies = extractCollection(result.data).filter(function (nanny) {
+                        return nanny.role === 'nounou' || nanny.role === undefined;
+                    });
+                    renderNannyOptions();
+                }
+            } catch (error) {
+                allNannies = [];
+                renderNannyOptions();
+            }
+        }
         // Filtrer les tâches selon : texte recherché && statut && priorité
 
         function applyFilters() {
@@ -535,6 +566,7 @@
             filteredTasks.forEach(function (task) {
                 const item = document.createElement('div');
                 item.className = 'px-6 py-5';
+                const nannyName = task.nanny && task.nanny.name ? task.nanny.name : 'Non assignée';
 
                 item.innerHTML = `
                     <div class="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-5">
@@ -554,6 +586,7 @@
                             </p>
 
                             <div class="flex flex-wrap gap-6 text-sm text-slate-400">
+                                <span>Nounou : ${escapeHtml(nannyName)}</span>
                                 <span>Échéance : ${task.due_date ? formatDate(getTaskDueDate(task)) : '-'}</span>
                                 <span>Créée le : ${task.created_at ? formatDateTime(task.created_at) : '-'}</span>
                             </div>
@@ -598,6 +631,8 @@
             taskPriority.value = 'medium';
             taskStatus.value = 'pending';
             taskDueDate.value = '';
+            renderNannyOptions();
+            taskAssignedTo.value = '';
             taskModal.classList.remove('hidden');
             taskModal.classList.add('flex');
         }
@@ -618,6 +653,8 @@
             taskStatus.value = task.status || 'pending';
             taskDueDate.value = getTaskDueDate(task);
 
+            renderNannyOptions();
+            taskAssignedTo.value = task.assigned_to ? String(task.assigned_to) : '';
             taskModal.classList.remove('hidden');
             taskModal.classList.add('flex');
         }
@@ -638,6 +675,7 @@
                     body: JSON.stringify({
                         title: taskTitle.value.trim(),
                         description: taskDescription.value.trim(),
+                        assigned_to: taskAssignedTo.value || null,
                         priority: taskPriority.value,
                         status: taskStatus.value,
                         due_date: taskDueDate.value || null
@@ -670,6 +708,7 @@
                     body: JSON.stringify({
                         title: taskTitle.value.trim(),
                         description: taskDescription.value.trim(),
+                        assigned_to: taskAssignedTo.value || null,
                         priority: taskPriority.value,
                         status: taskStatus.value,
                         due_date: taskDueDate.value || null
@@ -747,6 +786,42 @@
             if (status === 'completed') return 'bg-green-100 text-green-700';
             if (status === 'cancelled') return 'bg-red-100 text-red-700';
             return 'bg-slate-100 text-slate-700';
+        }
+
+        function renderNannyOptions() {
+            const selectedValue = taskAssignedTo.value;
+
+            taskAssignedTo.innerHTML = '<option value="">Choisir une nounou</option>';
+
+            if (allNannies.length === 0) {
+                const option = document.createElement('option');
+                option.value = '';
+                option.textContent = 'Aucune nounou disponible';
+                taskAssignedTo.appendChild(option);
+                taskAssignedTo.value = '';
+                return;
+            }
+
+            allNannies.forEach(function (nanny) {
+                const option = document.createElement('option');
+                option.value = String(nanny.id);
+                option.textContent = nanny.name + (nanny.email ? ' - ' + nanny.email : '');
+                taskAssignedTo.appendChild(option);
+            });
+
+            taskAssignedTo.value = selectedValue || '';
+        }
+
+        function extractCollection(payload) {
+            if (Array.isArray(payload)) {
+                return payload;
+            }
+
+            if (payload && Array.isArray(payload.data)) {
+                return payload.data;
+            }
+
+            return [];
         }
 
         function getStatusLabel(status) {

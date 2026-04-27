@@ -74,6 +74,10 @@
                     <span class="material-symbols-rounded !text-[18px]">arrow_back</span>
                     <span>Retour au dashboard</span>
                 </button>
+                <button id="newConversationBtn" class="w-full flex items-center justify-center gap-2 rounded-2xl bg-[#8f6b43] px-4 py-3 text-sm font-bold text-white hover:bg-[#795936]">
+                    <span class="material-symbols-rounded !text-[18px]">add_comment</span>
+                    <span>Nouvelle conversation</span>
+                </button>
             </div>
 
             <div class="p-5 border-b border-slate-200 mt-5">
@@ -243,6 +247,42 @@
         </div>
     </div>
 
+    <div id="newConversationModal" class="hidden fixed inset-0 z-50 bg-black/30 p-4">
+        <div class="max-w-md mx-auto mt-16 rounded-[28px] border border-[#eadfce] bg-[#fffaf3] shadow-call overflow-hidden">
+            <div class="px-6 py-5 border-b border-[#eadfce] flex items-center justify-between gap-4">
+                <div>
+                    <h3 class="text-xl font-black">Créer une conversation</h3>
+                    <p class="text-sm text-[#9a8469] mt-1">Choisissez une nounou pour commencer un échange.</p>
+                </div>
+                <button id="closeConversationModalBtn" class="text-[#9a8469] hover:text-[#5d4c39]">
+                    <span class="material-symbols-rounded">close</span>
+                </button>
+            </div>
+
+            <div class="p-6 space-y-4">
+                <div>
+                    <label for="nannySelect" class="block text-sm text-[#5d4c39] font-semibold mb-2">Nounou</label>
+                    <select id="nannySelect" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none focus:border-blue-500">
+                        <option value="">Sélectionner une nounou</option>
+                    </select>
+                </div>
+
+                <div id="newConversationInfo" class="rounded-2xl bg-[#f8efe4] border border-[#eadfce] px-4 py-3 text-sm text-[#6d5c49]">
+                    Si une conversation existe déjà avec cette nounou, elle sera réutilisée automatiquement.
+                </div>
+
+                <div class="flex gap-3 pt-2">
+                    <button id="cancelConversationBtn" class="flex-1 rounded-2xl border border-[#eadfce] bg-white py-3 text-sm font-bold text-[#5d4c39]">
+                        Annuler
+                    </button>
+                    <button id="confirmConversationBtn" class="flex-1 rounded-2xl bg-[#8f6b43] py-3 text-sm font-bold text-white hover:bg-[#795936]">
+                        Créer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>    
         const searchConversationInput = document.getElementById('searchConversationInput');
         const conversationsList = document.getElementById('conversationsList');
@@ -264,6 +304,12 @@
         const imageInput = document.getElementById('imageInput');
         const fileInput = document.getElementById('fileInput');
         const backDashboardBtn = document.getElementById('backDashboardBtn');
+        const newConversationBtn = document.getElementById('newConversationBtn');
+        const newConversationModal = document.getElementById('newConversationModal');
+        const closeConversationModalBtn = document.getElementById('closeConversationModalBtn');
+        const cancelConversationBtn = document.getElementById('cancelConversationBtn');
+        const confirmConversationBtn = document.getElementById('confirmConversationBtn');
+        const nannySelect = document.getElementById('nannySelect');
         const emojiBtn = document.getElementById('emojiBtn');
         const audioCallBtn = document.getElementById('audioCallBtn');
         const videoCallBtn = document.getElementById('videoCallBtn');
@@ -293,10 +339,12 @@
         let currentMessages = [];
         let currentUser = null;
         let callClient = null;
+        let allNannies = [];
 
         document.addEventListener('DOMContentLoaded', function () {
             guardParentAccess();
             loadUser();
+            loadNanniesForConversation();
             loadConversations();
         });
 
@@ -317,6 +365,28 @@
 
         backDashboardBtn.addEventListener('click', function () {
             window.location.href = '{{ route('parent.dashboard') }}';
+        });
+
+        newConversationBtn.addEventListener('click', function () {
+            openNewConversationModal();
+        });
+
+        closeConversationModalBtn.addEventListener('click', function () {
+            closeNewConversationModal();
+        });
+
+        cancelConversationBtn.addEventListener('click', function () {
+            closeNewConversationModal();
+        });
+
+        newConversationModal.addEventListener('click', function (event) {
+            if (event.target === newConversationModal) {
+                closeNewConversationModal();
+            }
+        });
+
+        confirmConversationBtn.addEventListener('click', function () {
+            createConversationWithSelectedNanny();
         });
 
         imageBtn.addEventListener('click', function () {
@@ -445,6 +515,97 @@
 
         function loadUser() {
             currentUser = getStoredUser();
+        }
+
+        async function loadNanniesForConversation() {
+            try {
+                const response = await fetch('/api/nannies', {
+                    method: 'GET',
+                    headers: getAuthHeaders()
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    return;
+                }
+
+                const collection = Array.isArray(result.data?.data) ? result.data.data : (Array.isArray(result.data) ? result.data : []);
+                allNannies = collection.filter(function (user) {
+                    return user && user.role === 'nounou' && user.is_active !== false;
+                });
+                renderNannySelect();
+            } catch (error) {
+                allNannies = [];
+                renderNannySelect();
+            }
+        }
+
+        function renderNannySelect() {
+            nannySelect.innerHTML = '<option value="">Sélectionner une nounou</option>';
+
+            allNannies.forEach(function (nanny) {
+                const option = document.createElement('option');
+                option.value = nanny.id;
+                option.textContent = nanny.name + (nanny.email ? ' - ' + nanny.email : '');
+                nannySelect.appendChild(option);
+            });
+        }
+
+        function openNewConversationModal() {
+            nannySelect.value = '';
+            newConversationModal.classList.remove('hidden');
+        }
+
+        function closeNewConversationModal() {
+            newConversationModal.classList.add('hidden');
+        }
+
+        async function createConversationWithSelectedNanny() {
+            const nannyId = nannySelect.value;
+
+            if (!nannyId) {
+                showMessage('Veuillez choisir une nounou.', 'error');
+                return;
+            }
+
+            confirmConversationBtn.disabled = true;
+            confirmConversationBtn.textContent = 'Création...';
+
+            try {
+                const response = await fetch('/api/conversations', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...getAuthHeaders()
+                    },
+                    body: JSON.stringify({
+                        type: 'direct',
+                        participant_ids: [Number(nannyId)]
+                    })
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    showMessage(result.message || 'Impossible de créer la conversation.', 'error');
+                    return;
+                }
+
+                const conversation = result.data;
+                closeNewConversationModal();
+                showMessage(result.message || 'Conversation prête.', 'success');
+                await loadConversations(false);
+
+                if (conversation && conversation.id) {
+                    await openConversation(conversation.id);
+                }
+            } catch (error) {
+                showMessage('Erreur serveur lors de la création de la conversation.', 'error');
+            } finally {
+                confirmConversationBtn.disabled = false;
+                confirmConversationBtn.textContent = 'Créer';
+            }
         }
         // charger les conversations 
 

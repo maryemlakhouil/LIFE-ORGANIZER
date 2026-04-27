@@ -412,10 +412,13 @@
         let currentFamily = null;
         let allChildren = [];
         let editingChildId = null;
+        let familyLoaded = false;
+        let isCreatingDefaultFamily = false;
 
         document.addEventListener('DOMContentLoaded', function () {
             checkAuth();
             loadUserInfo();
+            setAddChildButtonState(false);
             loadFamily();
         });
 
@@ -530,6 +533,7 @@
             currentUser = getStoredUser();
 
             if (currentUser) {
+                familyName.textContent = currentUser.name || 'Parent';
                 parentEmail.textContent = currentUser.email || '';
                 sidebarAvatar.textContent = getInitials(currentUser.name || 'F');
                 sidebarFamilyName.textContent = currentUser.name || 'Ma famille';
@@ -539,6 +543,9 @@
         }
 
         async function loadFamily() {
+            familyLoaded = false;
+            setAddChildButtonState(false);
+
             try {
                 const response = await fetch('/api/families', {
                     method: 'GET',
@@ -548,22 +555,89 @@
                 const result = await response.json();
 
                 if (response.ok) {
-                    const families = result.data.data || result.data || [];
+                    const families = extractCollection(result.data);
 
                     if (families.length > 0) {
                         currentFamily = families[0];
+                        familyLoaded = true;
+                        setAddChildButtonState(true);
                         renderFamily();
                         loadChildren();
                     } else {
-                        childrenList.innerHTML = `
-                            <div class="bg-[#fffaf3] rounded-[26px] border border-[#eadfce] shadow-sm p-5 text-[#9a8469] text-sm">
-                                Aucune famille trouvée pour ce compte.
-                            </div>
-                        `;
+                        await createDefaultFamilyForParent();
                     }
+                } else {
+                    currentFamily = null;
+                    setAddChildButtonState(false);
                 }
             } catch (error) {
+                currentFamily = null;
+                setAddChildButtonState(false);
                 showMessage('Impossible de charger les informations famille.', 'error');
+            }
+        }
+
+        async function createDefaultFamilyForParent() {
+            if (!currentUser || currentUser.role !== 'parent' || isCreatingDefaultFamily) {
+                currentFamily = null;
+                childrenList.innerHTML = `
+                    <div class="bg-[#fffaf3] rounded-[26px] border border-[#eadfce] shadow-sm p-5 text-[#9a8469] text-sm">
+                        Aucune famille trouvée pour ce compte.
+                    </div>
+                `;
+                setAddChildButtonState(false);
+                return;
+            }
+
+            isCreatingDefaultFamily = true;
+            childrenList.innerHTML = `
+                <div class="bg-[#fffaf3] rounded-[26px] border border-[#eadfce] shadow-sm p-5 text-[#9a8469] text-sm">
+                    Création de votre espace famille...
+                </div>
+            `;
+
+            try {
+                const response = await fetch('/api/families', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...getAuthHeaders()
+                    },
+                    body: JSON.stringify({
+                        name: 'Famille ' + (currentUser.name || 'Parent')
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    currentFamily = result.data || null;
+                    familyLoaded = true;
+                    setAddChildButtonState(true);
+                    renderFamily();
+                    loadChildren();
+                    showMessage('Votre famille a été créée automatiquement.', 'success');
+                } else {
+                    currentFamily = null;
+                    setAddChildButtonState(false);
+                    childrenList.innerHTML = `
+                        <div class="bg-[#fffaf3] rounded-[26px] border border-[#eadfce] shadow-sm p-5 text-[#9a8469] text-sm">
+                            Aucune famille trouvée pour ce compte.
+                        </div>
+                    `;
+                    showMessage(readErrors(result), 'error');
+                }
+            } catch (error) {
+                currentFamily = null;
+                setAddChildButtonState(false);
+                childrenList.innerHTML = `
+                    <div class="bg-[#fffaf3] rounded-[26px] border border-[#eadfce] shadow-sm p-5 text-[#9a8469] text-sm">
+                        Aucune famille trouvée pour ce compte.
+                    </div>
+                `;
+                showMessage('Impossible de créer la famille par défaut.', 'error');
+            } finally {
+                isCreatingDefaultFamily = false;
             }
         }
 
@@ -581,7 +655,7 @@
                 const result = await response.json();
 
                 if (response.ok) {
-                    allChildren = result.data.data || result.data || [];
+                    allChildren = extractCollection(result.data);
                     renderChildren();
                     renderNeedsAndRoutines();
                 }
@@ -591,13 +665,13 @@
         }
 
         function renderFamily() {
-            familyName.textContent = currentFamily.name || 'Ma famille';
-            sidebarFamilyName.textContent = currentFamily.name || (currentUser?.name || 'Ma famille');
+            familyName.textContent = currentUser?.name || currentFamily.name || 'Parent';
+            sidebarFamilyName.textContent = currentUser?.name || currentFamily.name || 'Ma famille';
 
             if (currentFamily.location) {
                 familyLocation.innerHTML = '<span class="material-symbols-rounded !text-[18px] text-[#b08a5f]">location_on</span><span>' + escapeHtml(currentFamily.location) + '</span>';
             } else {
-                familyLocation.innerHTML = '<span class="material-symbols-rounded !text-[18px] text-[#b08a5f]">location_on</span><span>Localisation indisponible</span>';
+                familyLocation.innerHTML = '<span class="material-symbols-rounded !text-[18px] text-[#b08a5f]">location_on</span><span>Profil parent connecté</span>';
             }
 
             if (currentFamily.description) {
@@ -731,7 +805,8 @@
         // enregister le photo du parent 
         function loadSavedParentPhoto() {
             const savedPhoto = localStorage.getItem(getParentPhotoStorageKey());
-            familyPhoto.src = savedPhoto || defaultParentPhoto;
+            const userPhoto = currentUser && currentUser.photo ? currentUser.photo : null;
+            familyPhoto.src = savedPhoto || userPhoto || defaultParentPhoto;
         }
         // prévisualiser la photo choisie par le parent (controler la taille d'image , type ,souvgarder sans local storage )
         function previewParentPhoto() {
@@ -817,8 +892,17 @@
         }
 
         async function createChild() {
-            if (!currentFamily) {
-                showMessage('Aucune famille trouvée.', 'error');
+            if (!childNameInput.value.trim()) {
+                showMessage('Veuillez saisir le nom de l’enfant.', 'error');
+                return;
+            }
+
+            if (!currentFamily || !currentFamily.id) {
+                await loadFamily();
+            }
+
+            if (!currentFamily || !currentFamily.id) {
+                showMessage('Aucune famille disponible pour ce compte parent.', 'error');
                 return;
             }
 
@@ -1001,6 +1085,24 @@
             childAgeInput.value = '';
             childAllergiesInput.value = '';
             childRoutineInput.value = '';
+        }
+
+        function setAddChildButtonState(enabled) {
+            addChildBtn.disabled = !enabled;
+            addChildBtn.classList.toggle('opacity-60', !enabled);
+            addChildBtn.classList.toggle('cursor-not-allowed', !enabled);
+        }
+
+        function extractCollection(payload) {
+            if (Array.isArray(payload)) {
+                return payload;
+            }
+
+            if (payload && Array.isArray(payload.data)) {
+                return payload.data;
+            }
+
+            return [];
         }
         // Transformer les données brutes de l’enfant en données prêtes pour formulaire
         function getChildDetails(child) {

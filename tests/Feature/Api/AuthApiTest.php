@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api;
 
+use App\Models\Family;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -28,5 +29,17 @@ class AuthApiTest extends TestCase
                 'token_type',
                 'expires_in',
             ]);
+
+        $this->assertDatabaseHas('families', [
+            'name' => 'Famille Parent Test',
+        ]);
+
+        $family = Family::where('name', 'Famille Parent Test')->first();
+
+        $this->assertNotNull($family);
+        $this->assertDatabaseHas('family_user', [
+            'family_id' => $family->id,
+            'user_id' => $response->json('user.id'),
+        ]);
     }
 }

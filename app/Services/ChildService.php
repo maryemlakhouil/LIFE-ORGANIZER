@@ -31,7 +31,17 @@ class ChildService
 
     public function createChild(User $user, array $data): Child
     {
-        $family = Family::with('users')->find($data['family_id']);
+        $familyId = $data['family_id'] ?? null;
+
+        if (! $familyId && $user->role === 'parent') {
+            $familyId = $user->families()->value('families.id');
+        }
+
+        if (! $familyId) {
+            throw new ModelNotFoundException('Aucune famille n’est liée à ce compte parent.');
+        }
+
+        $family = Family::with('users')->find($familyId);
 
         if (! $family) {
             throw new ModelNotFoundException('Famille introuvable.');
@@ -40,7 +50,7 @@ class ChildService
         $this->authorizeFamilyManagement($user, $family);
 
         $child = $this->childRepository->create([
-            'family_id' => $data['family_id'],
+            'family_id' => $familyId,
             'name' => $data['name'],
             'birth_date' => $data['birth_date'] ?? null,
             'notes' => $data['notes'] ?? null,

@@ -40,15 +40,41 @@ class ConversationService
             throw new ModelNotFoundException('Un ou plusieurs participants sont introuvables.');
         }
 
+        if (count($participantIds) < 2) {
+            throw new AuthorizationException('Une conversation doit contenir au moins deux participants.');
+        }
+
         foreach ($participants as $participant) {
             if (! $participant->is_active) {
                 throw new AuthorizationException("L'utilisateur {$participant->id} est désactivé.");
             }
         }
 
+        $conversationType = $data['type'] ?? 'direct';
+
+        if ($conversationType === 'direct' && count($participantIds) === 2) {
+            $existingConversation = Conversation::with(['creator', 'users', 'messages'])
+                ->where('type', 'direct')
+                ->whereHas('users', function ($query) use ($participantIds) {
+                    $query->whereIn('users.id', $participantIds);
+                }, '=', 2)
+                ->withCount('users')
+                ->get()
+                ->first(function ($conversation) use ($participantIds) {
+                    $userIds = $conversation->users->pluck('id')->map(fn ($id) => (int) $id)->sort()->values()->all();
+                    $targetIds = collect($participantIds)->map(fn ($id) => (int) $id)->sort()->values()->all();
+
+                    return $conversation->users_count === 2 && $userIds === $targetIds;
+                });
+
+            if ($existingConversation) {
+                return $existingConversation;
+            }
+        }
+
         $conversation = $this->conversationRepository->create([
             'created_by' => $user->id,
-            'type' => $data['type'] ?? 'direct',
+            'type' => $conversationType,
             'title' => $data['title'] ?? null,
         ]);
 
