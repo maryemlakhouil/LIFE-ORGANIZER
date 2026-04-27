@@ -4,8 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Parent - Family Organizer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,0,0" rel="stylesheet">
     @vite(['resources/css/app.css'])
     <style>
+        .material-symbols-rounded {
+            font-family: 'Material Symbols Rounded';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 20px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
         .parent-dashboard-theme .bg-white { background-color: #fffaf3 !important; }
         .parent-dashboard-theme .bg-blue-600 { background-color: #8f6b43 !important; }
         .parent-dashboard-theme .bg-blue-700,
@@ -149,11 +165,11 @@
                 </div>
 
                 <div class="flex items-center gap-4 md:gap-5">
-                    <button id="notificationsBtn" class="text-[#5d4c39] hover:text-[#8f6b43]">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.4-1.4A2 2 0 0 1 18 14.2V11a6 6 0 1 0-12 0v3.2a2 2 0 0 1-.6 1.4L4 17h5"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 21h4"/>
-                        </svg>
+                    <button id="notificationsBtn" class="relative text-[#5d4c39] hover:text-[#8f6b43]">
+                        <span class="material-symbols-rounded !text-[24px]">notifications</span>
+                        <span id="notificationsBadge" class="hidden absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-[#8f6b43] text-white text-[10px] font-black flex items-center justify-center">
+                            0
+                        </span>
                     </button>
                     <button id="addTaskBtn" class="bg-[#8f6b43] hover:bg-[#795936] text-white px-6 py-2.5 rounded-full text-base font-bold shadow-lg shadow-[#8f6b43]/20">
                         + Ajouter une tâche
@@ -261,6 +277,48 @@
             </main>
         </div>
     </div>
+
+    <div id="notificationsPanel" class="hidden fixed inset-0 z-50 bg-black/20">
+        <div class="absolute right-4 top-4 md:right-8 md:top-20 w-[calc(100%-2rem)] max-w-[420px] rounded-[28px] border border-[#eadfce] bg-[#fffaf3] shadow-[0_18px_40px_rgba(86,67,44,0.18)] overflow-hidden">
+            <div class="px-6 py-5 border-b border-[#eadfce] flex items-center justify-between gap-4">
+                <div>
+                    <h3 class="text-xl font-black">Notifications</h3>
+                    <p class="text-sm text-[#9a8469]">Demandes, messages et réponses importantes.</p>
+                </div>
+                <button id="closeNotificationsPanelBtn" class="text-[#9a8469] hover:text-[#5d4c39]">
+                    <span class="material-symbols-rounded">close</span>
+                </button>
+            </div>
+
+            <div class="px-6 py-4 border-b border-[#eadfce] flex items-center justify-between gap-4">
+                <p class="text-sm font-semibold text-[#6d5c49]">
+                    <span id="notificationsSummary">0 notification</span>
+                </p>
+                <button id="markAllNotificationsReadBtn" class="text-sm font-bold text-[#8f6b43] hover:underline">
+                    Tout marquer comme lu
+                </button>
+            </div>
+
+            <div class="px-6 py-4 border-b border-[#eadfce] flex flex-wrap gap-2">
+                <button data-filter="all" class="notification-filter-btn rounded-full bg-[#8f6b43] text-white px-4 py-2 text-xs font-black">
+                    Toutes
+                </button>
+                <button data-filter="reservations" class="notification-filter-btn rounded-full bg-[#efe2cf] text-[#8f6b43] px-4 py-2 text-xs font-black">
+                    Réservations
+                </button>
+                <button data-filter="messages" class="notification-filter-btn rounded-full bg-[#efe2cf] text-[#8f6b43] px-4 py-2 text-xs font-black">
+                    Messages
+                </button>
+                <button data-filter="tasks" class="notification-filter-btn rounded-full bg-[#efe2cf] text-[#8f6b43] px-4 py-2 text-xs font-black">
+                    Tâches
+                </button>
+            </div>
+
+            <div id="notificationsPanelList" class="max-h-[70vh] overflow-y-auto divide-y divide-[#eadfce]">
+                <div class="px-6 py-6 text-sm text-[#9a8469]">Chargement...</div>
+            </div>
+        </div>
+    </div>
     
     <!--La Partie js de la page dashboard du parent -->
     <script>
@@ -284,10 +342,19 @@
         const createTaskQuickBtn = document.getElementById('createTaskQuickBtn');
         const messageNannyBtn = document.getElementById('messageNannyBtn');
         const nannyProfileQuickBtn = document.getElementById('nannyProfileQuickBtn');
+        const notificationsBtn = document.getElementById('notificationsBtn');
+        const notificationsBadge = document.getElementById('notificationsBadge');
+        const notificationsPanel = document.getElementById('notificationsPanel');
+        const closeNotificationsPanelBtn = document.getElementById('closeNotificationsPanelBtn');
+        const markAllNotificationsReadBtn = document.getElementById('markAllNotificationsReadBtn');
+        const notificationsPanelList = document.getElementById('notificationsPanelList');
+        const notificationsSummary = document.getElementById('notificationsSummary');
+        const notificationFilterButtons = Array.from(document.querySelectorAll('.notification-filter-btn'));
         const messageBox = document.getElementById('messageBox');
 
         let allTasks = [];
         let allNotifications = [];
+        let currentNotificationFilter = 'all';
 
         document.addEventListener('DOMContentLoaded', function () {
             guardParentAccess();
@@ -320,8 +387,59 @@
             window.location.href = '{{ route('parent.nanny-profile') }}';
         });
 
+        notificationsBtn.addEventListener('click', function () {
+            notificationsPanel.classList.remove('hidden');
+            renderNotificationsPanel();
+        });
+
+        closeNotificationsPanelBtn.addEventListener('click', function () {
+            notificationsPanel.classList.add('hidden');
+        });
+
+        notificationsPanel.addEventListener('click', function (event) {
+            if (event.target === notificationsPanel) {
+                notificationsPanel.classList.add('hidden');
+            }
+        });
+
+        markAllNotificationsReadBtn.addEventListener('click', async function () {
+            try {
+                const response = await fetch('/api/notifications/read-all', {
+                    method: 'PATCH',
+                    headers: getAuthHeaders()
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    allNotifications = allNotifications.map(function (notification) {
+                        return {
+                            ...notification,
+                            read_at: notification.read_at || new Date().toISOString()
+                        };
+                    });
+                    renderNotificationsBadge();
+                    renderNotificationsPanel();
+                    renderRecentActivity();
+                    showMessage(result.message || 'Notifications mises à jour.', 'success');
+                } else {
+                    showMessage(result.message || 'Impossible de marquer les notifications.', 'error');
+                }
+            } catch (error) {
+                showMessage('Erreur serveur lors de la mise à jour des notifications.', 'error');
+            }
+        });
+
+        notificationFilterButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                currentNotificationFilter = button.dataset.filter || 'all';
+                updateNotificationFilterButtons();
+                renderNotificationsPanel();
+            });
+        });
+
         function getToken() {
-            return localStorage.getItem('access_token');
+            return localStorage.getItem('access_token') || localStorage.getItem('token');
         }
 
         function getAuthHeaders() {
@@ -419,12 +537,18 @@
 
                 if (response.ok) {
                     allNotifications = result.data.data || [];
+                    renderNotificationsBadge();
                     renderRecentActivity();
+                    renderNotificationsPanel();
                 } else {
+                    renderNotificationsBadge();
                     renderRecentActivity();
+                    renderNotificationsPanel();
                 }
             } catch (error) {
+                renderNotificationsBadge();
                 renderRecentActivity();
+                renderNotificationsPanel();
             }
         }
 
@@ -521,14 +645,10 @@
                 const item = document.createElement('div');
                 item.className = 'px-7 py-5';
 
-                let title = 'Notification';
-                let subtitle = '';
+                const meta = getNotificationMeta(notification);
+                const title = meta.title;
+                const subtitle = meta.subtitle;
                 let time = '';
-
-                if (notification.data) {
-                    title = notification.data.title || 'Notification';
-                    subtitle = notification.data.message || '';
-                }
 
                 if (notification.created_at) {
                     time = formatDateTime(notification.created_at);
@@ -536,14 +656,12 @@
 
                 item.innerHTML = `
                     <div class="flex items-start gap-4">
-                        <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12M6 12h12"/>
-                            </svg>
+                        <div class="w-8 h-8 rounded-full ${meta.bgClass} flex items-center justify-center ${meta.textClass}">
+                            <span class="material-symbols-rounded !text-[16px]">${meta.icon}</span>
                         </div>
                         <div>
-                            <p class="text-base font-semibold">${title}</p>
-                            <p class="text-slate-600 text-sm mt-1">${subtitle}</p>
+                            <p class="text-base font-semibold">${escapeHtml(title)}</p>
+                            <p class="text-slate-600 text-sm mt-1">${escapeHtml(subtitle)}</p>
                             <p class="text-slate-400 text-sm mt-1">${time}</p>
                         </div>
                     </div>
@@ -551,6 +669,205 @@
 
                 recentActivityList.appendChild(item);
             });
+        }
+
+        function renderNotificationsBadge() {
+            const unreadCount = allNotifications.filter(function (notification) {
+                return !notification.read_at;
+            }).length;
+
+            if (unreadCount <= 0) {
+                notificationsBadge.classList.add('hidden');
+                notificationsBadge.textContent = '0';
+                return;
+            }
+
+            notificationsBadge.classList.remove('hidden');
+            notificationsBadge.textContent = unreadCount > 9 ? '9+' : String(unreadCount);
+        }
+
+        function renderNotificationsPanel() {
+            if (!notificationsPanelList || !notificationsSummary) {
+                return;
+            }
+
+            notificationsPanelList.innerHTML = '';
+            const visibleNotifications = getFilteredNotifications();
+            notificationsSummary.textContent = visibleNotifications.length + ' notification' + (visibleNotifications.length > 1 ? 's' : '');
+
+            if (visibleNotifications.length === 0) {
+                notificationsPanelList.innerHTML = '<div class="px-6 py-6 text-sm text-[#9a8469]">Aucune notification pour le moment.</div>';
+                return;
+            }
+
+            visibleNotifications.forEach(function (notification) {
+                const meta = getNotificationMeta(notification);
+                const item = document.createElement('div');
+                item.className = 'px-6 py-5';
+
+                item.innerHTML = `
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-2xl ${meta.bgClass} ${meta.textClass} flex items-center justify-center shrink-0">
+                            <span class="material-symbols-rounded !text-[18px]">${meta.icon}</span>
+                        </div>
+
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-start justify-between gap-3">
+                                <div>
+                                    <p class="text-sm font-black">${escapeHtml(meta.title)}</p>
+                                    <p class="text-sm text-[#6d5c49] mt-1 leading-6">${escapeHtml(meta.subtitle)}</p>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    ${notification.read_at ? '' : '<span class="w-2.5 h-2.5 rounded-full bg-[#8f6b43] shrink-0"></span>'}
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between gap-3 mt-3">
+                                <p class="text-xs text-[#9a8469]">${formatDateTime(notification.created_at)}</p>
+                                <div class="flex items-center gap-2">
+                                    ${notification.read_at ? '' : `<button onclick="markNotificationAsRead('${notification.id}')" class="text-xs font-bold text-[#8f6b43] hover:underline">Marquer comme lu</button>`}
+                                    ${meta.actionLabel ? `<button onclick="${meta.actionHandler}" class="text-xs font-bold text-[#8f6b43] hover:underline">${meta.actionLabel}</button>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                notificationsPanelList.appendChild(item);
+            });
+        }
+
+        function getFilteredNotifications() {
+            if (currentNotificationFilter === 'all') {
+                return allNotifications;
+            }
+
+            return allNotifications.filter(function (notification) {
+                const type = (notification.data && notification.data.type) ? notification.data.type : '';
+
+                if (currentNotificationFilter === 'reservations') {
+                    return type === 'nanny_reservation_response' || type === 'nanny_reservation_request';
+                }
+
+                if (currentNotificationFilter === 'messages') {
+                    return type === 'new_message';
+                }
+
+                if (currentNotificationFilter === 'tasks') {
+                    return type === 'task_assigned' || type === 'task_overdue';
+                }
+
+                return true;
+            });
+        }
+
+        function updateNotificationFilterButtons() {
+            notificationFilterButtons.forEach(function (button) {
+                const isActive = button.dataset.filter === currentNotificationFilter;
+                button.className = isActive
+                    ? 'notification-filter-btn rounded-full bg-[#8f6b43] text-white px-4 py-2 text-xs font-black'
+                    : 'notification-filter-btn rounded-full bg-[#efe2cf] text-[#8f6b43] px-4 py-2 text-xs font-black';
+            });
+        }
+
+        async function markNotificationAsRead(notificationId) {
+            try {
+                const response = await fetch('/api/notifications/' + notificationId + '/read', {
+                    method: 'PATCH',
+                    headers: getAuthHeaders()
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    showMessage(result.message || 'Impossible de mettre à jour la notification.', 'error');
+                    return;
+                }
+
+                allNotifications = allNotifications.map(function (notification) {
+                    if (String(notification.id) !== String(notificationId)) {
+                        return notification;
+                    }
+
+                    return {
+                        ...notification,
+                        read_at: result.data.read_at || new Date().toISOString()
+                    };
+                });
+
+                renderNotificationsBadge();
+                renderNotificationsPanel();
+                renderRecentActivity();
+            } catch (error) {
+                showMessage('Erreur serveur lors de la mise à jour de la notification.', 'error');
+            }
+        }
+
+        function getNotificationMeta(notification) {
+            const data = notification.data || {};
+            const type = data.type || 'generic';
+
+            if (type === 'nanny_reservation_response') {
+                const accepted = data.status === 'accepted';
+
+                return {
+                    title: data.title || (accepted ? 'Réservation acceptée' : 'Réservation refusée'),
+                    subtitle: data.message || 'Réponse de la nounou concernant votre demande.',
+                    icon: accepted ? 'verified' : 'cancel',
+                    bgClass: accepted ? 'bg-[#e6f3df]' : 'bg-[#fff1ed]',
+                    textClass: accepted ? 'text-[#456b35]' : 'text-[#b55348]',
+                    actionLabel: accepted ? 'Voir nounou' : 'Voir liste',
+                    actionHandler: accepted
+                        ? "window.location.href='{{ route('parent.nanny-profile') }}'"
+                        : "window.location.href='{{ route('parent.nannies') }}'"
+                };
+            }
+
+            if (type === 'new_message') {
+                return {
+                    title: data.title || 'Nouveau message',
+                    subtitle: data.message || data.content || 'Vous avez reçu un nouveau message.',
+                    icon: 'chat',
+                    bgClass: 'bg-[#efe2cf]',
+                    textClass: 'text-[#8f6b43]',
+                    actionLabel: 'Ouvrir',
+                    actionHandler: "window.location.href='{{ route('parent.messages') }}'"
+                };
+            }
+
+            if (type === 'task_assigned') {
+                return {
+                    title: data.title || 'Tâche assignée',
+                    subtitle: data.message || 'Une tâche a été assignée.',
+                    icon: 'task_alt',
+                    bgClass: 'bg-[#efe2cf]',
+                    textClass: 'text-[#8f6b43]',
+                    actionLabel: 'Voir tâches',
+                    actionHandler: "window.location.href='{{ route('parent.tasks') }}'"
+                };
+            }
+
+            if (type === 'task_overdue') {
+                return {
+                    title: data.title || 'Tâche en retard',
+                    subtitle: data.message || 'Une tâche est en retard.',
+                    icon: 'warning',
+                    bgClass: 'bg-[#fff1ed]',
+                    textClass: 'text-[#b55348]',
+                    actionLabel: 'Voir tâches',
+                    actionHandler: "window.location.href='{{ route('parent.tasks') }}'"
+                };
+            }
+
+            return {
+                title: data.title || 'Notification',
+                subtitle: data.message || 'Nouvelle activité sur votre compte.',
+                icon: 'notifications',
+                bgClass: 'bg-[#efe2cf]',
+                textClass: 'text-[#8f6b43]',
+                actionLabel: '',
+                actionHandler: ''
+            };
         }
 
         // afficher les 7 jours de la semaine
