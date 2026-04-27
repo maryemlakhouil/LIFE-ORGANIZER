@@ -182,8 +182,8 @@
 
                         <div class="justify-self-start lg:justify-self-end">
                             <div class="rounded-3xl border border-[#eadfce] bg-[#f8efe4] px-5 py-4 text-center min-w-[170px]">
-                                <p class="text-sm uppercase tracking-[0.18em] text-[#9a8469] font-black mb-2">Photo</p>
-                                <button id="changePhotoBtn" class="px-4 py-2.5 rounded-full bg-[#8f6b43] text-white font-bold hover:bg-[#795936]">
+                                <p class="text-sm uppercase tracking-[0.18em] text-[#9a8469] font-black mb-2">Profil</p>
+                                <button id="editStatsBtn" class="px-4 py-2.5 rounded-full bg-[#8f6b43] text-white font-bold hover:bg-[#795936]">
                                     Modifier
                                 </button>
                             </div>
@@ -320,6 +320,36 @@
         </div>
     </div>
 
+    <div id="statsModal" class="hidden fixed inset-0 bg-black/40 z-50 items-center justify-center px-4">
+        <div class="bg-[#fffaf3] rounded-[28px] w-full max-w-lg p-6 border border-[#eadfce]">
+            <div class="flex items-center justify-between mb-5">
+                <h3 class="text-2xl font-black">Modifier tarif & expérience</h3>
+                <button id="closeStatsModalBtn" class="text-3xl text-[#9a8469] hover:text-[#4a3c2d]">×</button>
+            </div>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm text-[#7b6b58] mb-2 font-semibold">Années d'expérience</label>
+                    <input id="experienceYearsInput" type="number" min="0" max="60" class="w-full rounded-2xl border border-[#eadfce] bg-white px-4 py-3 outline-none focus:border-[#8f6b43]" placeholder="Exemple : 5">
+                </div>
+
+                <div>
+                    <label class="block text-sm text-[#7b6b58] mb-2 font-semibold">Tarif horaire (€)</label>
+                    <input id="hourlyRateInput" type="number" min="0" step="0.01" class="w-full rounded-2xl border border-[#eadfce] bg-white px-4 py-3 outline-none focus:border-[#8f6b43]" placeholder="Exemple : 15">
+                </div>
+            </div>
+
+            <div class="flex gap-3 mt-5">
+                <button id="cancelStatsBtn" class="flex-1 border border-[#d8c7ae] rounded-2xl py-3 font-bold">
+                    Annuler
+                </button>
+                <button id="saveStatsBtn" class="flex-1 bg-[#8f6b43] text-white rounded-2xl py-3 font-bold">
+                    Enregistrer
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const sidebarAvatar = document.getElementById('sidebarAvatar');
         const sidebarName = document.getElementById('sidebarName');
@@ -329,7 +359,7 @@
         const profilePhoto = document.getElementById('profilePhoto');
         const profilePhotoInput = document.getElementById('profilePhotoInput');
         const editPhotoBtn = document.getElementById('editPhotoBtn');
-        const changePhotoBtn = document.getElementById('changePhotoBtn');
+        const editStatsBtn = document.getElementById('editStatsBtn');
         const profileName = document.getElementById('profileName');
         const profileTitle = document.getElementById('profileTitle');
         const profileEmail = document.getElementById('profileEmail');
@@ -351,6 +381,12 @@
         const aboutTextarea = document.getElementById('aboutTextarea');
         const skillsTextarea = document.getElementById('skillsTextarea');
         const languagesTextarea = document.getElementById('languagesTextarea');
+        const statsModal = document.getElementById('statsModal');
+        const closeStatsModalBtn = document.getElementById('closeStatsModalBtn');
+        const cancelStatsBtn = document.getElementById('cancelStatsBtn');
+        const saveStatsBtn = document.getElementById('saveStatsBtn');
+        const experienceYearsInput = document.getElementById('experienceYearsInput');
+        const hourlyRateInput = document.getElementById('hourlyRateInput');
 
         const defaultProfilePhoto = '{{ asset('images/nany.jpeg') }}';
 
@@ -366,8 +402,8 @@
             profilePhotoInput.click();
         });
 
-        changePhotoBtn.addEventListener('click', function () {
-            profilePhotoInput.click();
+        editStatsBtn.addEventListener('click', function () {
+            openStatsModal();
         });
 
         profilePhotoInput.addEventListener('change', function () {
@@ -398,6 +434,18 @@
 
         saveSkillsBtn.addEventListener('click', function () {
             saveSkillsAndLanguages();
+        });
+
+        closeStatsModalBtn.addEventListener('click', function () {
+            closeStatsModal();
+        });
+
+        cancelStatsBtn.addEventListener('click', function () {
+            closeStatsModal();
+        });
+
+        saveStatsBtn.addEventListener('click', function () {
+            saveStats();
         });
 
         logoutBtn.addEventListener('click', function () {
@@ -562,6 +610,18 @@
             skillsModal.classList.add('hidden');
             skillsModal.classList.remove('flex');
         }
+
+        function openStatsModal() {
+            experienceYearsInput.value = currentUser && currentUser.experience_years != null ? currentUser.experience_years : '';
+            hourlyRateInput.value = currentUser && currentUser.hourly_rate != null ? Number(currentUser.hourly_rate) : '';
+            statsModal.classList.remove('hidden');
+            statsModal.classList.add('flex');
+        }
+
+        function closeStatsModal() {
+            statsModal.classList.add('hidden');
+            statsModal.classList.remove('flex');
+        }
         // récupère les compétences, langues et description 
         async function saveSkillsAndLanguages() {
             const skills = skillsTextarea.value
@@ -592,6 +652,32 @@
 
             if (saved) {
                 closeSkillsModal();
+            }
+        }
+
+        async function saveStats() {
+            const experienceValue = experienceYearsInput.value.trim();
+            const rateValue = hourlyRateInput.value.trim();
+
+            const payload = {
+                experience_years: experienceValue === '' ? null : Number(experienceValue),
+                hourly_rate: rateValue === '' ? null : Number(rateValue)
+            };
+
+            if (payload.experience_years !== null && (Number.isNaN(payload.experience_years) || payload.experience_years < 0 || payload.experience_years > 60)) {
+                showMessage('Veuillez saisir une expérience valide.', 'error');
+                return;
+            }
+
+            if (payload.hourly_rate !== null && (Number.isNaN(payload.hourly_rate) || payload.hourly_rate < 0)) {
+                showMessage('Veuillez saisir un tarif valide.', 'error');
+                return;
+            }
+
+            const saved = await saveProfile(payload, 'Tarif et expérience mis à jour avec succès.');
+
+            if (saved) {
+                closeStatsModal();
             }
         }
 
