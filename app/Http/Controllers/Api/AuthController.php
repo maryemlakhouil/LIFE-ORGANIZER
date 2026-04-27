@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Family;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -31,6 +32,15 @@ class AuthController extends Controller
             'experience_years' => $validated['experience_years'] ?? null,
             'hourly_rate' => $validated['hourly_rate'] ?? null,
         ]);
+
+        if ($user->role === 'parent') {
+            $family = Family::create([
+                'name' => 'Famille ' . $user->name,
+                'created_by' => $user->id,
+            ]);
+
+            $user->families()->syncWithoutDetaching([$family->id]);
+        }
 
         $token = auth('api')->login($user);
 
