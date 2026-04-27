@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use App\Models\User;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -18,7 +19,7 @@ class NannyReservationRequestNotification extends Notification
 
     public function via(object $notifiable): array
     {
-        return ['database'];
+        return ['database', 'broadcast'];
     }
 
     public function toMail(object $notifiable): MailMessage
@@ -47,5 +48,10 @@ class NannyReservationRequestNotification extends Notification
             'family_label' => $familyLabel,
             'requested_at' => now()->toDateTimeString(),
         ];
+    }
+
+    public function toBroadcast(object $notifiable): BroadcastMessage
+    {
+        return new BroadcastMessage($this->toArray($notifiable));
     }
 }
