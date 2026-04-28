@@ -62,6 +62,32 @@ class AdminDashboardRepository implements AdminDashboardRepositoryInterface
                 'new_messages_last_7_days' => Message::where('created_at', '>=', $last7Days)->count(),
                 'new_comments_last_7_days' => Comment::where('created_at', '>=', $last7Days)->count(),
             ],
+
+            'latest_comments' => Comment::with([
+                'user:id,name,email',
+                'task:id,title',
+            ])
+                ->latest()
+                ->take(8)
+                ->get()
+                ->map(function (Comment $comment) {
+                    return [
+                        'id' => $comment->id,
+                        'content' => $comment->content,
+                        'created_at' => $comment->created_at,
+                        'user' => $comment->user ? [
+                            'id' => $comment->user->id,
+                            'name' => $comment->user->name,
+                            'email' => $comment->user->email,
+                        ] : null,
+                        'task' => $comment->task ? [
+                            'id' => $comment->task->id,
+                            'title' => $comment->task->title,
+                        ] : null,
+                    ];
+                })
+                ->values()
+                ->all(),
         ];
     }
 }
