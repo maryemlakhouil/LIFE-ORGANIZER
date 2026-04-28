@@ -313,6 +313,34 @@
         </div>
     </div>
 
+    <div id="commentsModal" class="hidden fixed inset-0 bg-black/40 z-50 items-center justify-center px-4">
+        <div class="bg-white rounded-[24px] w-full max-w-2xl p-6 max-h-[85vh] overflow-y-auto">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h3 class="text-2xl font-black">Commentaires</h3>
+                    <p id="commentsTaskTitle" class="text-sm text-slate-500 mt-1">Tâche</p>
+                </div>
+                <button id="closeCommentsModalBtn" class="text-2xl text-slate-400 hover:text-slate-700">×</button>
+            </div>
+
+            <div class="rounded-[20px] border border-slate-200 bg-[#fffaf3] p-4 mb-5">
+                <label for="commentContentInput" class="block text-sm text-slate-500 mb-2">Ajouter un commentaire</label>
+                <textarea id="commentContentInput" rows="3"
+                          class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none focus:border-blue-500"
+                          placeholder="Écrire un commentaire..."></textarea>
+                <div class="flex justify-end mt-3">
+                    <button id="saveCommentBtn" class="px-5 py-2.5 rounded-full bg-blue-600 text-white text-sm font-semibold">
+                        Envoyer
+                    </button>
+                </div>
+            </div>
+
+            <div id="commentsList" class="space-y-3">
+                <div class="text-sm text-slate-400">Chargement...</div>
+            </div>
+        </div>
+    </div>
+
     <!--La Partie js de cette page des taches -->
 
     <script>
@@ -341,6 +369,12 @@
         const cancelModalBtn = document.getElementById('cancelModalBtn');
         const modalTitle = document.getElementById('modalTitle');
         const taskForm = document.getElementById('taskForm');
+        const commentsModal = document.getElementById('commentsModal');
+        const closeCommentsModalBtn = document.getElementById('closeCommentsModalBtn');
+        const commentsTaskTitle = document.getElementById('commentsTaskTitle');
+        const commentsList = document.getElementById('commentsList');
+        const commentContentInput = document.getElementById('commentContentInput');
+        const saveCommentBtn = document.getElementById('saveCommentBtn');
 
         const taskId = document.getElementById('taskId');
         const taskTitle = document.getElementById('taskTitle');
@@ -353,6 +387,8 @@
         let allTasks = [];
         let filteredTasks = [];
         let allNannies = [];
+        let currentCommentTaskId = null;
+        let currentTaskComments = [];
 
         document.addEventListener('DOMContentLoaded', function () {
             guardParentAccess();
@@ -377,6 +413,15 @@
 
         closeModalBtn.addEventListener('click', closeModal);
         cancelModalBtn.addEventListener('click', closeModal);
+        closeCommentsModalBtn.addEventListener('click', closeCommentsModal);
+        commentsModal.addEventListener('click', function (event) {
+            if (event.target === commentsModal) {
+                closeCommentsModal();
+            }
+        });
+        saveCommentBtn.addEventListener('click', function () {
+            createComment();
+        });
 
         applyFiltersBtn.addEventListener('click', function () {
             applyFilters();
@@ -601,6 +646,13 @@
                             </button>
 
                             <button
+                                class="px-4 py-2 rounded-full bg-[#f3e8d9] text-sm font-semibold text-[#8f6b43]"
+                                onclick='openCommentsModal(${task.id}, ${JSON.stringify(task.title || "Tâche")})'
+                            >
+                                Commentaires
+                            </button>
+
+                            <button
                                 class="px-4 py-2 rounded-full bg-green-50 text-sm font-semibold text-green-600"
                                 onclick="markAsCompleted(${task.id})"
                             >
@@ -662,6 +714,24 @@
         function closeModal() {
             taskModal.classList.add('hidden');
             taskModal.classList.remove('flex');
+        }
+
+        function openCommentsModal(id, title) {
+            currentCommentTaskId = id;
+            commentsTaskTitle.textContent = title || 'Tâche';
+            commentContentInput.value = '';
+            commentsList.innerHTML = '<div class="text-sm text-slate-400">Chargement...</div>';
+            commentsModal.classList.remove('hidden');
+            commentsModal.classList.add('flex');
+            loadComments(id);
+        }
+
+        function closeCommentsModal() {
+            commentsModal.classList.add('hidden');
+            commentsModal.classList.remove('flex');
+            currentCommentTaskId = null;
+            currentTaskComments = [];
+            commentContentInput.value = '';
         }
         // creer tache
         async function createTask() {
@@ -772,6 +842,169 @@
                 if (response.ok) {
                     showMessage('Tâche supprimée avec succès.', 'success');
                     loadTasks();
+                } else {
+                    showMessage(result.message || 'Erreur lors de la suppression.', 'error');
+                }
+            } catch (error) {
+                showMessage('Erreur serveur.', 'error');
+            }
+        }
+
+        async function loadComments(taskIdValue) {
+            try {
+                const response = await fetch('/api/tasks/' + taskIdValue + '/comments', {
+                    method: 'GET',
+                    headers: getAuthHeaders()
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    currentTaskComments = extractCollection(result.data);
+                    renderComments();
+                } else {
+                    commentsList.innerHTML = '<div class="text-sm text-red-500">Impossible de charger les commentaires.</div>';
+                }
+            } catch (error) {
+                commentsList.innerHTML = '<div class="text-sm text-red-500">Erreur serveur.</div>';
+            }
+        }
+
+        function renderComments() {
+            const user = getStoredUser();
+            commentsList.innerHTML = '';
+
+            if (currentTaskComments.length === 0) {
+                commentsList.innerHTML = '<div class="text-sm text-slate-400">Aucun commentaire pour le moment.</div>';
+                return;
+            }
+
+            currentTaskComments.forEach(function (comment) {
+                const item = document.createElement('div');
+                item.className = 'rounded-[20px] border border-slate-200 bg-[#fffaf3] p-4';
+
+                const authorName = comment.user && comment.user.name ? comment.user.name : 'Utilisateur';
+                const canManage = user && String(user.id) === String(comment.user_id);
+
+                item.innerHTML = `
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="min-w-0">
+                            <p class="text-sm font-black">${escapeHtml(authorName)}</p>
+                            <p class="text-xs text-slate-400 mt-1">${comment.created_at ? formatDateTime(comment.created_at) : ''}</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            ${canManage ? `<button onclick="editComment(${comment.id})" class="text-xs font-semibold text-[#8f6b43] hover:underline">Modifier</button>` : ''}
+                            ${canManage ? `<button onclick="deleteCommentItem(${comment.id})" class="text-xs font-semibold text-red-500 hover:underline">Supprimer</button>` : ''}
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-600 mt-3 leading-6">${escapeHtml(comment.content || '')}</p>
+                `;
+
+                commentsList.appendChild(item);
+            });
+        }
+
+        async function createComment() {
+            if (!currentCommentTaskId) {
+                showMessage('Aucune tâche sélectionnée.', 'error');
+                return;
+            }
+
+            if (!commentContentInput.value.trim()) {
+                showMessage('Veuillez écrire un commentaire.', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/comments', {
+                    method: 'POST',
+                    headers: {
+                        ...getAuthHeaders(),
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        task_id: currentCommentTaskId,
+                        content: commentContentInput.value.trim(),
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    commentContentInput.value = '';
+                    showMessage('Commentaire ajouté avec succès.', 'success');
+                    closeCommentsModal();
+                } else {
+                    showMessage(readErrors(result), 'error');
+                }
+            } catch (error) {
+                showMessage('Erreur serveur.', 'error');
+            }
+        }
+
+        async function editComment(commentId) {
+            const comment = currentTaskComments.find(function (item) {
+                return String(item.id) === String(commentId);
+            });
+
+            if (!comment) {
+                return;
+            }
+
+            const newContent = window.prompt('Modifier le commentaire', comment.content || '');
+
+            if (newContent === null) {
+                return;
+            }
+
+            if (!newContent.trim()) {
+                showMessage('Le commentaire ne peut pas être vide.', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/comments/' + commentId, {
+                    method: 'PUT',
+                    headers: {
+                        ...getAuthHeaders(),
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        content: newContent.trim(),
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showMessage('Commentaire modifié avec succès.', 'success');
+                    loadComments(currentCommentTaskId);
+                } else {
+                    showMessage(readErrors(result), 'error');
+                }
+            } catch (error) {
+                showMessage('Erreur serveur.', 'error');
+            }
+        }
+
+        async function deleteCommentItem(commentId) {
+            const confirmed = window.confirm('Supprimer ce commentaire ?');
+
+            if (!confirmed) {
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/comments/' + commentId, {
+                    method: 'DELETE',
+                    headers: getAuthHeaders()
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showMessage('Commentaire supprimé avec succès.', 'success');
+                    loadComments(currentCommentTaskId);
                 } else {
                     showMessage(result.message || 'Erreur lors de la suppression.', 'error');
                 }

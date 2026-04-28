@@ -284,32 +284,47 @@
 
                     </section>
 
-                    <!-- RECENT ACTIVITY -->
-                    <section class="bg-white rounded-[18px] border border-slate-200 shadow-sm overflow-hidden">
-                        <div class="px-6 py-5 border-b border-slate-200">
-                            <h3 class="flex items-center gap-2 text-lg font-bold text-slate-900">
-                                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 12a9 9 0 1 0 3-6.7"/>
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 4v5h5M12 7v5l3 2"/>
-                                </svg>
-                                Activités Récentes
-                            </h3>
-                        </div>
-
-                        <div id="activityList" class="p-6 space-y-6">
-                            <div class="flex gap-3">
-                                <span class="w-9 h-9 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12M6 12h12"/>
+                    <div class="space-y-6">
+                        <section class="bg-white rounded-[18px] border border-slate-200 shadow-sm overflow-hidden">
+                            <div class="px-6 py-5 border-b border-slate-200">
+                                <h3 class="flex items-center gap-2 text-lg font-bold text-slate-900">
+                                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 12a9 9 0 1 0 3-6.7"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 4v5h5M12 7v5l3 2"/>
                                     </svg>
-                                </span>
-                                <div>
-                                <p class="font-semibold text-slate-900">Chargement...</p>
-                                <p class="text-sm text-slate-400 mt-1">Veuillez patienter</p>
+                                    Activités Récentes
+                                </h3>
+                            </div>
+
+                            <div id="activityList" class="p-6 space-y-6">
+                                <div class="flex gap-3">
+                                    <span class="w-9 h-9 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12M6 12h12"/>
+                                        </svg>
+                                    </span>
+                                    <div>
+                                    <p class="font-semibold text-slate-900">Chargement...</p>
+                                    <p class="text-sm text-slate-400 mt-1">Veuillez patienter</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
+                        </section>
+
+                        <section class="bg-white rounded-[18px] border border-slate-200 shadow-sm overflow-hidden">
+                            <div class="px-6 py-5 border-b border-slate-200 flex items-center justify-between gap-3">
+                                <h3 class="flex items-center gap-2 text-lg font-bold text-slate-900">
+                                    <span class="material-symbols-rounded text-blue-600 !text-[18px]">comment</span>
+                                    Gestion des commentaires
+                                </h3>
+                                <span id="commentsCountInfo" class="text-xs font-bold text-slate-400">0 commentaire</span>
+                            </div>
+
+                            <div id="commentsModerationList" class="p-6 space-y-4">
+                                <div class="text-sm text-slate-400">Chargement...</div>
+                            </div>
+                        </section>
+                    </div>
 
                 </div>
             </main>
@@ -335,6 +350,8 @@
         const completionInfo = document.getElementById('completionInfo');
         const growthValue = document.getElementById('growthValue');
         const activityList = document.getElementById('activityList');
+        const commentsModerationList = document.getElementById('commentsModerationList');
+        const commentsCountInfo = document.getElementById('commentsCountInfo');
 
         let currentPage = 1;
         let currentSearch = '';
@@ -459,6 +476,7 @@
                     growthValue.textContent = '+' + growth + '%';
 
                     renderActivities(stats);
+                    renderCommentsModeration(stats.latest_comments || [], stats.communication.comments || 0);
                 } else if (response.status === 401 || response.status === 403) {
                     window.location.href = '{{ route('login') }}';
                 }
@@ -509,6 +527,40 @@
                 `;
 
                 activityList.appendChild(div);
+            });
+        }
+
+        function renderCommentsModeration(comments, totalComments) {
+            commentsModerationList.innerHTML = '';
+            commentsCountInfo.textContent = totalComments + ' commentaire' + (totalComments > 1 ? 's' : '');
+
+            if (!comments || comments.length === 0) {
+                commentsModerationList.innerHTML = '<div class="text-sm text-slate-400">Aucun commentaire disponible.</div>';
+                return;
+            }
+
+            comments.forEach(function (comment) {
+                const item = document.createElement('div');
+                item.className = 'rounded-[16px] border border-slate-200 bg-[#fafbfd] p-4';
+
+                const authorName = comment.user && comment.user.name ? comment.user.name : 'Utilisateur inconnu';
+                const taskTitle = comment.task && comment.task.title ? comment.task.title : 'Tâche supprimée';
+
+                item.innerHTML = `
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="min-w-0">
+                            <p class="text-sm font-bold text-slate-900">${escapeHtml(authorName)}</p>
+                            <p class="text-xs text-slate-400 mt-1">Tâche : ${escapeHtml(taskTitle)}</p>
+                            <p class="text-xs text-slate-400 mt-1">${formatDateTime(comment.created_at)}</p>
+                        </div>
+                        <button onclick="deleteComment(${comment.id})" class="text-xs font-bold text-red-500 hover:underline shrink-0">
+                            Supprimer
+                        </button>
+                    </div>
+                    <p class="text-sm text-slate-600 mt-3 leading-6">${escapeHtml(comment.content || '')}</p>
+                `;
+
+                commentsModerationList.appendChild(item);
             });
         }
 
@@ -731,6 +783,29 @@
             }
         }
 
+        async function deleteComment(commentId) {
+            if (!confirm('Voulez-vous vraiment supprimer ce commentaire ?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/comments/' + commentId, {
+                    method: 'DELETE',
+                    headers: getAuthHeaders()
+                });
+
+                if (response.ok) {
+                    loadDashboardStats();
+                    return;
+                }
+
+                const result = await response.json();
+                alert(result.message || 'Impossible de supprimer le commentaire.');
+            } catch (error) {
+                alert('Erreur serveur.');
+            }
+        }
+
         // télécharger un fichier généré par le serveur
 
         async function downloadReport(endpoint) {
@@ -760,6 +835,29 @@
             } catch (error) {
                 alert('Erreur serveur.');
             }
+        }
+
+        function formatDateTime(dateString) {
+            if (!dateString) {
+                return '';
+            }
+
+            const date = new Date(dateString);
+
+            return date.toLocaleDateString('fr-FR', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric'
+            });
+        }
+
+        function escapeHtml(text) {
+            return String(text)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
         }
     </script>
 </body>

@@ -170,56 +170,72 @@
                     </div>
                 </section>
 
-                <section class="grid grid-cols-1 xl:grid-cols-4 gap-6 mb-7">
-                    <div class="xl:col-span-3 bg-white rounded-[24px] border border-slate-200 shadow-sm p-5">
-                        <div class="flex items-center gap-3 mb-5">
-                            <span class="material-symbols-rounded text-blue-600">filter_alt</span>
-                            <h2 class="text-xl font-black">Filtres</h2>
+                <section class="grid grid-cols-1 xl:grid-cols-4 gap-6 mb-7 items-start">
+                    <div class="xl:col-span-3 space-y-6">
+                        <div class="bg-white rounded-[24px] border border-slate-200 shadow-sm p-5">
+                            <div class="flex items-center gap-3 mb-5">
+                                <span class="material-symbols-rounded text-blue-600">filter_alt</span>
+                                <h2 class="text-xl font-black">Filtres</h2>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                <div>
+                                    <label class="block text-sm text-slate-500 mb-2">Recherche</label>
+                                    <input id="searchInput" type="text" placeholder="Titre ou description"
+                                           class="w-full rounded-2xl border border-slate-200 bg-[#f7f8fb] px-4 py-2.5 text-sm outline-none focus:border-blue-500">
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm text-slate-500 mb-2">Statut</label>
+                                    <select id="statusFilter" class="w-full rounded-2xl border border-slate-200 bg-[#f7f8fb] px-4 py-2.5 text-sm outline-none focus:border-blue-500">
+                                        <option value="">Tous</option>
+                                        <option value="pending">En attente</option>
+                                        <option value="in_progress">En cours</option>
+                                        <option value="completed">Terminée</option>
+                                        <option value="cancelled">Annulée</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm text-slate-500 mb-2">Priorité</label>
+                                    <select id="priorityFilter" class="w-full rounded-2xl border border-slate-200 bg-[#f7f8fb] px-4 py-2.5 text-sm outline-none focus:border-blue-500">
+                                        <option value="">Toutes</option>
+                                        <option value="low">Faible</option>
+                                        <option value="medium">Moyenne</option>
+                                        <option value="high">Haute</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm text-slate-500 mb-2">Date</label>
+                                    <input id="dateFilter" type="date"
+                                           class="w-full rounded-2xl border border-slate-200 bg-[#f7f8fb] px-4 py-2.5 text-sm outline-none focus:border-blue-500">
+                                </div>
+                            </div>
+
+                            <div class="flex flex-wrap gap-3 mt-5">
+                                <button id="applyFiltersBtn" class="px-5 py-2.5 rounded-full bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700">
+                                    Filtrer
+                                </button>
+                                <button id="resetFiltersBtn" class="px-5 py-2.5 rounded-full border border-slate-300 bg-white text-sm font-semibold hover:bg-blue-50">
+                                    Réinitialiser
+                                </button>
+                            </div>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                            <div>
-                                <label class="block text-sm text-slate-500 mb-2">Recherche</label>
-                                <input id="searchInput" type="text" placeholder="Titre ou description"
-                                       class="w-full rounded-2xl border border-slate-200 bg-[#f7f8fb] px-4 py-2.5 text-sm outline-none focus:border-blue-500">
+                        <section class="bg-white rounded-[24px] border border-slate-200 shadow-sm overflow-hidden">
+                            <div class="px-6 py-5 border-b border-slate-200 flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-rounded text-blue-600">event_note</span>
+                                    <h2 class="text-xl font-black">Tâches planifiées</h2>
+                                </div>
+                                <span id="tasksCountLabel" class="text-sm text-slate-500">0 tâche(s)</span>
                             </div>
 
-                            <div>
-                                <label class="block text-sm text-slate-500 mb-2">Statut</label>
-                                <select id="statusFilter" class="w-full rounded-2xl border border-slate-200 bg-[#f7f8fb] px-4 py-2.5 text-sm outline-none focus:border-blue-500">
-                                    <option value="">Tous</option>
-                                    <option value="pending">En attente</option>
-                                    <option value="in_progress">En cours</option>
-                                    <option value="completed">Terminée</option>
-                                    <option value="cancelled">Annulée</option>
-                                </select>
+                            <div id="planningList" class="p-5 space-y-6">
+                                <div class="text-slate-400 text-sm">Chargement...</div>
                             </div>
-
-                            <div>
-                                <label class="block text-sm text-slate-500 mb-2">Priorité</label>
-                                <select id="priorityFilter" class="w-full rounded-2xl border border-slate-200 bg-[#f7f8fb] px-4 py-2.5 text-sm outline-none focus:border-blue-500">
-                                    <option value="">Toutes</option>
-                                    <option value="low">Faible</option>
-                                    <option value="medium">Moyenne</option>
-                                    <option value="high">Haute</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label class="block text-sm text-slate-500 mb-2">Date</label>
-                                <input id="dateFilter" type="date"
-                                       class="w-full rounded-2xl border border-slate-200 bg-[#f7f8fb] px-4 py-2.5 text-sm outline-none focus:border-blue-500">
-                            </div>
-                        </div>
-
-                        <div class="flex flex-wrap gap-3 mt-5">
-                            <button id="applyFiltersBtn" class="px-5 py-2.5 rounded-full bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700">
-                                Filtrer
-                            </button>
-                            <button id="resetFiltersBtn" class="px-5 py-2.5 rounded-full border border-slate-300 bg-white text-sm font-semibold hover:bg-blue-50">
-                                Réinitialiser
-                            </button>
-                        </div>
+                        </section>
                     </div>
 
                     <div class="bg-white rounded-[24px] border border-slate-200 shadow-sm p-5">
@@ -230,21 +246,35 @@
                         <div id="weekMiniCalendar" class="space-y-3"></div>
                     </div>
                 </section>
-
-                <section class="bg-white rounded-[24px] border border-slate-200 shadow-sm overflow-hidden">
-                    <div class="px-6 py-5 border-b border-slate-200 flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-rounded text-blue-600">event_note</span>
-                            <h2 class="text-xl font-black">Tâches planifiées</h2>
-                        </div>
-                        <span id="tasksCountLabel" class="text-sm text-slate-500">0 tâche(s)</span>
-                    </div>
-
-                    <div id="planningList" class="p-5 space-y-6">
-                        <div class="text-slate-400 text-sm">Chargement...</div>
-                    </div>
-                </section>
             </main>
+        </div>
+    </div>
+
+    <div id="commentsModal" class="hidden fixed inset-0 bg-black/40 z-50 items-center justify-center px-4">
+        <div class="bg-white rounded-[24px] w-full max-w-2xl p-6 max-h-[85vh] overflow-y-auto">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h3 class="text-2xl font-black">Commentaires</h3>
+                    <p id="commentsTaskTitle" class="text-sm text-slate-500 mt-1">Tâche</p>
+                </div>
+                <button id="closeCommentsModalBtn" class="text-2xl text-slate-400 hover:text-slate-700">×</button>
+            </div>
+
+            <div class="rounded-[20px] border border-slate-200 bg-[#fffaf3] p-4 mb-5">
+                <label for="commentContentInput" class="block text-sm text-slate-500 mb-2">Ajouter un commentaire</label>
+                <textarea id="commentContentInput" rows="3"
+                          class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none focus:border-blue-500"
+                          placeholder="Écrire un commentaire..."></textarea>
+                <div class="flex justify-end mt-3">
+                    <button id="saveCommentBtn" class="px-5 py-2.5 rounded-full bg-blue-600 text-white text-sm font-semibold">
+                        Envoyer
+                    </button>
+                </div>
+            </div>
+
+            <div id="commentsList" class="space-y-3">
+                <div class="text-sm text-slate-400">Chargement...</div>
+            </div>
         </div>
     </div>
 
@@ -271,10 +301,18 @@
         const planningList = document.getElementById('planningList');
         const weekMiniCalendar = document.getElementById('weekMiniCalendar');
         const messageBox = document.getElementById('messageBox');
+        const commentsModal = document.getElementById('commentsModal');
+        const closeCommentsModalBtn = document.getElementById('closeCommentsModalBtn');
+        const commentsTaskTitle = document.getElementById('commentsTaskTitle');
+        const commentsList = document.getElementById('commentsList');
+        const commentContentInput = document.getElementById('commentContentInput');
+        const saveCommentBtn = document.getElementById('saveCommentBtn');
 
         let currentUser = null;
         let allTasks = [];
         let filteredTasks = [];
+        let currentCommentTaskId = null;
+        let currentTaskComments = [];
 
         document.addEventListener('DOMContentLoaded', function () {
             checkAuth();
@@ -302,6 +340,15 @@
         todayBtn.addEventListener('click', function () {
             dateFilter.value = formatDate(new Date());
             applyFilters();
+        });
+        closeCommentsModalBtn.addEventListener('click', closeCommentsModal);
+        commentsModal.addEventListener('click', function (event) {
+            if (event.target === commentsModal) {
+                closeCommentsModal();
+            }
+        });
+        saveCommentBtn.addEventListener('click', function () {
+            createComment();
         });
 
         logoutBtn.addEventListener('click', function () {
@@ -395,7 +442,7 @@
                 }
 
                 if (date !== '') {
-                    matchesDate = task.due_date === date;
+                    matchesDate = normalizeTaskDate(task.due_date) === date;
                 }
 
                 return matchesSearch && matchesStatus && matchesPriority && matchesDate;
@@ -486,6 +533,13 @@
                                 </button>
 
                                 <button
+                                    class="px-4 py-2 rounded-full bg-[#f3e8d9] text-[#8f6b43] text-sm font-semibold"
+                                    onclick='openCommentsModal(${task.id}, ${JSON.stringify(task.title || "Tâche")})'
+                                >
+                                    Commentaires
+                                </button>
+
+                                <button
                                     class="px-4 py-2 rounded-full bg-green-100 text-green-700 text-sm font-semibold"
                                     onclick="changeTaskStatus(${task.id}, 'completed')"
                                 >
@@ -536,6 +590,186 @@
             }
         }
 
+        function openCommentsModal(id, title) {
+            currentCommentTaskId = id;
+            commentsTaskTitle.textContent = title || 'Tâche';
+            commentContentInput.value = '';
+            commentsList.innerHTML = '<div class="text-sm text-slate-400">Chargement...</div>';
+            commentsModal.classList.remove('hidden');
+            commentsModal.classList.add('flex');
+            loadComments(id);
+        }
+
+        function closeCommentsModal() {
+            commentsModal.classList.add('hidden');
+            commentsModal.classList.remove('flex');
+            currentCommentTaskId = null;
+            currentTaskComments = [];
+            commentContentInput.value = '';
+        }
+
+        async function loadComments(taskIdValue) {
+            try {
+                const response = await fetch('/api/tasks/' + taskIdValue + '/comments', {
+                    method: 'GET',
+                    headers: getAuthHeaders()
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    currentTaskComments = extractCollection(result.data);
+                    renderComments();
+                } else {
+                    commentsList.innerHTML = '<div class="text-sm text-red-500">Impossible de charger les commentaires.</div>';
+                }
+            } catch (error) {
+                commentsList.innerHTML = '<div class="text-sm text-red-500">Erreur serveur.</div>';
+            }
+        }
+
+        function renderComments() {
+            commentsList.innerHTML = '';
+
+            if (currentTaskComments.length === 0) {
+                commentsList.innerHTML = '<div class="text-sm text-slate-400">Aucun commentaire pour le moment.</div>';
+                return;
+            }
+
+            currentTaskComments.forEach(function (comment) {
+                const item = document.createElement('div');
+                item.className = 'rounded-[20px] border border-slate-200 bg-[#fffaf3] p-4';
+
+                const authorName = comment.user && comment.user.name ? comment.user.name : 'Utilisateur';
+                const canManage = currentUser && String(currentUser.id) === String(comment.user_id);
+
+                item.innerHTML = `
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="min-w-0">
+                            <p class="text-sm font-black">${escapeHtml(authorName)}</p>
+                            <p class="text-xs text-slate-400 mt-1">${comment.created_at ? formatDateTime(comment.created_at) : ''}</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            ${canManage ? `<button onclick="editComment(${comment.id})" class="text-xs font-semibold text-[#8f6b43] hover:underline">Modifier</button>` : ''}
+                            ${canManage ? `<button onclick="deleteCommentItem(${comment.id})" class="text-xs font-semibold text-red-500 hover:underline">Supprimer</button>` : ''}
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-600 mt-3 leading-6">${escapeHtml(comment.content || '')}</p>
+                `;
+
+                commentsList.appendChild(item);
+            });
+        }
+
+        async function createComment() {
+            if (!currentCommentTaskId) {
+                showMessage('Aucune tâche sélectionnée.', 'error');
+                return;
+            }
+
+            if (!commentContentInput.value.trim()) {
+                showMessage('Veuillez écrire un commentaire.', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/comments', {
+                    method: 'POST',
+                    headers: {
+                        ...getAuthHeaders(),
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        task_id: currentCommentTaskId,
+                        content: commentContentInput.value.trim(),
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    commentContentInput.value = '';
+                    showMessage('Commentaire ajouté avec succès.', 'success');
+                    closeCommentsModal();
+                } else {
+                    showMessage(result.message || 'Impossible d’ajouter le commentaire.', 'error');
+                }
+            } catch (error) {
+                showMessage('Erreur serveur.', 'error');
+            }
+        }
+
+        async function editComment(commentId) {
+            const comment = currentTaskComments.find(function (item) {
+                return String(item.id) === String(commentId);
+            });
+
+            if (!comment) {
+                return;
+            }
+
+            const newContent = window.prompt('Modifier le commentaire', comment.content || '');
+
+            if (newContent === null) {
+                return;
+            }
+
+            if (!newContent.trim()) {
+                showMessage('Le commentaire ne peut pas être vide.', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/comments/' + commentId, {
+                    method: 'PUT',
+                    headers: {
+                        ...getAuthHeaders(),
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        content: newContent.trim(),
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showMessage('Commentaire modifié avec succès.', 'success');
+                    loadComments(currentCommentTaskId);
+                } else {
+                    showMessage(result.message || 'Impossible de modifier le commentaire.', 'error');
+                }
+            } catch (error) {
+                showMessage('Erreur serveur.', 'error');
+            }
+        }
+
+        async function deleteCommentItem(commentId) {
+            const confirmed = window.confirm('Supprimer ce commentaire ?');
+
+            if (!confirmed) {
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/comments/' + commentId, {
+                    method: 'DELETE',
+                    headers: getAuthHeaders()
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showMessage('Commentaire supprimé avec succès.', 'success');
+                    loadComments(currentCommentTaskId);
+                } else {
+                    showMessage(result.message || 'Erreur lors de la suppression.', 'error');
+                }
+            } catch (error) {
+                showMessage('Erreur serveur.', 'error');
+            }
+        }
+
         function getToken() {
             return localStorage.getItem('access_token') || localStorage.getItem('token');
         }
@@ -580,13 +814,13 @@
             const grouped = {};
 
             const sorted = tasks.slice().sort(function (a, b) {
-                const dateA = a.due_date || '9999-12-31';
-                const dateB = b.due_date || '9999-12-31';
+                const dateA = normalizeTaskDate(a.due_date) || '9999-12-31';
+                const dateB = normalizeTaskDate(b.due_date) || '9999-12-31';
                 return dateA.localeCompare(dateB);
             });
 
             sorted.forEach(function (task) {
-                const date = task.due_date || 'Sans date';
+                const date = normalizeTaskDate(task.due_date) || 'Sans date';
 
                 if (!grouped[date]) {
                     grouped[date] = [];
@@ -676,6 +910,30 @@
                 day: 'numeric',
                 month: 'long'
             }).replace(/^./, function (c) { return c.toUpperCase(); });
+        }
+
+        function normalizeTaskDate(value) {
+            if (!value) {
+                return '';
+            }
+
+            if (typeof value === 'string') {
+                return value.slice(0, 10);
+            }
+
+            return '';
+        }
+
+        function extractCollection(payload) {
+            if (Array.isArray(payload)) {
+                return payload;
+            }
+
+            if (payload && Array.isArray(payload.data)) {
+                return payload.data;
+            }
+
+            return [];
         }
 
         function formatDateTime(dateString) {
