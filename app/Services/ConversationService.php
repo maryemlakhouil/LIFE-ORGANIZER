@@ -11,9 +11,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ConversationService
 {
-    public function __construct(
-        protected ConversationRepositoryInterface $conversationRepository
-    ) {}
+    public function __construct(protected ConversationRepositoryInterface $conversationRepository) {}
 
     public function getAuthenticatedUserConversations(User $user, int $perPage = 10): LengthAwarePaginator
     {
