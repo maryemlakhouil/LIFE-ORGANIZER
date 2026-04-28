@@ -631,7 +631,7 @@
             const today = formatDate(new Date());
 
             const todayTasks = allTasks.filter(function (task) {
-                return task.due_date === today;
+                return normalizeTaskDate(task.due_date) === today;
             });
 
             todayTasksList.innerHTML = '';
@@ -1000,11 +1000,13 @@
             const futureTasks = allTasks
                 .filter(function (task) {
                     if (!task.due_date) return false;
-                    const due = new Date(task.due_date + 'T00:00:00');
+                    const normalizedDate = normalizeTaskDate(task.due_date);
+                    if (!normalizedDate) return false;
+                    const due = new Date(normalizedDate + 'T00:00:00');
                     return due >= today;
                 })
                 .sort(function (a, b) {
-                    return new Date(a.due_date) - new Date(b.due_date);
+                    return new Date(normalizeTaskDate(a.due_date) + 'T00:00:00') - new Date(normalizeTaskDate(b.due_date) + 'T00:00:00');
                 })
                 .slice(0, 4);
 
@@ -1016,7 +1018,7 @@
             }
 
             futureTasks.forEach(function (task) {
-                const due = new Date(task.due_date + 'T00:00:00');
+                const due = new Date(normalizeTaskDate(task.due_date) + 'T00:00:00');
 
                 const item = document.createElement('div');
                 item.className = 'flex items-start gap-3';
@@ -1154,6 +1156,18 @@
             const m = String(date.getMonth() + 1).padStart(2, '0');
             const d = String(date.getDate()).padStart(2, '0');
             return y + '-' + m + '-' + d;
+        }
+
+        function normalizeTaskDate(value) {
+            if (!value) {
+                return '';
+            }
+
+            if (typeof value === 'string') {
+                return value.slice(0, 10);
+            }
+
+            return '';
         }
 
         function dayNameShort(date) {
